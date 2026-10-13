@@ -94,7 +94,7 @@ sequenceDiagram
 
 ## GitHub Projects & Repository
 - **Repository:** [chaad404/edugen-microservices](https://github.com/chaad404/edugen-microservices)
-- **Kanban Board:** [EduGen Project Board](https://github.com/chaad404/edugen-microservices/projects)
+- **Kanban Board:** [EduGen Project Board](https://github.com/users/chaad404/projects/1)
 - The board tracks the **Todo → In progress → Done** status of specific tasks and is accessible to the instructor.
 
 ---
