@@ -80,7 +80,7 @@ def build_proposal_document(file_path):
     metadata = [
         ("Course & Faculty:", "Programming 5 (PTE MIK — Faculty of Engineering & IT)"),
         ("Instructor / Professor:", "Prof. Gergely Laborci"),
-        ("Student & Neptun ID:", "Storcz (Neptun: ZA0P52)"),
+        ("Student & Neptun ID:", "Rakhi Mst Rokaya Akter (Neptun: ZA0P52)"),
         ("Architectural Target:", "4 Independent Microservices + Web Client (Docker Compose Orchestration)")
     ]
 

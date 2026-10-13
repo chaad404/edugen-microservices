@@ -1,5 +1,5 @@
 ---
-name: Storcz
+name: Rakhi Mst Rokaya Akter
 neptun: ZA0P52
 ---
 
@@ -8,7 +8,7 @@ neptun: ZA0P52
 This repository tracks homework, presentations, and the individual final project for the **Programming 5** course at the **University of Pécs, Faculty of Engineering and Information Technology (PTE MIK)**.
 
 - **Instructor:** Prof. Gergely Laborci
-- **Student:** Storcz (`ZA0P52`)
+- **Student:** Rakhi Mst Rokaya Akter (`ZA0P52`)
 - **Semester:** Fall 2026
 
 ## Repository Structure

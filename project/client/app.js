@@ -296,7 +296,7 @@ async function submitStudentQuiz() {
   });
 
   const payload = {
-    student_name: "Candidate Student",
+    student_name: "Rakhi Mst Rokaya Akter (ZA0P52)",
     answers: answers
   };
 

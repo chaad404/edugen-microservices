@@ -2,7 +2,7 @@
 
 EduGen is a distributed, cloud-native microservices platform for **Automated Item Generation (AIG)** and **pedagogical quality measurement**. The platform enables computer engineering educators to synthesize curriculum-grounded Multiple-Choice Questions (MCQs), objectively evaluate them against deterministic NLP metrics ("The Three Pillars"), and deliver timed exams to students while capturing empirical psychometric response statistics in real time.
 
-- **Author:** Storcz (Neptun: `ZA0P52`)
+- **Author:** Rakhi Mst Rokaya Akter (Neptun: `ZA0P52`)
 - **Course:** Programming 5 (*Programozás 5*), PTE MIK
 - **Instructor:** Prof. Gergely Laborci
 - **Current Status:** In Progress (Architecture & Specifications Defined; Microservice Scaffolding)
