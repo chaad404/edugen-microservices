@@ -24,32 +24,18 @@ This project proposes **EduGen**, a cloud-native, distributed microservices plat
 
 The platform adheres to Domain-Driven Design (DDD) principles with clear bounded contexts. Rather than an arbitrary technical split, each service encapsulates an independent responsibility:
 
-```
-                    ┌──────────────────────────────────────────────┐
-                    │            Client Web Application            │
-                    │   (Instructor Studio, Student Quiz, Audit)   │
-                    └──────────────────────┬───────────────────────┘
-                                           │ HTTP / REST / SSE
-                                           ▼
-                    ┌──────────────────────────────────────────────┐
-                    │      Service 1: API Gateway & Orchestrator   │
-                    │    - Public REST API & JWT security          │
-                    │    - Workflow orchestration & job state      │
-                    │    - Real-time generation streaming (SSE)    │
-                    └──────┬───────────────┬───────────────┬───────┘
-                           │               │               │
-            ┌──────────────┘               │               └─────────────┐
-            ▼                              ▼                             ▼
-┌─────────────────────────┐  ┌───────────────────────────┐  ┌─────────────────────────┐
-│ Service 2: AIG Engine   │  │ Service 3: Deterministic  │  │ Service 4: Quiz &       │
-│ & Multi-Agent Service   │  │ Evaluation Service        │  │ Psychometrics Service   │
-├─────────────────────────┤  ├───────────────────────────┤  ├─────────────────────────┤
-│ • Prompt templating     │  │ • The Three Pillars:      │  │ • Test bank management  │
-│ • LLM Provider adapter  │  │   - Semantic Alignment    │  │ • Timed student exams   │
-│   (Live API & Mock Mode)│  │   - Linguistic Complexity │  │ • Automated grading     │
-│ • Pydantic validation   │  │   - Distractor Plausibility│ │ • Item difficulty (p) & │
-│ • Multi-agent drafting  │  │ • Quality gate checks     │  │   distractor selection  │
-└─────────────────────────┘  └───────────────────────────┘  └─────────────────────────┘
+```mermaid
+flowchart TD
+    Client["Client Web Application (React SPA)<br/>• Instructor Studio<br/>• Student Exam Room<br/>• Psychometrics Dashboard"]
+    Gateway["Service 1: API Gateway & Orchestrator<br/>• Public REST & Reverse Proxy<br/>• JWT Role Security<br/>• Real-Time SSE Streaming"]
+    Generator["Service 2: AIG Generation Engine<br/>• Multi-Strategy Synthesis<br/>• Live API & Offline Mock Replay<br/>• Pydantic Schema Validation"]
+    Evaluator["Service 3: Deterministic Evaluator<br/>• Pillar 1: Semantic Alignment<br/>• Pillar 2: Linguistic Complexity<br/>• Pillar 3: Distractor Plausibility"]
+    Quiz["Service 4: Quiz & Psychometrics<br/>• Question Pool Persistence<br/>• Timed Exam Delivery & Shuffle<br/>• Auto-Grading & Difficulty Index (p)"]
+
+    Client -->|HTTP REST / SSE| Gateway
+    Gateway -->|POST /generate/batch| Generator
+    Gateway -->|POST /evaluate/batch| Evaluator
+    Gateway -->|POST /exams /take /submit| Quiz
 ```
 
 | Component | Bounded Domain / Responsibility | Technology Stack |
