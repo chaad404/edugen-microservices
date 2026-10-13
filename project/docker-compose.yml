@@ -1,0 +1,87 @@
+version: "3.8"
+
+networks:
+  edugen-network:
+    driver: bridge
+
+volumes:
+  quiz-data:
+    driver: local
+
+services:
+  # Service 1: API Gateway & Orchestrator
+  gateway:
+    build:
+      context: ./services/gateway
+      dockerfile: Dockerfile
+    container_name: edugen-gateway
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - GENERATOR_URL=http://generator:8001
+      - EVALUATOR_URL=http://evaluator:8002
+      - QUIZ_URL=http://quiz:8003
+      - JWT_SECRET=edugen-secret-key-za0p52-programming5-secure-token-2026
+    depends_on:
+      - generator
+      - evaluator
+      - quiz
+    networks:
+      - edugen-network
+
+  # Service 2: AIG Generation & Multi-Agent Engine
+  generator:
+    build:
+      context: ./services/generator
+      dockerfile: Dockerfile
+    container_name: edugen-generator
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+    networks:
+      - edugen-network
+
+  # Service 3: Deterministic Evaluation Service (The Three Pillars)
+  evaluator:
+    build:
+      context: ./services/evaluator
+      dockerfile: Dockerfile
+    container_name: edugen-evaluator
+    restart: unless-stopped
+    ports:
+      - "8002:8002"
+    networks:
+      - edugen-network
+
+  # Service 4: Quiz & Psychometrics Delivery Service
+  quiz:
+    build:
+      context: ./services/quiz
+      dockerfile: Dockerfile
+    container_name: edugen-quiz
+    restart: unless-stopped
+    ports:
+      - "8003:8003"
+    environment:
+      - QUIZ_DB_PATH=/data/quiz.db
+    volumes:
+      - quiz-data:/data
+    networks:
+      - edugen-network
+
+  # Client: Single-Page Web Application
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    container_name: edugen-client
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      - gateway
+    networks:
+      - edugen-network

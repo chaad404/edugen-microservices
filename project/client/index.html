@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduGen — Microservices Assessment Platform</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#f0f7ff',
+              100: '#e0effe',
+              500: '#0284c7',
+              600: '#0369a1',
+              700: '#075985',
+              900: '#0c4a6e',
+            }
+          }
+        }
+      }
+    }
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-800 font-sans antialiased min-h-screen flex flex-col">
+
+  <!-- Navigation Bar -->
+  <header class="bg-slate-900 border-b border-slate-800 text-white sticky top-0 z-50 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+      <div class="flex items-center space-x-3">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-sky-500 to-indigo-600 flex items-center justify-center font-bold text-white shadow-lg shadow-sky-500/20">
+          EG
+        </div>
+        <div>
+          <span class="text-lg font-bold tracking-tight text-white">EduGen Platform</span>
+          <span class="text-xs ml-2 px-2 py-0.5 rounded bg-sky-950 text-sky-400 border border-sky-800 font-mono">Microservices v1.0</span>
+        </div>
+      </div>
+
+      <!-- Navigation Tabs -->
+      <nav class="flex items-center space-x-1 bg-slate-800/60 p-1 rounded-xl border border-slate-700/50">
+        <button id="tab-instructor" onclick="switchTab('instructor')" class="px-4 py-2 text-sm font-medium rounded-lg transition-all flex items-center space-x-2 bg-sky-600 text-white shadow">
+          <i data-lucide="sparkles" class="w-4 h-4"></i>
+          <span>Instructor Studio</span>
+        </button>
+        <button id="tab-student" onclick="switchTab('student')" class="px-4 py-2 text-sm font-medium rounded-lg transition-all flex items-center space-x-2 text-slate-400 hover:text-white">
+          <i data-lucide="graduation-cap" class="w-4 h-4"></i>
+          <span>Student Exam Room</span>
+        </button>
+        <button id="tab-analytics" onclick="switchTab('analytics')" class="px-4 py-2 text-sm font-medium rounded-lg transition-all flex items-center space-x-2 text-slate-400 hover:text-white">
+          <i data-lucide="bar-chart-3" class="w-4 h-4"></i>
+          <span>Psychometrics</span>
+        </button>
+      </nav>
+
+      <!-- System Health Indicator -->
+      <div class="flex items-center space-x-2 text-xs">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-slate-300 font-medium hidden sm:inline" id="gateway-status">Gateway Connected</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main class="max-w-7xl mx-auto px-4 py-8 flex-1 w-full">
+
+    <!-- ================= VIEW 1: INSTRUCTOR STUDIO ================= -->
+    <section id="view-instructor" class="space-y-8">
+      <!-- Header Banner -->
+      <div class="bg-gradient-to-r from-slate-900 to-indigo-950 rounded-2xl p-6 text-white shadow-lg flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h1 class="text-2xl font-bold">Automated Item Generation & Evaluation Studio</h1>
+          <p class="text-slate-300 text-sm mt-1">Configure curriculum prompts, stream generation from Service 2, and inspect The Three Pillars metrics from Service 3.</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="bg-indigo-900/80 border border-indigo-700/60 px-3 py-1.5 rounded-lg text-xs font-mono text-indigo-200">
+            Student: Storcz (ZA0P52)
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <!-- Configuration Column -->
+        <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm space-y-5">
+          <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+            <i data-lucide="sliders" class="w-4 h-4 text-sky-600"></i>
+            Generation Parameters
+          </h2>
+
+          <!-- Topic Selection -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Syllabus Topic</label>
+            <select id="select-topic" class="w-full text-sm rounded-xl border border-slate-300 px-3 py-2 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-sky-500 transition">
+              <option value="SYSTEM-2022-1">SYSTEM: Systems Fundamentals & Control Loops</option>
+              <option value="NETCOMP-2022-3">NETCOMP: TCP Congestion & Flow Control</option>
+              <option value="SPECALK-2022-2">SPECALK: Graph Algorithms & Dynamic Programming</option>
+            </select>
+          </div>
+
+          <!-- Strategy Selection -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Synthesis Strategy</label>
+            <select id="select-strategy" class="w-full text-sm rounded-xl border border-slate-300 px-3 py-2 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-sky-500 transition">
+              <option value="multi_agent">Multi-Agent Workflow (Examiner -> Critic -> Editor)</option>
+              <option value="rag">RAG-Grounded Retrieval</option>
+              <option value="zero_shot">Baseline Zero-Shot</option>
+            </select>
+          </div>
+
+          <!-- Model Mode -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Model Execution Provider</label>
+            <select id="select-model" class="w-full text-sm rounded-xl border border-slate-300 px-3 py-2 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-sky-500 transition">
+              <option value="mock">Local Mock Replay (Zero Cost / 100% Offline)</option>
+              <option value="gpt-4o">Live OpenAI GPT-4o (Cloud API)</option>
+            </select>
+          </div>
+
+          <!-- Question Count -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Item Count</label>
+            <input type="number" id="input-count" value="3" min="1" max="6" class="w-full text-sm rounded-xl border border-slate-300 px-3 py-2 bg-slate-50 focus:ring-2 focus:ring-sky-500 transition">
+          </div>
+
+          <!-- Source Text Preview -->
+          <div>
+            <label class="block text-xs font-semibold text-slate-700 mb-1.5">Curriculum Grounding Text</label>
+            <textarea id="input-source-text" rows="5" class="w-full text-xs rounded-xl border border-slate-300 p-3 bg-slate-50 focus:bg-white focus:ring-2 focus:ring-sky-500 font-mono transition text-slate-700"></textarea>
+          </div>
+
+          <!-- Action Button -->
+          <button id="btn-generate" onclick="triggerRun()" class="w-full py-3 px-4 bg-sky-600 hover:bg-sky-700 active:scale-95 text-white font-medium rounded-xl shadow-md shadow-sky-600/20 transition flex items-center justify-center space-x-2">
+            <i data-lucide="play" class="w-4 h-4"></i>
+            <span>Trigger Generation & Evaluation</span>
+          </button>
+        </div>
+
+        <!-- Output Column -->
+        <div class="lg:col-span-2 space-y-6">
+          <!-- Real-Time Pipeline Progress Bar -->
+          <div id="progress-card" class="hidden bg-white rounded-2xl border border-slate-200 p-5 shadow-sm space-y-3">
+            <div class="flex justify-between items-center text-sm">
+              <span class="font-semibold text-slate-800 flex items-center gap-2">
+                <i data-lucide="loader-2" class="w-4 h-4 text-sky-600 animate-spin"></i>
+                <span id="pipeline-status-text">Pipeline Status: Generating Items...</span>
+              </span>
+              <span id="pipeline-step-badge" class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-sky-100 text-sky-700">Stage 1 of 2</span>
+            </div>
+            <div class="w-full bg-slate-100 rounded-full h-2 overflow-hidden">
+              <div id="pipeline-progress-bar" class="bg-sky-600 h-2 rounded-full transition-all duration-500 w-1/3"></div>
+            </div>
+          </div>
+
+          <!-- Metrics Summary Cards -->
+          <div id="summary-cards" class="hidden grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+              <div class="text-xs font-medium text-slate-500">Pillar 1: Semantic Alignment</div>
+              <div id="metric-align" class="text-2xl font-bold text-slate-900 mt-1">--</div>
+              <div class="text-[11px] text-slate-400 mt-0.5">TF-IDF Cosine vs Syllabus</div>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+              <div class="text-xs font-medium text-slate-500">Pillar 2: Readability Grade</div>
+              <div id="metric-grade" class="text-2xl font-bold text-slate-900 mt-1">--</div>
+              <div class="text-[11px] text-slate-400 mt-0.5">Flesch-Kincaid Metric</div>
+            </div>
+            <div class="bg-white rounded-2xl border border-slate-200 p-4 shadow-sm">
+              <div class="text-xs font-medium text-slate-500">Pillar 3: Distractor Plausibility</div>
+              <div id="metric-plaus" class="text-2xl font-bold text-slate-900 mt-1">--</div>
+              <div class="text-[11px] text-slate-400 mt-0.5">Foil-to-Key Jaccard Index</div>
+            </div>
+          </div>
+
+          <!-- Questions Review Feed -->
+          <div class="space-y-4">
+            <div class="flex justify-between items-center">
+              <h2 class="text-base font-bold text-slate-900 flex items-center gap-2">
+                <i data-lucide="list-checks" class="w-4 h-4 text-sky-600"></i>
+                Generated Items Feed
+              </h2>
+              <button id="btn-publish-exam" onclick="publishExamFromFeed()" class="hidden px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-xl text-xs font-semibold shadow transition flex items-center gap-1.5">
+                <i data-lucide="send" class="w-3.5 h-3.5"></i>
+                <span>Publish as Active Exam</span>
+              </button>
+            </div>
+
+            <!-- Feed Container -->
+            <div id="questions-feed" class="space-y-4">
+              <!-- Empty state placeholder -->
+              <div class="bg-white rounded-2xl border border-dashed border-slate-300 p-12 text-center text-slate-400">
+                <i data-lucide="layers" class="w-8 h-8 mx-auto mb-2 text-slate-300"></i>
+                <p class="text-sm">No questions generated yet. Choose a topic and click "Trigger Generation".</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 2: STUDENT EXAM ROOM ================= -->
+    <section id="view-student" class="hidden space-y-6 max-w-3xl mx-auto">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm flex justify-between items-center">
+        <div>
+          <h2 id="student-exam-title" class="text-xl font-bold text-slate-900">Student Assessment Room</h2>
+          <p class="text-xs text-slate-500 mt-0.5">Select your answers below. Options are shuffled; keys and explanations are masked until submission.</p>
+        </div>
+        <div class="text-right">
+          <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Time Remaining</div>
+          <div id="exam-timer" class="text-lg font-mono font-bold text-sky-600">19:59</div>
+        </div>
+      </div>
+
+      <!-- Student Questions List -->
+      <div id="student-questions-container" class="space-y-5">
+        <!-- Rendered dynamically -->
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center pt-4">
+        <button id="btn-submit-exam" onclick="submitStudentQuiz()" class="px-8 py-3.5 bg-sky-600 hover:bg-sky-700 text-white font-semibold rounded-xl shadow-lg shadow-sky-600/20 active:scale-95 transition">
+          Submit Answers for Instant Grading
+        </button>
+      </div>
+
+      <!-- Submission Results Modal / Card -->
+      <div id="student-result-card" class="hidden bg-white rounded-2xl border border-slate-200 p-6 shadow-lg space-y-5">
+        <div class="flex justify-between items-center pb-4 border-b border-slate-100">
+          <div>
+            <h3 class="text-lg font-bold text-slate-900">Exam Results & Feedback</h3>
+            <p id="student-score-sub" class="text-xs text-slate-500">Graded against ground truth</p>
+          </div>
+          <span id="student-pass-badge" class="px-3 py-1 rounded-full text-xs font-bold"></span>
+        </div>
+        <div id="student-review-list" class="space-y-4"></div>
+      </div>
+    </section>
+
+    <!-- ================= VIEW 3: PSYCHOMETRICS ================= -->
+    <section id="view-analytics" class="hidden space-y-6">
+      <div class="bg-white rounded-2xl border border-slate-200 p-6 shadow-sm">
+        <h2 class="text-xl font-bold text-slate-900">Empirical Psychometrics & Item Difficulty Analytics</h2>
+        <p class="text-xs text-slate-500 mt-1">Real-time analysis of student responses across exam items (Service 4). Evaluates item difficulty index (p-value) and distractor selection frequencies.</p>
+      </div>
+
+      <div id="analytics-items-container" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Dynamic analytics cards -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-slate-200 py-6 text-center text-xs text-slate-500 mt-12">
+    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row justify-between items-center gap-2">
+      <span>EduGen Distributed Microservices Platform &copy; 2026</span>
+      <span>Programming 5 &bull; PTE MIK &bull; Instructor: Prof. Gergely Laborci</span>
+    </div>
+  </footer>
+
+  <!-- App Script -->
+  <script src="app.js"></script>
+</body>
+</html>
