@@ -16,8 +16,11 @@ export function useModelLabel() {
 export default function LabLayout() {
   const navigate = useNavigate();
   const [models, setModels] = useState<Record<string, ModelInfo>>({});
+  const signedIn = Boolean(operatorToken.get());
 
+  // Once per sign-in, not on every navigation inside the Lab
   useEffect(() => {
+    if (!signedIn) return;
     labApi.models()
       .then((list) => setModels(Object.fromEntries(list.map((m) => [m.alias, m]))))
       .catch((e) => {
@@ -26,9 +29,9 @@ export default function LabLayout() {
           navigate("/lab/login");
         }
       });
-  }, [navigate]);
+  }, [signedIn]);
 
-  if (!operatorToken.get()) return <Navigate to="/lab/login" replace />;
+  if (!signedIn) return <Navigate to="/lab/login" replace />;
 
   const logout = () => {
     operatorToken.clear();
