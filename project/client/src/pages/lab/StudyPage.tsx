@@ -96,17 +96,17 @@ export default function StudyPage() {
 
       <div className="grid-2">
         <Card title="Inter-rater agreement (Krippendorff's alpha)">
-          <table className="table">
+          <div className="table-scroll"><table className="table">
             <thead><tr><th>Dimension</th><th>Level</th><th>Items rated twice</th><th>Alpha</th></tr></thead>
             <tbody>
               {Object.entries(data.agreement).map(([dim, a]) => (
                 <tr key={dim}><td>{dim.replace("_", " ")}</td><td>{a.level}</td><td>{a.items_with_2_raters}</td><td>{fmt.num(a.alpha)}</td></tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         </Card>
         <Card title="Do the pillars agree with people? (Spearman)">
-          <table className="table">
+          <div className="table-scroll"><table className="table">
             <thead><tr><th>Human judgement</th><th>Automatic metric</th><th>n</th><th>rho</th></tr></thead>
             <tbody>
               {data.correlations.map((c) => (
@@ -115,7 +115,7 @@ export default function StudyPage() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
           <p className="muted small">{data.note}</p>
         </Card>
       </div>

@@ -21,7 +21,7 @@ export default function ExperimentsPage() {
       <Card title="Experiments">
         <ErrorBox error={error} />
         {!experiments ? <Loading /> : (
-          <table className="table">
+          <div className="table-scroll"><table className="table">
             <thead>
               <tr><th>Name</th><th>Origin</th><th>Status</th><th>Jobs</th><th>Cost</th><th>Created</th></tr>
             </thead>
@@ -37,7 +37,7 @@ export default function ExperimentsPage() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         )}
       </Card>
     </div>

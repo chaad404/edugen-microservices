@@ -20,7 +20,7 @@ export default function CatalogPage() {
       <ErrorBox error={error} />
       <Card title="Models (registry of the Generator)">
         {!models ? <Loading /> : (
-          <table className="table">
+          <div className="table-scroll"><table className="table">
             <thead><tr><th>Model</th><th>Model ID</th><th>Host</th><th>Size</th><th>Price / M tokens</th><th>Status</th></tr></thead>
             <tbody>
               {models.map((m) => (
@@ -34,13 +34,13 @@ export default function CatalogPage() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         )}
         <p className="muted small">The four thesis models are pinned to one host each, so every request runs on the same backend.</p>
       </Card>
       <Card title="Topics">
         {!topics ? <Loading /> : (
-          <table className="table">
+          <div className="table-scroll"><table className="table">
             <thead><tr><th>Topic</th><th>Domain</th><th>Origin</th><th>Source text</th></tr></thead>
             <tbody>
               {topics.map((t) => (
@@ -52,7 +52,7 @@ export default function CatalogPage() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         )}
       </Card>
     </div>

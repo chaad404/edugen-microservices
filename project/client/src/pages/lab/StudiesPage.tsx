@@ -69,7 +69,7 @@ export default function StudiesPage() {
 
       <Card title="Studies">
         {!studies ? <Loading /> : !studies.length ? <p className="muted">No studies yet.</p> : (
-          <table className="table">
+          <div className="table-scroll"><table className="table">
             <thead><tr><th>Title</th><th>Status</th><th>Questions</th><th>Expert code</th><th>Student code</th><th>Created</th></tr></thead>
             <tbody>
               {studies.map((s) => (
@@ -83,7 +83,7 @@ export default function StudiesPage() {
                 </tr>
               ))}
             </tbody>
-          </table>
+          </table></div>
         )}
       </Card>
     </div>
