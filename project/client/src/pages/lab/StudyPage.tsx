@@ -125,12 +125,15 @@ export default function StudyPage() {
 
 function Code({ label, code, link }: { label: string; code: string; link: string }) {
   const [copied, setCopied] = useState(false);
-  const copy = () => navigator.clipboard?.writeText(link).then(() => setCopied(true));
+  // The clipboard API exists only on https and localhost; elsewhere the visible link is copied by hand
+  const canCopy = Boolean(navigator.clipboard);
+  const copy = () => navigator.clipboard.writeText(link).then(() => setCopied(true));
   return (
     <div className="code-box">
       <div className="muted small">{label}</div>
       <code className="big-code">{code}</code>
-      <button className="link" onClick={copy}>{copied ? "Link copied" : "Copy link"}</button>
+      <a className="share-link" href={link} target="_blank" rel="noreferrer">{link}</a>
+      {canCopy && <button className="link" onClick={copy}>{copied ? "Link copied" : "Copy link"}</button>}
     </div>
   );
 }

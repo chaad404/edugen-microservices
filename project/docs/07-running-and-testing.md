@@ -22,6 +22,11 @@ thesis models, add `OPENROUTER_API_KEY` and `COHERE_API_KEY`; runs with them cos
 
 Stop with `docker compose down`; add `-v` to delete the databases as well.
 
+For a study with other people, open the Lab at an address they can reach (for example `http://<this machine's
+LAN IP>:8080`): the study page builds the expert and student links from the address in the browser, so links copied
+from `localhost` only work on this machine. Outside `localhost` and HTTPS the browser has no clipboard API, so copy
+the visible link instead of using *Copy link*.
+
 ## Demo script (about 10 minutes)
 
 1. **Lab → Experiments.** The imported thesis sample is already there. Open it: the comparison shows that each
