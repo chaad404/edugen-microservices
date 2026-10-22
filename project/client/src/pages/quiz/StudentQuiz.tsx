@@ -112,7 +112,13 @@ function Quiz({ token, onExpired }: { token: string; onExpired: () => void }) {
   }
 
   const item = state.item!;
+  const result = state.result;
   const seconds = Math.max(0, Math.round((now - shownAt) / 1000));
+  const answerClass = (label: string) => {
+    if (result?.key === label) return "answer key";
+    if (result && choice === label) return "answer wrong";
+    return choice === label ? "answer selected" : "answer";
+  };
   return (
     <div className="narrow wide">
       <Card title={`Question ${state.position} of ${state.total}`} actions={state.state === "question" && <span className="muted">{seconds} s</span>}>
@@ -121,10 +127,12 @@ function Quiz({ token, onExpired }: { token: string; onExpired: () => void }) {
         <p className="question">{item.question}</p>
         <div className="answers" role="radiogroup">
           {item.options.map((option) => (
-            <label key={option.label} className={choice === option.label ? "answer selected" : "answer"}>
+            <label key={option.label} className={answerClass(option.label)}>
               <input type="radio" name="answer" value={option.label} disabled={state.state !== "question"}
                 checked={choice === option.label} onChange={() => setChoice(option.label)} />
               <strong>{option.label}.</strong> {option.text}
+              {result?.key === option.label && <span className="answer-note">correct answer</span>}
+              {result && !result.correct && choice === option.label && <span className="answer-note">your answer</span>}
             </label>
           ))}
         </div>
@@ -135,6 +143,11 @@ function Quiz({ token, onExpired }: { token: string; onExpired: () => void }) {
           </button>
         ) : (
           <div className="feedback">
+            {result && (
+              <p className={result.correct ? "verdict verdict-right" : "verdict verdict-wrong"} role="status">
+                {result.correct ? "Correct!" : `Not quite: the correct answer is ${result.key}.`}
+              </p>
+            )}
             <p className="muted">Your answer is saved and cannot be changed. How was this question?</p>
             <Likert name="clarity" label="Clarity of the question and options" value={scores.clarity} onChange={(v) => setScores({ ...scores, clarity: v })} low="unclear" high="very clear" />
             <Likert name="helpfulness" label="Helpful for exam preparation" value={scores.helpfulness} onChange={(v) => setScores({ ...scores, helpfulness: v })} low="not at all" high="very" />

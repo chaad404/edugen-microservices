@@ -120,6 +120,12 @@ button.link { background: none; border: 0; color: var(--primary); padding: 4px; 
 .answers { display: flex; flex-direction: column; gap: 8px; margin: 12px 0; }
 .answer { flex-direction: row; gap: 8px; align-items: center; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; cursor: pointer; }
 .answer.selected { border-color: var(--primary); background: #eef4ff; }
+.answer.key { border-color: var(--best); background: #ecfdf3; }
+.answer.wrong { border-color: var(--weak); background: #fef3f2; }
+.answer-note { margin-left: auto; font-size: 0.8rem; color: var(--muted); }
+.verdict { font-weight: 600; margin: 0 0 4px; }
+.verdict-right { color: var(--best); }
+.verdict-wrong { color: var(--weak); }
 .notice { background: #f8fafc; border: 1px solid var(--border); border-radius: 8px; padding: 10px 12px; font-size: 0.88rem; }
 
 .codes { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 8px; }

@@ -61,6 +61,16 @@ def test_a_wrong_answer_maps_back_to_the_original_label(client, study, session_f
     assert payload["chosen"] == wrong["text"].split()[1].upper()  # "wrong b 3" was option B in the original
 
 
+def test_the_key_is_revealed_only_after_answering(client, study):
+    student = join(client, study["student_code"], consent=True)
+    question = client.get("/v1/quiz/current", headers=student).json()
+    assert "result" not in question  # never before the answer is locked
+    wrong = next(o["label"] for o in question["item"]["options"] if not o["text"].startswith("key text"))
+    client.post("/v1/quiz/answers", json={"item_ref": question["item"]["item_ref"], "choice": wrong}, headers=student)
+    feedback = client.get("/v1/quiz/current", headers=student).json()
+    assert feedback["result"] == {"key": key_position(question), "correct": False}  # in the student's shuffled labels
+
+
 def test_finishing_the_quiz_gives_a_score_and_a_completion_code(client, study):
     student = join(client, study["student_code"], consent=True)
     result = None

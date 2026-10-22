@@ -165,7 +165,9 @@ stateDiagram-v2
 ```
 
 *State view of one quiz step.* Questions come strictly in order. A repeated identical answer is accepted
-without a second effect; a different answer is rejected with 409.
+without a second effect; a different answer is rejected with 409. In the feedback step the student sees whether
+the answer was right and which option is correct; the key is never sent before the answer is locked. The
+clarity, helpfulness and difficulty ratings are therefore given with the correct answer known.
 
 ## Live progress (Server-Sent Events)
 

@@ -5,7 +5,8 @@ Domain logic of the Review service (thesis use cases UC-200 and UC-300):
 - Experts rate every question in their own stable random order and may revise a rating (revision number).
 - Students answer a random subset in a strictly linear flow (thesis UI.3.1): answer, then feedback, then the
   next question. An answer cannot be changed. Time per question is measured on the server. The options are
-  shuffled per student, and answers are stored in the original labels.
+  shuffled per student, and answers are stored in the original labels. After answering, the student sees the
+  correct option, so the quiz is also useful for revision.
 - Every stored rating, answer and feedback also writes an outbox event for the Lab in the same transaction.
 """
 import hashlib
@@ -235,12 +236,16 @@ def quiz_current(session: Session, caller: Caller) -> dict:
     if step.served_at is None:
         step.served_at = utcnow()  # the time per question starts when it is first shown
     item = step.item
-    return {"state": "question" if step.answered_at is None else "feedback", "position": step.position + 1,
+    view = {"state": "question" if step.answered_at is None else "feedback", "position": step.position + 1,
             "total": len(steps), "chosen": step.chosen_shown,
             "item": {"item_ref": item.item_ref, "topic_label": item.topic_label, "domain": item.domain,
                      "question": item.question,
                      "options": [{"label": shown, "text": item.options[original]}
                                  for shown, original in zip(LABELS, step.permutation)]}}
+    if step.answered_at is not None:
+        # Only once the answer is locked: the student learns the key, which cannot change the stored answer
+        view["result"] = {"key": LABELS[step.permutation.index(item.answer)], "correct": step.correct}
+    return view
 
 
 def _step_for(steps: list[QuizStep], item_ref: str) -> QuizStep:

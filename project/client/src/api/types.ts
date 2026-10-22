@@ -255,4 +255,6 @@ export interface QuizState {
   correct?: number;
   completion_code?: string | null;
   item?: { item_ref: string; topic_label: string; domain: string; question: string; options: Array<{ label: string; text: string }> };
+  /** Only in the feedback step, after the answer is locked */
+  result?: { key: string; correct: boolean };
 }

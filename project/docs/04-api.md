@@ -61,7 +61,7 @@ Location: /api/lab/experiments/5b0e…
 | `GET /v1/sessions/me` | Participant | Progress and instructions, for resuming after a reload | 200 | 401 |
 | `GET /v1/expert/items`, `GET /v1/expert/next`, `GET /v1/expert/items/{ref}` | Expert | The rater's own order; the next unrated question; one question with the rater's rating | 200 | 403 not an expert, 404 not in this study |
 | `PUT /v1/expert/ratings/{ref}` | Expert | Create or revise a rating (four 1–5 scales, key correct yes / no / unsure, unusable flag, comment) | 200 with revision | 422 |
-| `GET /v1/quiz/current` | Student | Current question with shuffled options; starts its timer | 200 | 403 |
+| `GET /v1/quiz/current` | Student | Current question with shuffled options; starts its timer. In the feedback step also `result` (correct option, right or wrong) | 200 | 403 |
 | `POST /v1/quiz/answers` | Student | Answer the current question | 200 | 409 not the current question, answer locked |
 | `POST /v1/quiz/feedback` | Student | Rate the answered question; the last one completes the quiz | 200 (score and completion code at the end) | 409 answer first |
 
