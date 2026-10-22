@@ -14,6 +14,8 @@ const HUMAN_LABELS: Record<string, string> = {
   student_perceived_difficulty: "Student perceived difficulty",
 };
 
+const count = (n: number, word: string) => `${n} ${word}${n === 1 ? "" : "s"}`;
+
 export default function StudyPage() {
   const { id = "" } = useParams();
   const modelLabel = useModelLabel();
@@ -60,8 +62,8 @@ export default function StudyPage() {
           </div>
         )}
         <p className="muted small">
-          {study.items} questions (seed {study.seed}, {study.per_cell} per model × strategy × domain cell) · {progress.raters} raters,
-          {" "}{progress.ratings} ratings · {progress.participants} students, {progress.answers} answers
+          {study.items} questions (seed {study.seed}, {study.per_cell} per model × strategy × domain cell) · {count(progress.raters, "rater")},
+          {" "}{count(progress.ratings, "rating")} · {count(progress.participants, "student")}, {count(progress.answers, "answer")}
         </p>
       </Card>
 
