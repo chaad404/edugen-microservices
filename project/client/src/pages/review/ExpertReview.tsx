@@ -5,6 +5,7 @@ import { ApiError } from "../../api/http";
 import { codeRole, reviewApi, sessionStore } from "../../api/review";
 import type { Rating, ReviewItem, SessionInfo } from "../../api/types";
 import { Card, ErrorBox, Likert, Loading, ProgressBar } from "../../components/ui";
+import { DOMAIN_LABELS } from "../../labels";
 
 const EMPTY: Partial<Rating> = { key_correct: undefined, unusable: false };
 
@@ -135,7 +136,7 @@ function Reviewer({ token, session, instructions }: { token: string; session: Se
           <Card title="All questions rated"><p>Thank you! You can still open any question on the left to revise your rating.</p></Card>
         ) : (
           <Card title={`Question ${position.at} of ${position.total}`}>
-            <p className="muted small">{item.topic_label} · {item.domain}</p>
+            <p className="muted small">{item.topic_label} · {DOMAIN_LABELS[item.domain] ?? item.domain}</p>
             <p className="question">{item.question}</p>
             <ol className="options">
               {(["A", "B", "C", "D"] as const).map((label) => (
