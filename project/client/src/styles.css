@@ -84,7 +84,8 @@ button.link { background: none; border: 0; color: var(--primary); padding: 4px; 
 
 .progress { position: relative; height: 22px; background: #eef1f5; border-radius: 999px; overflow: hidden; margin: 8px 0; }
 .progress-fill { height: 100%; background: var(--primary); transition: width 0.4s; }
-.progress-label { position: absolute; inset: 0; display: grid; place-items: center; font-size: 0.78rem; font-weight: 600; }
+.progress-label { position: absolute; inset: 0; display: grid; place-items: center; font-size: 0.78rem; font-weight: 600;
+  text-shadow: 0 0 2px #fff, 0 0 4px #fff, 0 0 6px #fff; } /* readable on the empty and the filled part */
 
 .event-log { list-style: none; padding: 0; margin: 12px 0 0; font-size: 0.85rem; max-height: 180px; overflow-y: auto; }
 .event-log li { padding: 4px 0; border-bottom: 1px dashed var(--border); }
