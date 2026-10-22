@@ -53,7 +53,7 @@ export default function ExperimentPage() {
         <ProgressBar value={done} total={experiment.jobs_total} />
         <p className="muted small">
           {Object.entries(experiment.job_counts).map(([k, v]) => `${v} ${k}`).join(" · ")} · cost {fmt.usd(experiment.cost_usd)}
-          {" · "}started {fmt.date(experiment.created_at)}
+          {" · "}{experiment.origin === "thesis_import" ? "imported" : "started"} {fmt.date(experiment.created_at)}
         </p>
         {live && <EventLog events={log} modelLabel={modelLabel} />}
       </Card>
