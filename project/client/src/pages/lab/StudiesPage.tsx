@@ -43,8 +43,8 @@ export default function StudiesPage() {
           <label>Who evaluates
             <select value={form.kind} onChange={(e) => setForm({ ...form, kind: e.target.value })}>
               <option value="both">Experts and students</option>
-              <option value="expert">Experts only (UC-200)</option>
-              <option value="student">Students only (UC-300)</option>
+              <option value="expert">Experts only</option>
+              <option value="student">Students only</option>
             </select>
           </label>
           <label>Questions per cell<input type="number" min={1} max={20} value={form.per_cell} onChange={(e) => setForm({ ...form, per_cell: Number(e.target.value) })} /></label>
