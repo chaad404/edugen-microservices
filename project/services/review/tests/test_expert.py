@@ -48,7 +48,7 @@ def test_resuming_keeps_the_progress_and_finishing_completes_the_session(client,
     resumed = join(client, study["expert_code"], rater_name="Rater 1")
     assert client.get("/v1/expert/next", headers=resumed).json() == {"done": True, "total": 6, "rated": 6}
     me = client.get("/v1/sessions/me", headers=resumed).json()
-    assert me["completed"] is True and me["role"] == "expert"
+    assert me["completed"] is True and me["role"] == "expert" and me["instructions"]
 
 
 def test_record_level_authorization(client, operator, study):

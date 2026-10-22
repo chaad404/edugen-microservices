@@ -58,7 +58,7 @@ Location: /api/lab/experiments/5b0e…
 | `POST /internal/v1/studies` | Lab (operator token, `Idempotency-Key` = study ID) | Create a blinded study; unknown fields are rejected | 201 codes, 200 on a retry | 400 key missing, 409 same ID with other content, 422 |
 | `GET /v1/studies/{id}/progress` | Operator | Who rated or answered how much | 200 | 401, 404 |
 | `POST /v1/sessions` | Participant | Redeem a code: experts give a pseudonym, students accept the notice | 200 session token (12 h) | 404 unknown code, 422 pseudonym or consent missing, 429 at the gateway |
-| `GET /v1/sessions/me` | Participant | Progress, for resuming | 200 | 401 |
+| `GET /v1/sessions/me` | Participant | Progress and instructions, for resuming after a reload | 200 | 401 |
 | `GET /v1/expert/items`, `GET /v1/expert/next`, `GET /v1/expert/items/{ref}` | Expert | The rater's own order; the next unrated question; one question with the rater's rating | 200 | 403 not an expert, 404 not in this study |
 | `PUT /v1/expert/ratings/{ref}` | Expert | Create or revise a rating (four 1–5 scales, key correct yes / no / unsure, unusable flag, comment) | 200 with revision | 422 |
 | `GET /v1/quiz/current` | Student | Current question with shuffled options; starts its timer | 200 | 403 |

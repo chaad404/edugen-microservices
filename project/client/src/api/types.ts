@@ -209,6 +209,7 @@ export interface JoinResult {
 export interface SessionInfo {
   role: "expert" | "student";
   study_title: string;
+  instructions: string;
   rater_name: string | null;
   done: number;
   total: number;

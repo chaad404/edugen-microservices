@@ -75,7 +75,8 @@ def join(body: JoinRequest, session: Session = Depends(get_session)):
 
 @public.get("/sessions/me", tags=["sessions"], summary="Progress of the current session (for resuming)")
 def me(session: Session = Depends(get_session), caller: Caller = Depends(require_participant)):
-    return service.session_view(session, caller)
+    view = service.session_view(session, caller)
+    return {**view, "instructions": INSTRUCTIONS[view["role"]]}  # still shown after a reload
 
 
 @public.get("/expert/items", tags=["expert review"], summary="All questions of the review, in this rater's order")

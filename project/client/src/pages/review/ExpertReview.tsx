@@ -14,7 +14,6 @@ export default function ExpertReview() {
   const [code, setCode] = useState(params.get("code") ?? "");
   const [token, setToken] = useState<string | null>(() => (code ? sessionStore.get(code) : null));
   const [session, setSession] = useState<SessionInfo | null>(null);
-  const [instructions, setInstructions] = useState("");
   const [error, setError] = useState<unknown>(null);
 
   useEffect(() => {
@@ -27,12 +26,12 @@ export default function ExpertReview() {
     });
   }, [token, code]);
 
-  if (!token) return <Join code={code} setCode={setCode} onJoined={(t, text) => { setToken(t); setInstructions(text); }} />;
+  if (!token) return <Join code={code} setCode={setCode} onJoined={setToken} />;
   if (!session) return error ? <ErrorBox error={error} /> : <Loading />;
-  return <Reviewer token={token} session={session} instructions={instructions} />;
+  return <Reviewer token={token} session={session} />;
 }
 
-function Join({ code, setCode, onJoined }: { code: string; setCode: (c: string) => void; onJoined: (token: string, instructions: string) => void }) {
+function Join({ code, setCode, onJoined }: { code: string; setCode: (c: string) => void; onJoined: (token: string) => void }) {
   const [name, setName] = useState("");
   const [error, setError] = useState<unknown>(null);
   const studentCode = codeRole(code) === "student";
@@ -43,7 +42,7 @@ function Join({ code, setCode, onJoined }: { code: string; setCode: (c: string) 
       const result = await reviewApi.join(code, { rater_name: name });
       if (result.role !== "expert") throw new Error("This is a student code. Open the student quiz instead.");
       sessionStore.set(code, result.token);
-      onJoined(result.token, result.instructions);
+      onJoined(result.token);
     } catch (e) {
       setError(e);
     }
@@ -66,7 +65,7 @@ function Join({ code, setCode, onJoined }: { code: string; setCode: (c: string) 
   );
 }
 
-function Reviewer({ token, session, instructions }: { token: string; session: SessionInfo; instructions: string }) {
+function Reviewer({ token, session }: { token: string; session: SessionInfo }) {
   const [item, setItem] = useState<ReviewItem | null>(null);
   const [position, setPosition] = useState({ at: 0, total: session.total, rated: session.done });
   const [rating, setRating] = useState<Partial<Rating>>(EMPTY);
@@ -128,7 +127,7 @@ function Reviewer({ token, session, instructions }: { token: string; session: Se
       </aside>
       <div className="stack">
         <Card title={session.study_title}>
-          {instructions && <p className="muted">{instructions}</p>}
+          <p className="muted">{session.instructions}</p>
           <ProgressBar value={position.rated} total={position.total} />
         </Card>
         <ErrorBox error={error} />
