@@ -10,6 +10,10 @@ export const sessionStore = {
   clear: (code: string) => localStorage.removeItem(`edugen.session.${code.toUpperCase()}`),
 };
 
+/** The Review service prefixes every code with its role: EXP-... for experts, STU-... for students. */
+export const codeRole = (code: string): "expert" | "student" | null =>
+  code.startsWith("EXP-") ? "expert" : code.startsWith("STU-") ? "student" : null;
+
 export const reviewApi = {
   join: (code: string, extra: { rater_name?: string; consent?: boolean }) =>
     request<JoinResult>(`${BASE}/sessions`, { method: "POST", body: { code, ...extra } }),

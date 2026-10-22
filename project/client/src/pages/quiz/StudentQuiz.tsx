@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import { ApiError } from "../../api/http";
-import { reviewApi, sessionStore } from "../../api/review";
+import { codeRole, reviewApi, sessionStore } from "../../api/review";
 import type { QuizState } from "../../api/types";
 import { Card, ErrorBox, Likert, Loading, ProgressBar } from "../../components/ui";
 
@@ -22,6 +22,7 @@ export default function StudentQuiz() {
 function Join({ code, setCode, onJoined }: { code: string; setCode: (c: string) => void; onJoined: (token: string) => void }) {
   const [consent, setConsent] = useState(false);
   const [error, setError] = useState<unknown>(null);
+  const expertCode = codeRole(code) === "expert";
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     setError(null);
@@ -44,8 +45,11 @@ function Join({ code, setCode, onJoined }: { code: string; setCode: (c: string) 
             <input type="checkbox" checked={consent} onChange={(e) => setConsent(e.target.checked)} />
             <span>I have read the notice and agree to take part.</span>
           </label>
+          {expertCode && (
+            <div className="error" role="alert">This is an expert review code. <Link to={`/review?code=${code}`}>Open the expert review</Link></div>
+          )}
           <ErrorBox error={error} />
-          <button className="primary" disabled={!code || !consent}>Start the quiz</button>
+          <button className="primary" disabled={!code || !consent || expertCode}>Start the quiz</button>
         </form>
       </Card>
     </div>

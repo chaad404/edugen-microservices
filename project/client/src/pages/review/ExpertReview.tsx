@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState, type FormEvent } from "react";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 
 import { ApiError } from "../../api/http";
-import { reviewApi, sessionStore } from "../../api/review";
+import { codeRole, reviewApi, sessionStore } from "../../api/review";
 import type { Rating, ReviewItem, SessionInfo } from "../../api/types";
 import { Card, ErrorBox, Likert, Loading, ProgressBar } from "../../components/ui";
 
@@ -34,6 +34,7 @@ export default function ExpertReview() {
 function Join({ code, setCode, onJoined }: { code: string; setCode: (c: string) => void; onJoined: (token: string, instructions: string) => void }) {
   const [name, setName] = useState("");
   const [error, setError] = useState<unknown>(null);
+  const studentCode = codeRole(code) === "student";
   const submit = async (event: FormEvent) => {
     event.preventDefault();
     setError(null);
@@ -53,8 +54,11 @@ function Join({ code, setCode, onJoined }: { code: string; setCode: (c: string) 
           <label>Study code<input value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="EXP-…" /></label>
           <label>Your pseudonym<input value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Rater 1" /></label>
           <p className="muted small">Use the same pseudonym to continue later. The model behind each question is hidden.</p>
+          {studentCode && (
+            <div className="error" role="alert">This is a student quiz code. <Link to={`/quiz?code=${code}`}>Open the student quiz</Link></div>
+          )}
           <ErrorBox error={error} />
-          <button className="primary" disabled={!code || name.trim().length < 2}>Start</button>
+          <button className="primary" disabled={!code || studentCode || name.trim().length < 2}>Start</button>
         </form>
       </Card>
     </div>
