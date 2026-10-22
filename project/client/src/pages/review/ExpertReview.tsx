@@ -151,11 +151,13 @@ function Reviewer({ token, session, instructions }: { token: string; session: Se
             <Likert name="distractors" label="Plausibility of the wrong options" value={rating.distractors ?? null} onChange={(v) => setRating({ ...rating, distractors: v })} low="obviously wrong" high="tempting" />
             <fieldset className="likert">
               <legend>Is the marked answer actually correct?</legend>
-              {(["yes", "no", "unsure"] as const).map((v) => (
-                <label key={v} className={rating.key_correct === v ? "likert-option selected" : "likert-option"}>
-                  <input type="radio" name="key_correct" checked={rating.key_correct === v} onChange={() => setRating({ ...rating, key_correct: v })} />{v}
-                </label>
-              ))}
+              <div className="likert-scale">
+                {(["yes", "no", "unsure"] as const).map((v) => (
+                  <label key={v} className={rating.key_correct === v ? "likert-option selected" : "likert-option"}>
+                    <input type="radio" name="key_correct" checked={rating.key_correct === v} onChange={() => setRating({ ...rating, key_correct: v })} />{v}
+                  </label>
+                ))}
+              </div>
             </fieldset>
             <label className="check">
               <input type="checkbox" checked={!!rating.unusable} onChange={(e) => setRating({ ...rating, unusable: e.target.checked })} />
