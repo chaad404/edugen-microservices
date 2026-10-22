@@ -1,0 +1,2689 @@
+{
+ "name": "Thesis results: October 2026 comparison (public sample)",
+ "description": "3 topics x 4 models x 3 conditions (baseline, RAG, multi-agent), 108 questions with the scores recorded by the thesis framework. Topic source texts are not included.",
+ "exported_at": "2026-10-22T13:56:19+00:00",
+ "questions_per_job": 5,
+ "topics": [
+  {
+   "topic_id": "NETCOMP-2022-1",
+   "domain": "NETCOMP",
+   "title": "Computer networks basics and models"
+  },
+  {
+   "topic_id": "SPECALK-2022-1",
+   "domain": "SPECALK",
+   "title": "Relational database design and normalization"
+  },
+  {
+   "topic_id": "SYSTEM-2022-1",
+   "domain": "SYSTEM",
+   "title": "Systems fundamentals and control loop basics"
+  }
+ ],
+ "batches": [
+  {
+   "batch_id": "BATCH-20261019-221228-cba643d5",
+   "topic_id": "NETCOMP-2022-1",
+   "model": "cohere",
+   "condition": "baseline",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "latency_seconds": 3.3346418380737304,
+   "prompt_tokens": 10404,
+   "completion_tokens": 402,
+   "cost_usd": 0.006005999999999999,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3087,
+     "question": "Which network topology uses a central hub or switch to connect all devices, making it easy to manage and troubleshoot?",
+     "options": {
+      "A": "Bus topology",
+      "B": "Star topology",
+      "C": "Ring topology",
+      "D": "Mesh topology"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6693403720855713,
+      "alignment_lexical": 0.37707926450960033,
+      "grade": 11.68,
+      "plausibility": 0.5793834328651428,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.5032150745391846
+     }
+    },
+    {
+     "thesis_question_id": 3088,
+     "question": "In the OSI model, which layer is responsible for establishing, managing, and terminating communication sessions between applications?",
+     "options": {
+      "A": "Application layer",
+      "B": "Session layer",
+      "C": "Transport layer",
+      "D": "Network layer"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6456590294837952,
+      "alignment_lexical": 0.34607655788146585,
+      "grade": 18.11058823529412,
+      "plausibility": 0.43601885437965393,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.4291798770427704
+     }
+    },
+    {
+     "thesis_question_id": 3089,
+     "question": "Which of the following is a passive network device that provides physical connectivity without requiring power?",
+     "options": {
+      "A": "Router",
+      "B": "Switch",
+      "C": "Fiber optic cable",
+      "D": "Firewall"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.7954858541488647,
+      "alignment_lexical": 0.35617276443642704,
+      "grade": 14.9875,
+      "plausibility": 0.1838981658220291,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.6934428264697392
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-223556-62722f5c",
+   "topic_id": "NETCOMP-2022-1",
+   "model": "cohere",
+   "condition": "multi_agent",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "latency_seconds": 4.737642478942871,
+   "prompt_tokens": 15610,
+   "completion_tokens": 1253,
+   "cost_usd": 0.010311,
+   "status": "revision_exhausted",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 4142,
+     "question": "Which network topology uses a central hub or switch to connect all devices, facilitating management and troubleshooting?",
+     "options": {
+      "A": "Tree topology",
+      "B": "Star topology",
+      "C": "Ring topology",
+      "D": "Mesh topology"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6932222843170166,
+      "alignment_lexical": 0.3331592369029975,
+      "grade": 14.64,
+      "plausibility": 0.5980290770530701,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.48649313052495324
+     }
+    },
+    {
+     "thesis_question_id": 4143,
+     "question": "In the Open Systems Interconnection (OSI) model, which layer is responsible for establishing, managing, and terminating communication sessions between applications?",
+     "options": {
+      "A": "Transport layer",
+      "B": "Session layer",
+      "C": "Presentation layer",
+      "D": "Application layer"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.7569947242736816,
+      "alignment_lexical": 0.32402898006109493,
+      "grade": 20.530000000000005,
+      "plausibility": 0.4366365373134613,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.5068724652131398
+     }
+    },
+    {
+     "thesis_question_id": 4144,
+     "question": "Which RAID level uses striping with double parity, providing higher fault tolerance than RAID 5?",
+     "options": {
+      "A": "RAID 0",
+      "B": "RAID 1",
+      "C": "RAID 5",
+      "D": "RAID 6"
+     },
+     "answer": "D",
+     "metrics": {
+      "alignment": 0.6438323259353638,
+      "alignment_lexical": 0.07696570416337421,
+      "grade": 10.713333333333338,
+      "plausibility": 0.8173758387565613,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.20722643534342444
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-222437-7dbb69b1",
+   "topic_id": "NETCOMP-2022-1",
+   "model": "cohere",
+   "condition": "rag",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "latency_seconds": 1.5058619022369384,
+   "prompt_tokens": 10592,
+   "completion_tokens": 413,
+   "cost_usd": 0.006122000000000001,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3612,
+     "question": "Which network topology uses a central hub or switch to connect all devices, making it easier to manage and troubleshoot?",
+     "options": {
+      "A": "Bus topology",
+      "B": "Star topology",
+      "C": "Ring topology",
+      "D": "Mesh topology"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6690438985824585,
+      "alignment_lexical": 0.3766061412166147,
+      "grade": 12.270000000000003,
+      "plausibility": 0.5793834328651428,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.5032150745391846
+     }
+    },
+    {
+     "thesis_question_id": 3613,
+     "question": "In the OSI model, which layer is responsible for establishing, managing, and terminating communication sessions between applications?",
+     "options": {
+      "A": "Application layer",
+      "B": "Session layer",
+      "C": "Transport layer",
+      "D": "Network layer"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6456590294837952,
+      "alignment_lexical": 0.34607655788146585,
+      "grade": 18.11058823529412,
+      "plausibility": 0.43601885437965393,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.4291798770427704
+     }
+    },
+    {
+     "thesis_question_id": 3614,
+     "question": "Which RAID level uses striping with double parity, providing higher fault tolerance than RAID 5?",
+     "options": {
+      "A": "RAID 0",
+      "B": "RAID 1",
+      "C": "RAID 5",
+      "D": "RAID 6"
+     },
+     "answer": "D",
+     "metrics": {
+      "alignment": 0.6438323259353638,
+      "alignment_lexical": 0.07696570416337421,
+      "grade": 10.713333333333338,
+      "plausibility": 0.8173758387565613,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.20722643534342444
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-221228-cba643d5",
+   "topic_id": "NETCOMP-2022-1",
+   "model": "gpt-oss",
+   "condition": "baseline",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "latency_seconds": 1.2746700286865233,
+   "prompt_tokens": 9156,
+   "completion_tokens": 1167,
+   "cost_usd": 0.00041472000000000004,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3072,
+     "question": "Which OSI layer is responsible for logical addressing and routing of packets?",
+     "options": {
+      "A": "Network layer – handles logical addressing and packet routing.",
+      "B": "Transport layer – ensures reliable end‑to‑end data delivery.",
+      "C": "Data Link layer – provides node‑to‑node framing and MAC addressing.",
+      "D": "Physical layer – transmits raw bit streams over the medium."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6787144541740417,
+      "alignment_lexical": 0.275463145834627,
+      "grade": 10.723333333333333,
+      "plausibility": 0.4933944642543793,
+      "plausibility_lexical": 0.10972222222222222,
+      "diversity": 0.5392606953779857
+     }
+    },
+    {
+     "thesis_question_id": 3073,
+     "question": "In which network topology does a failure of a single cable segment bring down the entire network?",
+     "options": {
+      "A": "Bus topology – all devices share a single central cable.",
+      "B": "Star topology – each device connects individually to a central hub.",
+      "C": "Mesh topology – every device connects directly to multiple others.",
+      "D": "Hybrid topology – combines features of two or more basic topologies."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.5196574926376343,
+      "alignment_lexical": 0.3646456181855026,
+      "grade": 10.47529411764706,
+      "plausibility": 0.5705225467681885,
+      "plausibility_lexical": 0.10062636165577343,
+      "diversity": 0.43417417009671533
+     }
+    },
+    {
+     "thesis_question_id": 3074,
+     "question": "What is the correct sequence of DHCP messages used to obtain an IP lease?",
+     "options": {
+      "A": "Discover → Offer → Request → Acknowledgment.",
+      "B": "Offer → Discover → Request → Acknowledgment.",
+      "C": "Discover → Request → Offer → Acknowledgment.",
+      "D": "Request → Discover → Offer → Acknowledgment."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6355881690979004,
+      "alignment_lexical": 0.3760199699525919,
+      "grade": 5.884285714285717,
+      "plausibility": 0.9892082214355469,
+      "plausibility_lexical": 1.0,
+      "diversity": 0.01303156216939294
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-223556-62722f5c",
+   "topic_id": "NETCOMP-2022-1",
+   "model": "gpt-oss",
+   "condition": "multi_agent",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "latency_seconds": 1.9697015762329102,
+   "prompt_tokens": 13077,
+   "completion_tokens": 2460,
+   "cost_usd": 0.0006875099999999999,
+   "status": "approved",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 4122,
+     "question": "Which of the following is NOT listed as a key purpose of computer networks?",
+     "options": {
+      "A": "Resource sharing among devices",
+      "B": "Data communication between nodes",
+      "C": "Internet access for users",
+      "D": "Data encryption for security"
+     },
+     "answer": "D",
+     "metrics": {
+      "alignment": 0.7611939311027527,
+      "alignment_lexical": 0.3711519928473048,
+      "grade": 7.570000000000004,
+      "plausibility": 0.2559899389743805,
+      "plausibility_lexical": 0.09523809523809523,
+      "diversity": 0.7078006068865459
+     }
+    },
+    {
+     "thesis_question_id": 4123,
+     "question": "Which network type is defined as covering a single building or room?",
+     "options": {
+      "A": "Personal Area Network (PAN)",
+      "B": "Local Area Network (LAN)",
+      "C": "Metropolitan Area Network (MAN)",
+      "D": "Wide Area Network (WAN)"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6071216464042664,
+      "alignment_lexical": 0.19858970978775434,
+      "grade": 6.790000000000003,
+      "plausibility": 0.5218186974525452,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.47774162888526917
+     }
+    },
+    {
+     "thesis_question_id": 4124,
+     "question": "Which example best illustrates a Personal Area Network (PAN)?",
+     "options": {
+      "A": "Bluetooth headset paired with a smartphone",
+      "B": "Wi‑Fi router providing home internet connectivity",
+      "C": "Ethernet switch linking office computers",
+      "D": "Cellular 4G modem connecting a remote office"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.5916036367416382,
+      "alignment_lexical": 0.15977843638269626,
+      "grade": 11.520000000000003,
+      "plausibility": 0.0976487323641777,
+      "plausibility_lexical": 0.027777777777777776,
+      "diversity": 0.7180711030960083
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-222437-7dbb69b1",
+   "topic_id": "NETCOMP-2022-1",
+   "model": "gpt-oss",
+   "condition": "rag",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "latency_seconds": 0.8104629993438721,
+   "prompt_tokens": 9324,
+   "completion_tokens": 1077,
+   "cost_usd": 0.00040896000000000004,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3597,
+     "question": "Which network type typically covers a single building and uses Ethernet cables?",
+     "options": {
+      "A": "LAN – a network confined to a single building or room.",
+      "B": "PAN – a personal area network spanning a few meters.",
+      "C": "MAN – a metropolitan area network covering a city.",
+      "D": "WAN – a wide area network extending across countries."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6412687301635742,
+      "alignment_lexical": 0.2427919355147061,
+      "grade": 10.723333333333333,
+      "plausibility": 0.4367560148239136,
+      "plausibility_lexical": 0.1365079365079365,
+      "diversity": 0.5076661308606465
+     }
+    },
+    {
+     "thesis_question_id": 3598,
+     "question": "In a bus topology, what is the primary disadvantage that affects scalability?",
+     "options": {
+      "A": "A single point of failure on the shared bus cable.",
+      "B": "High latency caused by multiple routing hops.",
+      "C": "Complex configuration requirements for network switches.",
+      "D": "Increased cabling cost due to redundant links."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.5791714191436768,
+      "alignment_lexical": 0.31518108779217785,
+      "grade": 13.673333333333336,
+      "plausibility": 0.2945464849472046,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.7182946453491847
+     }
+    },
+    {
+     "thesis_question_id": 3599,
+     "question": "Which OSI layer is responsible for logical addressing and routing?",
+     "options": {
+      "A": "Network layer, which handles logical addressing and routing.",
+      "B": "Data link layer, which manages MAC addressing and framing.",
+      "C": "Transport layer, which ensures reliable end‑to‑end delivery.",
+      "D": "Physical layer, which transmits raw bit streams over media."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6706070899963379,
+      "alignment_lexical": 0.23929854022614652,
+      "grade": 10.73,
+      "plausibility": 0.5537890195846558,
+      "plausibility_lexical": 0.19462759462759463,
+      "diversity": 0.5214766363302867
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-221228-cba643d5",
+   "topic_id": "NETCOMP-2022-1",
+   "model": "llama33",
+   "condition": "baseline",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "latency_seconds": 1.8549932003021241,
+   "prompt_tokens": 9101,
+   "completion_tokens": 698,
+   "cost_usd": 0.001391458,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3077,
+     "question": "What is the primary purpose of the Address Resolution Protocol (ARP) in a local network?",
+     "options": {
+      "A": "To resolve IP addresses to MAC addresses for communication between devices",
+      "B": "To manage the routing of packets across different networks",
+      "C": "To provide network security by filtering incoming traffic",
+      "D": "To assign IP addresses dynamically to devices on the network"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7973861694335938,
+      "alignment_lexical": 0.4978550793784695,
+      "grade": 10.713333333333338,
+      "plausibility": 0.4230682849884033,
+      "plausibility_lexical": 0.13567927170868346,
+      "diversity": 0.6509914696216583
+     }
+    },
+    {
+     "thesis_question_id": 3078,
+     "question": "Which of the following network topologies is characterized by all devices connecting to a central hub or switch, allowing for easy management and scalability?",
+     "options": {
+      "A": "Bus topology, where all devices connect to a single cable",
+      "B": "Star topology, where devices connect to a central hub or switch",
+      "C": "Ring topology, where devices form a closed loop and data travels in one direction",
+      "D": "Mesh topology, where every device is connected to multiple other devices"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.7013380527496338,
+      "alignment_lexical": 0.4697413654580219,
+      "grade": 15.895,
+      "plausibility": 0.5658391714096069,
+      "plausibility_lexical": 0.2708994708994709,
+      "diversity": 0.45491168896357215
+     }
+    },
+    {
+     "thesis_question_id": 3079,
+     "question": "What is the function of the Transport layer in the OSI model, and which protocols are primarily used in this layer?",
+     "options": {
+      "A": "The Transport layer ensures reliable data delivery and uses protocols like HTTP and FTP",
+      "B": "The Transport layer handles network addressing and uses protocols like IP and ICMP",
+      "C": "The Transport layer ensures reliable data delivery and uses protocols like TCP and UDP",
+      "D": "The Transport layer manages the physical layer and uses protocols like Ethernet and Wi-Fi"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.7688982486724854,
+      "alignment_lexical": 0.4926327658932733,
+      "grade": 10.019047619047623,
+      "plausibility": 0.7793462872505188,
+      "plausibility_lexical": 0.5037037037037037,
+      "diversity": 0.2891886432965597
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-223556-62722f5c",
+   "topic_id": "NETCOMP-2022-1",
+   "model": "llama33",
+   "condition": "multi_agent",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "latency_seconds": 4.4058174133300785,
+   "prompt_tokens": 12892,
+   "completion_tokens": 1414,
+   "cost_usd": 0.002031452,
+   "status": "revision_exhausted",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 4132,
+     "question": "What is the primary purpose of the Address Resolution Protocol (ARP) in a computer network?",
+     "options": {
+      "A": "To resolve IP addresses to MAC addresses within a local network",
+      "B": "To manage subnet masks and network routing",
+      "C": "To optimize network traffic flow and reduce latency",
+      "D": "To configure network devices with IP addresses"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7929267883300781,
+      "alignment_lexical": 0.5102341786495017,
+      "grade": 11.500000000000004,
+      "plausibility": 0.358114093542099,
+      "plausibility_lexical": 0.2031746031746032,
+      "diversity": 0.6555672585964203
+     }
+    },
+    {
+     "thesis_question_id": 4133,
+     "question": "Which network protocol is used for error reporting, network diagnostics, and operational messages, and is a supporting protocol for IP?",
+     "options": {
+      "A": "ARP (Address Resolution Protocol)",
+      "B": "ICMP (Internet Control Message Protocol)",
+      "C": "DHCP (Dynamic Host Configuration Protocol)",
+      "D": "TCP (Transmission Control Protocol)"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.5816006660461426,
+      "alignment_lexical": 0.35329828389844625,
+      "grade": 15.810000000000002,
+      "plausibility": 0.3859638273715973,
+      "plausibility_lexical": 0.17394179894179893,
+      "diversity": 0.7003726462523143
+     }
+    },
+    {
+     "thesis_question_id": 4134,
+     "question": "What is the function of a router in a computer network?",
+     "options": {
+      "A": "To connect devices within a local network and forward data based on MAC addresses",
+      "B": "To connect different networks and forward data packets based on IP addresses",
+      "C": "To manage network traffic and prevent congestion",
+      "D": "To assign IP addresses to devices on a network"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6767818927764893,
+      "alignment_lexical": 0.4702267731300556,
+      "grade": 5.863636363636363,
+      "plausibility": 0.5312761664390564,
+      "plausibility_lexical": 0.2706971677559913,
+      "diversity": 0.6283880174160004
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-222437-7dbb69b1",
+   "topic_id": "NETCOMP-2022-1",
+   "model": "llama33",
+   "condition": "rag",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "latency_seconds": 1.5335251331329345,
+   "prompt_tokens": 9269,
+   "completion_tokens": 549,
+   "cost_usd": 0.001394156,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3602,
+     "question": "What is the primary function of the ARP protocol in a computer network?",
+     "options": {
+      "A": "To resolve IP addresses to MAC addresses within a local network",
+      "B": "To manage data traffic and prevent congestion in networks",
+      "C": "To provide a framework for understanding how data is transmitted across networks",
+      "D": "To assign IP addresses and other network configuration parameters to devices"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.720253050327301,
+      "alignment_lexical": 0.5174016282810178,
+      "grade": 8.541538461538462,
+      "plausibility": 0.30028900504112244,
+      "plausibility_lexical": 0.1435844513243894,
+      "diversity": 0.6842217395702999
+     }
+    },
+    {
+     "thesis_question_id": 3603,
+     "question": "Which network topology is characterized by all devices connecting to a central hub or switch, with data passing through the hub to reach other devices?",
+     "options": {
+      "A": "Bus topology, where all devices connect to a single central cable",
+      "B": "Star topology, where all devices connect to a central hub or switch",
+      "C": "Ring topology, where devices are connected in a closed loop",
+      "D": "Mesh topology, where every device is connected to multiple other devices"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6655040383338928,
+      "alignment_lexical": 0.43244866585291386,
+      "grade": 13.984000000000002,
+      "plausibility": 0.6212529540061951,
+      "plausibility_lexical": 0.32202729044834305,
+      "diversity": 0.4512839516003927
+     }
+    },
+    {
+     "thesis_question_id": 3604,
+     "question": "What is the purpose of subnetting in IPv4 networks?",
+     "options": {
+      "A": "To improve network security by isolating devices into separate subnets",
+      "B": "To optimize IP address allocation and reduce waste",
+      "C": "To enhance network performance by reducing broadcast traffic",
+      "D": "All of the above"
+     },
+     "answer": "D",
+     "metrics": {
+      "alignment": 0.7797930240631104,
+      "alignment_lexical": 0.34988518707877464,
+      "grade": 4.964444444444446,
+      "plausibility": 0.04419643059372902,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5583872199058533
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-221228-cba643d5",
+   "topic_id": "NETCOMP-2022-1",
+   "model": "mistral-small",
+   "condition": "baseline",
+   "provider": "openrouter",
+   "requested_model_id": "mistralai/mistral-small-2603",
+   "returned_model_id": "mistralai/mistral-small-2603",
+   "latency_seconds": 0.7184947013854981,
+   "prompt_tokens": 9726,
+   "completion_tokens": 448,
+   "cost_usd": 0.00034554,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 4417,
+     "question": "Which of the following network types is characterized by a coverage area spanning a single building or room?",
+     "options": {
+      "A": "Personal Area Network (PAN)",
+      "B": "Local Area Network (LAN)",
+      "C": "Metropolitan Area Network (MAN)",
+      "D": "Wide Area Network (WAN)"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6245144605636597,
+      "alignment_lexical": 0.3711694901771807,
+      "grade": 11.752222222222223,
+      "plausibility": 0.5218186974525452,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.47774162888526917
+     }
+    },
+    {
+     "thesis_question_id": 4418,
+     "question": "In the OSI model, which layer is responsible for establishing, managing, and terminating communication sessions between applications?",
+     "options": {
+      "A": "Transport Layer",
+      "B": "Session Layer",
+      "C": "Presentation Layer",
+      "D": "Application Layer"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6456590294837952,
+      "alignment_lexical": 0.34607655788146585,
+      "grade": 18.11058823529412,
+      "plausibility": 0.4366365373134613,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.5068724652131398
+     }
+    },
+    {
+     "thesis_question_id": 4419,
+     "question": "Which of the following protocols is used to dynamically assign IP addresses to devices on a network?",
+     "options": {
+      "A": "ARP (Address Resolution Protocol)",
+      "B": "ICMP (Internet Control Message Protocol)",
+      "C": "DHCP (Dynamic Host Configuration Protocol)",
+      "D": "DNS (Domain Name System)"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.6594110727310181,
+      "alignment_lexical": 0.5340529988077646,
+      "grade": 12.55764705882353,
+      "plausibility": 0.2695668637752533,
+      "plausibility_lexical": 0.0787037037037037,
+      "diversity": 0.7575836280981699
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-223556-62722f5c",
+   "topic_id": "NETCOMP-2022-1",
+   "model": "mistral-small",
+   "condition": "multi_agent",
+   "provider": "openrouter",
+   "requested_model_id": "mistralai/mistral-small-2603",
+   "returned_model_id": "mistralai/mistral-small-2603",
+   "latency_seconds": 1.600914430618286,
+   "prompt_tokens": 11086,
+   "completion_tokens": 541,
+   "cost_usd": 0.0003975,
+   "status": "approved",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 4762,
+     "question": "Which of the following is a primary purpose of a computer network?",
+     "options": {
+      "A": "To enable devices to communicate, share resources, and access centralized services like the internet or printers.",
+      "B": "To increase the computational power of individual devices by distributing processing tasks.",
+      "C": "To provide a platform for running standalone applications without external dependencies.",
+      "D": "To physically connect devices using cables and connectors for manual data transfer."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7708532810211182,
+      "alignment_lexical": 0.42995933401593606,
+      "grade": 8.756666666666668,
+      "plausibility": 0.5055278539657593,
+      "plausibility_lexical": 0.09666666666666668,
+      "diversity": 0.6466353336970012
+     }
+    },
+    {
+     "thesis_question_id": 4763,
+     "question": "In the context of network topologies, which topology connects all devices to a central hub or switch?",
+     "options": {
+      "A": "Bus topology",
+      "B": "Star topology",
+      "C": "Ring topology",
+      "D": "Mesh topology"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.7254735231399536,
+      "alignment_lexical": 0.4311155876563828,
+      "grade": 9.781176470588235,
+      "plausibility": 0.5793834328651428,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.5032151639461517
+     }
+    },
+    {
+     "thesis_question_id": 4764,
+     "question": "Which layer of the OSI model is responsible for logical addressing and routing of packets across networks?",
+     "options": {
+      "A": "Application Layer",
+      "B": "Transport Layer",
+      "C": "Network Layer",
+      "D": "Data Link Layer"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.7271157503128052,
+      "alignment_lexical": 0.4123764814435551,
+      "grade": 11.863529411764706,
+      "plausibility": 0.6057168841362,
+      "plausibility_lexical": 0.3055555555555555,
+      "diversity": 0.5359657903512318
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-222437-7dbb69b1",
+   "topic_id": "NETCOMP-2022-1",
+   "model": "mistral-small",
+   "condition": "rag",
+   "provider": "openrouter",
+   "requested_model_id": "mistralai/mistral-small-2603",
+   "returned_model_id": "mistralai/mistral-small-2603",
+   "latency_seconds": 45.72570748329163,
+   "prompt_tokens": 9919,
+   "completion_tokens": 484,
+   "cost_usd": 0.00035565,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 4592,
+     "question": "Which network type is designed to cover a personal workspace, typically within a few meters, and is exemplified by Bluetooth connectivity between a smartphone and headset?",
+     "options": {
+      "A": "Personal Area Network (PAN)",
+      "B": "Local Area Network (LAN)",
+      "C": "Metropolitan Area Network (MAN)",
+      "D": "Wide Area Network (WAN)"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6304191946983337,
+      "alignment_lexical": 0.3861312212581826,
+      "grade": 15.426923076923078,
+      "plausibility": 0.5216125249862671,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.4775354166825613
+     }
+    },
+    {
+     "thesis_question_id": 4593,
+     "question": "In the OSI model, which layer is responsible for translating, encrypting, and compressing data to ensure it is in a readable format for the application layer?",
+     "options": {
+      "A": "Presentation Layer",
+      "B": "Session Layer",
+      "C": "Transport Layer",
+      "D": "Network Layer"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6659016609191895,
+      "alignment_lexical": 0.5100334809530975,
+      "grade": 15.426923076923078,
+      "plausibility": 0.47964605689048767,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.5310754676659901
+     }
+    },
+    {
+     "thesis_question_id": 4594,
+     "question": "Which routing protocol uses a composite metric based on bandwidth, delay, reliability, and load, and is known for its fast convergence and efficiency in Cisco-based enterprise networks?",
+     "options": {
+      "A": "EIGRP",
+      "B": "OSPF",
+      "C": "RIP",
+      "D": "BGP"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7621248960494995,
+      "alignment_lexical": 0.3376798898550965,
+      "grade": 16.791851851851856,
+      "plausibility": 0.16173280775547028,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.795187845826149
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-221228-cba643d5",
+   "topic_id": "SPECALK-2022-1",
+   "model": "cohere",
+   "condition": "baseline",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "latency_seconds": 2.345805263519287,
+   "prompt_tokens": 3992,
+   "completion_tokens": 608,
+   "cost_usd": 0.0032119999999999996,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 2937,
+     "question": "Which of the following best describes the purpose of normalization in relational database design?",
+     "options": {
+      "A": "To decompose tables into smaller, related tables to minimize redundancy and dependency.",
+      "B": "To enforce referential integrity through the use of foreign keys.",
+      "C": "To optimize query performance by creating indexes on frequently queried columns.",
+      "D": "To define the valid set of values for an attribute using domains."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7198835611343384,
+      "alignment_lexical": 0.37625533344576906,
+      "grade": 13.470000000000002,
+      "plausibility": 0.2980942130088806,
+      "plausibility_lexical": 0.05008354218880534,
+      "diversity": 0.7301872571309407
+     }
+    },
+    {
+     "thesis_question_id": 2938,
+     "question": "In the context of functional dependencies, which of the following is a characteristic of a transitive dependency?",
+     "options": {
+      "A": "It violates Third Normal Form (3NF) by introducing indirect dependencies.",
+      "B": "It ensures that all non-prime attributes are fully functionally dependent on the primary key.",
+      "C": "It is a dependency where the right-hand side is a subset of the left-hand side.",
+      "D": "It is a dependency where a non-prime attribute depends on only a part of a composite primary key."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6242612600326538,
+      "alignment_lexical": 0.6261416147114177,
+      "grade": 14.64,
+      "plausibility": 0.3785756528377533,
+      "plausibility_lexical": 0.043095238095238096,
+      "diversity": 0.5213624189297359
+     }
+    },
+    {
+     "thesis_question_id": 2939,
+     "question": "Which of the following is a key property of a B-tree used in database indexing?",
+     "options": {
+      "A": "All leaf nodes are at the same level, ensuring balanced search times.",
+      "B": "It allows for efficient data compression to reduce storage requirements.",
+      "C": "It is primarily used to enforce referential integrity constraints.",
+      "D": "It stores keys in a hierarchical structure without sorting them."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.8054705858230591,
+      "alignment_lexical": 0.612743065135503,
+      "grade": 8.353333333333339,
+      "plausibility": 0.16450044512748718,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.6049249569574993
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-223556-62722f5c",
+   "topic_id": "SPECALK-2022-1",
+   "model": "cohere",
+   "condition": "multi_agent",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "latency_seconds": 1.8441620349884034,
+   "prompt_tokens": 5881,
+   "completion_tokens": 521,
+   "cost_usd": 0.0039825,
+   "status": "approved",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3977,
+     "question": "Which of the following best describes the purpose of normalization in relational database design?",
+     "options": {
+      "A": "To eliminate redundancy, improve data integrity, and ensure efficient database structure.",
+      "B": "To increase data redundancy for faster query performance.",
+      "C": "To enforce referential integrity through foreign key constraints.",
+      "D": "To optimize index structures for B-tree implementations."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7198835611343384,
+      "alignment_lexical": 0.37625533344576906,
+      "grade": 13.470000000000002,
+      "plausibility": 0.5575489401817322,
+      "plausibility_lexical": 0.12023420479302833,
+      "diversity": 0.7025615026553471
+     }
+    },
+    {
+     "thesis_question_id": 3978,
+     "question": "In the context of functional dependencies, which type of dependency violates Third Normal Form (3NF)?",
+     "options": {
+      "A": "Trivial functional dependency.",
+      "B": "Transitive dependency.",
+      "C": "Full functional dependency.",
+      "D": "Multivalued dependency."
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.732870876789093,
+      "alignment_lexical": 0.35551529792366904,
+      "grade": 11.500000000000004,
+      "plausibility": 0.6621648073196411,
+      "plausibility_lexical": 0.27777777777777773,
+      "diversity": 0.31093875567118323
+     }
+    },
+    {
+     "thesis_question_id": 3979,
+     "question": "Which of the following is a characteristic of a B-tree index structure?",
+     "options": {
+      "A": "All leaf nodes are at the same level.",
+      "B": "Keys in a node are stored in unsorted order.",
+      "C": "Each node contains a single key and pointer.",
+      "D": "The number of keys in a node is unbounded."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7183133363723755,
+      "alignment_lexical": 0.5686134883704973,
+      "grade": 8.756666666666668,
+      "plausibility": 0.4419276714324951,
+      "plausibility_lexical": 0.04305555555555555,
+      "diversity": 0.39992407957712806
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-222437-7dbb69b1",
+   "topic_id": "SPECALK-2022-1",
+   "model": "cohere",
+   "condition": "rag",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "latency_seconds": 2.0873183727264406,
+   "prompt_tokens": 4170,
+   "completion_tokens": 665,
+   "cost_usd": 0.003415,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3462,
+     "question": "Which of the following best describes the purpose of normalization in relational database design?",
+     "options": {
+      "A": "To eliminate redundancy and improve data integrity by organizing data into tables that meet specific normal forms.",
+      "B": "To optimize query performance by creating indexes on frequently queried columns.",
+      "C": "To enforce referential integrity by defining foreign key constraints between tables.",
+      "D": "To ensure that all tables have a primary key and unique values for each tuple."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7198835611343384,
+      "alignment_lexical": 0.37625533344576906,
+      "grade": 13.470000000000002,
+      "plausibility": 0.5131483674049377,
+      "plausibility_lexical": 0.13402039720880302,
+      "diversity": 0.6245401899019878
+     }
+    },
+    {
+     "thesis_question_id": 3463,
+     "question": "In the context of functional dependencies, which of the following is a characteristic of a transitive dependency?",
+     "options": {
+      "A": "It violates Third Normal Form (3NF) by introducing indirect dependencies between attributes.",
+      "B": "It ensures that all non-prime attributes are fully functionally dependent on the primary key.",
+      "C": "It is a dependency where the right-hand side is a subset of the left-hand side.",
+      "D": "It is a dependency where a non-prime attribute depends on only a part of a composite primary key."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6242612600326538,
+      "alignment_lexical": 0.6261416147114177,
+      "grade": 14.64,
+      "plausibility": 0.4170004427433014,
+      "plausibility_lexical": 0.053505099302200744,
+      "diversity": 0.5213624189297359
+     }
+    },
+    {
+     "thesis_question_id": 3464,
+     "question": "Which of the following is a key feature of a B-tree index structure in relational databases?",
+     "options": {
+      "A": "It maintains sorted data and allows for efficient search, insertion, and deletion operations with logarithmic time complexity.",
+      "B": "It determines the physical order of data in a table and can only be applied to primary keys.",
+      "C": "It is used exclusively for enforcing referential integrity between tables.",
+      "D": "It is a type of index that can only be applied to non-primary key attributes."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.825355052947998,
+      "alignment_lexical": 0.6160101988490873,
+      "grade": 10.562500000000004,
+      "plausibility": 0.46921300888061523,
+      "plausibility_lexical": 0.07078853046594982,
+      "diversity": 0.40794523557027185
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-221228-cba643d5",
+   "topic_id": "SPECALK-2022-1",
+   "model": "gpt-oss",
+   "condition": "baseline",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "latency_seconds": 0.6522948741912842,
+   "prompt_tokens": 3387,
+   "completion_tokens": 868,
+   "cost_usd": 0.00020577,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 2922,
+     "question": "What condition must a primary key satisfy in a relational table?",
+     "options": {
+      "A": "It must be unique for every tuple and cannot contain NULL values.",
+      "B": "It must be unique but may contain NULL values in some rows.",
+      "C": "It may contain duplicate values as long as a candidate key exists.",
+      "D": "It can be composite and still allow NULLs in any component."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6573414206504822,
+      "alignment_lexical": 0.5368354513917426,
+      "grade": 11.22727272727273,
+      "plausibility": 0.48222681879997253,
+      "plausibility_lexical": 0.23725490196078433,
+      "diversity": 0.5543074707190196
+     }
+    },
+    {
+     "thesis_question_id": 2923,
+     "question": "When converting a many‑to‑many relationship from an ER diagram, which structure is introduced in the relational schema?",
+     "options": {
+      "A": "A junction table that holds foreign keys referencing both related tables.",
+      "B": "A single combined table that merges all attributes of the two entities.",
+      "C": "A view that dynamically joins the two entity tables on matching attributes.",
+      "D": "A trigger that automatically copies rows between the two entity tables."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6271141767501831,
+      "alignment_lexical": 0.3768197980633091,
+      "grade": 12.55764705882353,
+      "plausibility": 0.5204732418060303,
+      "plausibility_lexical": 0.15263157894736842,
+      "diversity": 0.43614313999811805
+     }
+    },
+    {
+     "thesis_question_id": 2924,
+     "question": "Which functional dependency exemplifies a partial dependency in a relation with composite primary key {StudentID, CourseID}?",
+     "options": {
+      "A": "{StudentID, CourseID} → Grade",
+      "B": "{StudentID} → Name",
+      "C": "{StudentID} → Instructor",
+      "D": "{StudentID, CourseID} → Instructor"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.7571455240249634,
+      "alignment_lexical": 0.4775505475897333,
+      "grade": 17.937500000000004,
+      "plausibility": 0.850012481212616,
+      "plausibility_lexical": 0.4166666666666667,
+      "diversity": 0.20471596717834473
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-223556-62722f5c",
+   "topic_id": "SPECALK-2022-1",
+   "model": "gpt-oss",
+   "condition": "multi_agent",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "latency_seconds": 1.0545019149780273,
+   "prompt_tokens": 4942,
+   "completion_tokens": 1591,
+   "cost_usd": 0.00033917999999999996,
+   "status": "approved",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3967,
+     "question": "Which statement accurately describes a primary key?",
+     "options": {
+      "A": "A minimal set of attributes that uniquely identifies each tuple and cannot contain NULL values.",
+      "B": "A set of attributes that may contain duplicate values and can include NULLs for optional data.",
+      "C": "An attribute that references the primary key of another table to enforce referential integrity.",
+      "D": "A collection of attributes used solely to speed up query performance without uniqueness constraints."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6235660314559937,
+      "alignment_lexical": 0.36003767451895613,
+      "grade": 10.740000000000002,
+      "plausibility": 0.5334414839744568,
+      "plausibility_lexical": 0.17909492547173708,
+      "diversity": 0.4896735648314158
+     }
+    },
+    {
+     "thesis_question_id": 3968,
+     "question": "When converting a many-to-many relationship between Students and Courses into a relational schema, which structure is appropriate?",
+     "options": {
+      "A": "Create a junction table Enrollment with foreign keys StudentID and CourseID referencing the two entity tables.",
+      "B": "Add a CourseID column directly to the Student table to store multiple course identifiers per student.",
+      "C": "Merge the Student and Course tables into a single table containing all attributes of both entities.",
+      "D": "Store a list of CourseIDs as a delimited string within a single attribute of the Student table."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6803543567657471,
+      "alignment_lexical": 0.3854587113385315,
+      "grade": 14.64,
+      "plausibility": 0.6550499200820923,
+      "plausibility_lexical": 0.15004748338081672,
+      "diversity": 0.2672913074493408
+     }
+    },
+    {
+     "thesis_question_id": 3969,
+     "question": "Which functional dependency type indicates a violation of Third Normal Form (3NF)?",
+     "options": {
+      "A": "A transitive dependency where a non‑prime attribute depends on another non‑prime attribute.",
+      "B": "A partial dependency where a non‑prime attribute depends on part of a composite primary key.",
+      "C": "A trivial dependency where the dependent attribute is a subset of the determinant.",
+      "D": "A full functional dependency where a non‑prime attribute depends on the entire primary key."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7146480083465576,
+      "alignment_lexical": 0.3164191582365186,
+      "grade": 11.706666666666667,
+      "plausibility": 0.72187739610672,
+      "plausibility_lexical": 0.411764705882353,
+      "diversity": 0.34288763999938965
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-222437-7dbb69b1",
+   "topic_id": "SPECALK-2022-1",
+   "model": "gpt-oss",
+   "condition": "rag",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "latency_seconds": 0.9800949573516846,
+   "prompt_tokens": 3552,
+   "completion_tokens": 1621,
+   "cost_usd": 0.00030108,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3447,
+     "question": "What constraint ensures that every tuple in a relation can be uniquely identified and cannot contain NULL values?",
+     "options": {
+      "A": "A primary key uniquely identifies each tuple and cannot contain NULL values.",
+      "B": "A foreign key references a primary key in another table to enforce referential integrity.",
+      "C": "A unique key enforces uniqueness but may allow a single NULL value.",
+      "D": "A candidate key is any minimal set of attributes that can serve as a primary key."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.5146714448928833,
+      "alignment_lexical": 0.32704482661907447,
+      "grade": 13.063333333333333,
+      "plausibility": 0.5190165042877197,
+      "plausibility_lexical": 0.14109730848861282,
+      "diversity": 0.5674140850702922
+     }
+    },
+    {
+     "thesis_question_id": 3448,
+     "question": "When converting a many-to-many relationship between Student and Course into a relational schema, which structure is used?",
+     "options": {
+      "A": "Create a junction table containing foreign keys that reference both Student and Course tables.",
+      "B": "Add a foreign key attribute of Student in the Course table to link records.",
+      "C": "Merge the Student and Course tables into a single table containing all attributes.",
+      "D": "Define a database view that joins Student and Course without storing relationship data."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7261605262756348,
+      "alignment_lexical": 0.3927144047284333,
+      "grade": 11.863529411764706,
+      "plausibility": 0.7680950164794922,
+      "plausibility_lexical": 0.26488801054018446,
+      "diversity": 0.33383214473724365
+     }
+    },
+    {
+     "thesis_question_id": 3449,
+     "question": "Which functional dependency violates Second Normal Form?",
+     "options": {
+      "A": "{StudentID} → Instructor is a partial dependency that violates Second Normal Form.",
+      "B": "{StudentID, CourseID} → Grade is a full functional dependency that satisfies Second Normal Form.",
+      "C": "{StudentID} →→ Course is a multivalued dependency addressed in Fourth Normal Form.",
+      "D": "{StudentID, CourseID} → Name is a transitive dependency that violates Third Normal Form."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.677199125289917,
+      "alignment_lexical": 0.09864045877231675,
+      "grade": 14.111428571428572,
+      "plausibility": 0.8412596583366394,
+      "plausibility_lexical": 0.4694444444444444,
+      "diversity": 0.15085959434509277
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-221228-cba643d5",
+   "topic_id": "SPECALK-2022-1",
+   "model": "llama33",
+   "condition": "baseline",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "latency_seconds": 1.4073994159698486,
+   "prompt_tokens": 3329,
+   "completion_tokens": 524,
+   "cost_usd": 0.000547126,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 2927,
+     "question": "What is the primary purpose of normalization in relational database design?",
+     "options": {
+      "A": "To reduce data redundancy and improve data integrity by decomposing tables into smaller related tables",
+      "B": "To increase the complexity of queries by requiring joins across multiple tables",
+      "C": "To minimize the use of indexes and improve query performance",
+      "D": "To eliminate the need for primary and foreign keys in a database"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7294423580169678,
+      "alignment_lexical": 0.3895049307973951,
+      "grade": 14.445454545454545,
+      "plausibility": 0.4588024318218231,
+      "plausibility_lexical": 0.12444005270092227,
+      "diversity": 0.5230377614498138
+     }
+    },
+    {
+     "thesis_question_id": 2928,
+     "question": "Which of the following is a characteristic of a well-designed relational database?",
+     "options": {
+      "A": "Minimizing data redundancy and ensuring data integrity through the use of normalization and integrity constraints",
+      "B": "Maximizing data redundancy to improve query performance",
+      "C": "Eliminating the use of indexes to reduce storage requirements",
+      "D": "Ignoring the principles of normalization to simplify database design"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6736595630645752,
+      "alignment_lexical": 0.5485695991700531,
+      "grade": 12.690000000000001,
+      "plausibility": 0.540973424911499,
+      "plausibility_lexical": 0.1503267973856209,
+      "diversity": 0.5831199487050374
+     }
+    },
+    {
+     "thesis_question_id": 2929,
+     "question": "What is the purpose of a foreign key in a relational database?",
+     "options": {
+      "A": "To uniquely identify each tuple in a relation and ensure entity integrity",
+      "B": "To reference the primary key of another table and enforce referential integrity",
+      "C": "To define the properties of an entity and specify the set of permissible values",
+      "D": "To determine the physical order of data in a table"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.7350772619247437,
+      "alignment_lexical": 0.659131237459081,
+      "grade": 7.773333333333333,
+      "plausibility": 0.36125990748405457,
+      "plausibility_lexical": 0.18835978835978837,
+      "diversity": 0.6801528930664062
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-223556-62722f5c",
+   "topic_id": "SPECALK-2022-1",
+   "model": "llama33",
+   "condition": "multi_agent",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "latency_seconds": 4.319654846191407,
+   "prompt_tokens": 7291,
+   "completion_tokens": 1567,
+   "cost_usd": 0.001257836,
+   "status": "revision_exhausted",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3982,
+     "question": "What is the primary goal of normalization in relational database design?",
+     "options": {
+      "A": "To minimize data redundancy and improve data integrity by decomposing tables",
+      "B": "To optimize query performance by strategically indexing attributes",
+      "C": "To ensure referential integrity through the use of foreign keys",
+      "D": "To reduce data consistency by allowing NULL values in primary keys"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.701907753944397,
+      "alignment_lexical": 0.3895049307973951,
+      "grade": 13.372727272727271,
+      "plausibility": 0.4235873222351074,
+      "plausibility_lexical": 0.13425925925925927,
+      "diversity": 0.682437111934026
+     }
+    },
+    {
+     "thesis_question_id": 3983,
+     "question": "Which characteristic is essential for a well-designed relational database?",
+     "options": {
+      "A": "Minimizing data redundancy and ensuring data integrity",
+      "B": "Maximizing data consistency through frequent backups",
+      "C": "Optimizing query performance using efficient indexing strategies",
+      "D": "Ensuring scalability through the use of distributed databases"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6511260271072388,
+      "alignment_lexical": 0.2723441452174737,
+      "grade": 15.453333333333337,
+      "plausibility": 0.4808601140975952,
+      "plausibility_lexical": 0.055944055944055944,
+      "diversity": 0.6502890189488728
+     }
+    },
+    {
+     "thesis_question_id": 3984,
+     "question": "How do primary keys and unique keys differ in a relational database?",
+     "options": {
+      "A": "A primary key is used for entity integrity, while a unique key ensures referential integrity",
+      "B": "A primary key can contain NULL values, whereas a unique key cannot",
+      "C": "A primary key uniquely identifies each tuple and cannot contain NULL values",
+      "D": "A primary key is used for indexing, while a unique key is used for data validation"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.6393842697143555,
+      "alignment_lexical": 0.34293424171151476,
+      "grade": 9.740000000000002,
+      "plausibility": 0.5583036541938782,
+      "plausibility_lexical": 0.2531746031746032,
+      "diversity": 0.306416908899943
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-222437-7dbb69b1",
+   "topic_id": "SPECALK-2022-1",
+   "model": "llama33",
+   "condition": "rag",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "latency_seconds": 1.6203025817871093,
+   "prompt_tokens": 3493,
+   "completion_tokens": 588,
+   "cost_usd": 0.000579502,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3452,
+     "question": "What is the primary purpose of normalization in relational database design?",
+     "options": {
+      "A": "To eliminate redundancy and improve data integrity by decomposing tables into smaller, related tables",
+      "B": "To increase data redundancy and reduce query performance by combining tables into larger tables",
+      "C": "To optimize index structures for faster data retrieval without considering data consistency",
+      "D": "To enforce referential integrity by establishing relationships between tables without normalizing them"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7294423580169678,
+      "alignment_lexical": 0.3895049307973951,
+      "grade": 14.445454545454545,
+      "plausibility": 0.6023700833320618,
+      "plausibility_lexical": 0.21660211133895343,
+      "diversity": 0.6248283485571544
+     }
+    },
+    {
+     "thesis_question_id": 3453,
+     "question": "Which of the following is a characteristic of a well-designed relational database?",
+     "options": {
+      "A": "Minimizing data redundancy and ensuring data integrity through normalization and indexing",
+      "B": "Maximizing data redundancy and reducing data integrity to improve query performance",
+      "C": "Using only one type of index for all tables to simplify index management",
+      "D": "Ignoring referential integrity to allow for more flexible data relationships"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6736595630645752,
+      "alignment_lexical": 0.5485695991700531,
+      "grade": 12.690000000000001,
+      "plausibility": 0.5741227269172668,
+      "plausibility_lexical": 0.12810457516339868,
+      "diversity": 0.6580125093460083
+     }
+    },
+    {
+     "thesis_question_id": 3454,
+     "question": "What is the difference between a primary key and a foreign key in a relational database?",
+     "options": {
+      "A": "A primary key uniquely identifies a record in a table, while a foreign key references the primary key of another table",
+      "B": "A primary key references the primary key of another table, while a foreign key uniquely identifies a record in a table",
+      "C": "A primary key is used for indexing, while a foreign key is used for data encryption",
+      "D": "A primary key is used for data encryption, while a foreign key is used for indexing"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7176952362060547,
+      "alignment_lexical": 0.6818807847204009,
+      "grade": 10.562500000000004,
+      "plausibility": 0.7764682173728943,
+      "plausibility_lexical": 0.5,
+      "diversity": 0.21048080921173096
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-221228-cba643d5",
+   "topic_id": "SPECALK-2022-1",
+   "model": "mistral-small",
+   "condition": "baseline",
+   "provider": "openrouter",
+   "requested_model_id": "mistralai/mistral-small-2603",
+   "returned_model_id": "mistralai/mistral-small-2603",
+   "latency_seconds": 0.7761676788330079,
+   "prompt_tokens": 3313,
+   "completion_tokens": 562,
+   "cost_usd": 0.00016683000000000003,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 4492,
+     "question": "Which of the following is a defining characteristic of a primary key in a relational database table?",
+     "options": {
+      "A": "A primary key must uniquely identify each tuple in a relation and cannot contain NULL values.",
+      "B": "A primary key can be a composite of multiple attributes but must always include a timestamp for uniqueness.",
+      "C": "A primary key is optional and only required if the table has foreign key references.",
+      "D": "A primary key must be a single attribute and cannot be derived from other attributes in the table."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7065657377243042,
+      "alignment_lexical": 0.7220394739677396,
+      "grade": 13.945882352941176,
+      "plausibility": 0.5860071778297424,
+      "plausibility_lexical": 0.19993827160493827,
+      "diversity": 0.38579477866490686
+     }
+    },
+    {
+     "thesis_question_id": 4493,
+     "question": "In the context of functional dependencies, which axiom states that if X → Y and Y → Z, then X → Z?",
+     "options": {
+      "A": "Reflexivity",
+      "B": "Transitivity",
+      "C": "Augmentation",
+      "D": "Pseudotransitivity"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6198691129684448,
+      "alignment_lexical": 0.3558001745214524,
+      "grade": 8.588421052631581,
+      "plausibility": 0.35658109188079834,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.799142082532247
+     }
+    },
+    {
+     "thesis_question_id": 4494,
+     "question": "Which normalization form eliminates partial dependencies by ensuring all non-prime attributes are fully dependent on the entire primary key?",
+     "options": {
+      "A": "First Normal Form (1NF)",
+      "B": "Second Normal Form (2NF)",
+      "C": "Third Normal Form (3NF)",
+      "D": "Boyce-Codd Normal Form (BCNF)"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6770974397659302,
+      "alignment_lexical": 0.29178241196928717,
+      "grade": 17.904210526315797,
+      "plausibility": 0.7200946807861328,
+      "plausibility_lexical": 0.31746031746031744,
+      "diversity": 0.3845118681589762
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-223556-62722f5c",
+   "topic_id": "SPECALK-2022-1",
+   "model": "mistral-small",
+   "condition": "multi_agent",
+   "provider": "openrouter",
+   "requested_model_id": "mistralai/mistral-small-2603",
+   "returned_model_id": "mistralai/mistral-small-2603",
+   "latency_seconds": 14.733525657653809,
+   "prompt_tokens": 4788,
+   "completion_tokens": 649,
+   "cost_usd": 0.00022151999999999995,
+   "status": "approved",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 4757,
+     "question": "Which of the following best describes the role of a primary key in a relational database table?",
+     "options": {
+      "A": "A minimal set of one or more attributes that uniquely identifies each tuple in a relation and cannot contain NULL values",
+      "B": "A set of attributes that may contain NULL values but must uniquely identify tuples when combined with other attributes",
+      "C": "A secondary attribute used to enforce referential integrity by referencing another table's primary key",
+      "D": "A derived attribute calculated from other attributes to ensure data consistency within a table"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6842511296272278,
+      "alignment_lexical": 0.6775003702820778,
+      "grade": 10.47529411764706,
+      "plausibility": 0.5530364513397217,
+      "plausibility_lexical": 0.13475757377478245,
+      "diversity": 0.5467475454012554
+     }
+    },
+    {
+     "thesis_question_id": 4758,
+     "question": "In the context of functional dependencies, which axiom states that if X → Y holds, then XZ → YZ also holds for any set of attributes Z?",
+     "options": {
+      "A": "Reflexivity",
+      "B": "Augmentation",
+      "C": "Transitivity",
+      "D": "Decomposition"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.5937896966934204,
+      "alignment_lexical": 0.36669898427838254,
+      "grade": 11.624000000000002,
+      "plausibility": 0.14908982813358307,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.6717973351478577
+     }
+    },
+    {
+     "thesis_question_id": 4759,
+     "question": "Which normal form requires that a relation must be in 2NF and have no transitive dependencies among non-prime attributes?",
+     "options": {
+      "A": "First Normal Form (1NF)",
+      "B": "Second Normal Form (2NF)",
+      "C": "Third Normal Form (3NF)",
+      "D": "Boyce-Codd Normal Form (BCNF)"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.8498466610908508,
+      "alignment_lexical": 0.3559745426025303,
+      "grade": 12.314736842105265,
+      "plausibility": 0.6905841827392578,
+      "plausibility_lexical": 0.31746031746031744,
+      "diversity": 0.3550013303756714
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-222437-7dbb69b1",
+   "topic_id": "SPECALK-2022-1",
+   "model": "mistral-small",
+   "condition": "rag",
+   "provider": "openrouter",
+   "requested_model_id": "mistralai/mistral-small-2603",
+   "returned_model_id": "mistralai/mistral-small-2603",
+   "latency_seconds": 14.43064079284668,
+   "prompt_tokens": 3486,
+   "completion_tokens": 567,
+   "cost_usd": 0.00017261999999999998,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 4552,
+     "question": "Which of the following best describes the role of a primary key in a relational database table?",
+     "options": {
+      "A": "A set of one or more attributes that uniquely identifies each tuple in a relation and cannot contain NULL values.",
+      "B": "A set of attributes that may contain NULL values and is used to enforce domain constraints on related tables.",
+      "C": "A composite attribute that combines multiple columns to form a unique identifier for a tuple.",
+      "D": "A foreign key reference that ensures referential integrity across multiple database schemas."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6842511296272278,
+      "alignment_lexical": 0.6775003702820778,
+      "grade": 10.47529411764706,
+      "plausibility": 0.5630729794502258,
+      "plausibility_lexical": 0.16091954022988506,
+      "diversity": 0.563183565934499
+     }
+    },
+    {
+     "thesis_question_id": 4553,
+     "question": "In the context of functional dependencies, which axiom allows the derivation of X → YZ from X → Y and X → Z?",
+     "options": {
+      "A": "Union (Additive Rule)",
+      "B": "Augmentation",
+      "C": "Transitivity",
+      "D": "Decomposition (Projection Rule)"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6029975414276123,
+      "alignment_lexical": 0.40580101211036507,
+      "grade": 11.090000000000003,
+      "plausibility": 0.23519207537174225,
+      "plausibility_lexical": 0.06666666666666667,
+      "diversity": 0.889200996607542
+     }
+    },
+    {
+     "thesis_question_id": 4554,
+     "question": "Which normal form requires that all non-prime attributes are fully functionally dependent on the entire primary key?",
+     "options": {
+      "A": "First Normal Form (1NF)",
+      "B": "Second Normal Form (2NF)",
+      "C": "Third Normal Form (3NF)",
+      "D": "Boyce-Codd Normal Form (BCNF)"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.7258834838867188,
+      "alignment_lexical": 0.32191873215796046,
+      "grade": 13.945882352941176,
+      "plausibility": 0.7200946807861328,
+      "plausibility_lexical": 0.31746031746031744,
+      "diversity": 0.3845118681589762
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-221228-cba643d5",
+   "topic_id": "SYSTEM-2022-1",
+   "model": "cohere",
+   "condition": "baseline",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "latency_seconds": 1.479106855392456,
+   "prompt_tokens": 5202,
+   "completion_tokens": 434,
+   "cost_usd": 0.003469,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 2777,
+     "question": "Which of the following best describes the primary purpose of a transfer function in system analysis?",
+     "options": {
+      "A": "To visually represent the structure of a system using blocks and arrows.",
+      "B": "To mathematically describe the dynamic behavior of a linear time-invariant system.",
+      "C": "To provide a comprehensive description of a system's dynamics using state variables.",
+      "D": "To classify signals based on their domain and range structures."
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6804485321044922,
+      "alignment_lexical": 0.31905872654785533,
+      "grade": 11.3,
+      "plausibility": 0.4019555151462555,
+      "plausibility_lexical": 0.17025898078529655,
+      "diversity": 0.6854407687981923
+     }
+    },
+    {
+     "thesis_question_id": 2778,
+     "question": "In a closed loop control system, which element is responsible for comparing the measured output to the setpoint?",
+     "options": {
+      "A": "Sensor",
+      "B": "Controller",
+      "C": "Actuator",
+      "D": "Process"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6342910528182983,
+      "alignment_lexical": 0.3615998900875694,
+      "grade": 11.096666666666668,
+      "plausibility": 0.3288796842098236,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.682574341694514
+     }
+    },
+    {
+     "thesis_question_id": 2779,
+     "question": "Which signal property is characterized by the condition that the signal repeats at regular intervals?",
+     "options": {
+      "A": "Causal",
+      "B": "Even",
+      "C": "Periodic",
+      "D": "Deterministic"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.5527443885803223,
+      "alignment_lexical": 0.22512308740513493,
+      "grade": 13.073333333333338,
+      "plausibility": 0.21851922571659088,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.7740834901730219
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-223556-62722f5c",
+   "topic_id": "SYSTEM-2022-1",
+   "model": "cohere",
+   "condition": "multi_agent",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "latency_seconds": 3.9799233436584474,
+   "prompt_tokens": 7197,
+   "completion_tokens": 496,
+   "cost_usd": 0.0045905,
+   "status": "approved",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3822,
+     "question": "Which of the following best describes the primary purpose of a transfer function in system analysis?",
+     "options": {
+      "A": "To visually represent the structure of a system using blocks and arrows.",
+      "B": "To mathematically describe the dynamic behavior and frequency response of a linear time-invariant system.",
+      "C": "To provide a comprehensive description of a system's dynamics using state variables.",
+      "D": "To classify signals based on their domain and range structures."
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6804485321044922,
+      "alignment_lexical": 0.31905872654785533,
+      "grade": 11.3,
+      "plausibility": 0.38825663924217224,
+      "plausibility_lexical": 0.18219461697722564,
+      "diversity": 0.6854407687981923
+     }
+    },
+    {
+     "thesis_question_id": 3823,
+     "question": "In a closed-loop control system, which element is responsible for comparing the measured output to the setpoint?",
+     "options": {
+      "A": "Sensor",
+      "B": "Controller",
+      "C": "Actuator",
+      "D": "Process"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6337449550628662,
+      "alignment_lexical": 0.3615998900875694,
+      "grade": 12.55764705882353,
+      "plausibility": 0.3288796842098236,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.682574341694514
+     }
+    },
+    {
+     "thesis_question_id": 3824,
+     "question": "Which signal property is characterized by the condition that the signal is zero for all negative time?",
+     "options": {
+      "A": "Even signal",
+      "B": "Odd signal",
+      "C": "Causal signal",
+      "D": "Periodic signal"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.4856536090373993,
+      "alignment_lexical": 0.2703812748202765,
+      "grade": 11.169411764705881,
+      "plausibility": 0.40592503547668457,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.46505432327588403
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-222437-7dbb69b1",
+   "topic_id": "SYSTEM-2022-1",
+   "model": "cohere",
+   "condition": "rag",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "latency_seconds": 4.6400285243988035,
+   "prompt_tokens": 5391,
+   "completion_tokens": 464,
+   "cost_usd": 0.0036235000000000004,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3307,
+     "question": "Which of the following best describes a system in the context of systems fundamentals?",
+     "options": {
+      "A": "A collection of interconnected components that interact to achieve a specific goal.",
+      "B": "A single component that processes inputs to generate outputs.",
+      "C": "A set of external inputs and outputs without internal components.",
+      "D": "A mathematical model representing a linear time-invariant system."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7105679512023926,
+      "alignment_lexical": 0.3268769385480739,
+      "grade": 9.255714285714287,
+      "plausibility": 0.4338108003139496,
+      "plausibility_lexical": 0.1328976034858388,
+      "diversity": 0.5787914097309113
+     }
+    },
+    {
+     "thesis_question_id": 3308,
+     "question": "What is the primary purpose of a transfer function in system analysis?",
+     "options": {
+      "A": "To visually represent the structure of a system using blocks and arrows.",
+      "B": "To mathematically describe the dynamic behavior of a linear time-invariant system.",
+      "C": "To provide a comprehensive description of a system's dynamics using state variables.",
+      "D": "To classify signals based on their domain and range structures."
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6522058248519897,
+      "alignment_lexical": 0.30350750669031334,
+      "grade": 9.740000000000002,
+      "plausibility": 0.4019555151462555,
+      "plausibility_lexical": 0.17025898078529655,
+      "diversity": 0.6854407687981923
+     }
+    },
+    {
+     "thesis_question_id": 3309,
+     "question": "Which of the following is a key advantage of closed-loop control systems over open-loop control systems?",
+     "options": {
+      "A": "Simplicity and lack of stability issues.",
+      "B": "Ability to correct for disturbances and errors.",
+      "C": "Independence from system output measurements.",
+      "D": "Lower complexity and reduced potential for instability."
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.8046221733093262,
+      "alignment_lexical": 0.26510496134085954,
+      "grade": 11.3,
+      "plausibility": 0.2575957477092743,
+      "plausibility_lexical": 0.08333333333333333,
+      "diversity": 0.7037021964788437
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-221228-cba643d5",
+   "topic_id": "SYSTEM-2022-1",
+   "model": "gpt-oss",
+   "condition": "baseline",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "latency_seconds": 0.920406436920166,
+   "prompt_tokens": 4474,
+   "completion_tokens": 593,
+   "cost_usd": 0.00020537999999999996,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 2772,
+     "question": "What does the transfer function H(s) represent for a linear time-invariant system?",
+     "options": {
+      "A": "The ratio of the Laplace transform of the output to the Laplace transform of the input",
+      "B": "The product of the time-domain output and the time-domain input",
+      "C": "The sum of the Fourier transforms of the input and output signals",
+      "D": "The difference between the state-space matrices A and B"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7945666909217834,
+      "alignment_lexical": 0.359939100875358,
+      "grade": 9.740000000000002,
+      "plausibility": 0.2961812913417816,
+      "plausibility_lexical": 0.23450854700854698,
+      "diversity": 0.7088684886693954
+     }
+    },
+    {
+     "thesis_question_id": 2773,
+     "question": "In state-space representation, which matrix directly maps the external inputs to the state variables?",
+     "options": {
+      "A": "The output matrix C",
+      "B": "The input matrix B",
+      "C": "The state matrix A",
+      "D": "The feedthrough matrix D"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.7170387506484985,
+      "alignment_lexical": 0.23201461048896557,
+      "grade": 13.470000000000002,
+      "plausibility": 0.5884081721305847,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.4819745024045309
+     }
+    },
+    {
+     "thesis_question_id": 2774,
+     "question": "Which signal class has both a countable domain and a countable range?",
+     "options": {
+      "A": "Continuous‑time signal",
+      "B": "Discrete‑time signal",
+      "C": "Discrete‑valued signal",
+      "D": "Digital signal"
+     },
+     "answer": "D",
+     "metrics": {
+      "alignment": 0.7587102651596069,
+      "alignment_lexical": 0.2215409635850303,
+      "grade": 6.790000000000003,
+      "plausibility": 0.5665662288665771,
+      "plausibility_lexical": 0.25,
+      "diversity": 0.30152829488118493
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-223556-62722f5c",
+   "topic_id": "SYSTEM-2022-1",
+   "model": "gpt-oss",
+   "condition": "multi_agent",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "latency_seconds": 5.340866661071777,
+   "prompt_tokens": 9007,
+   "completion_tokens": 3470,
+   "cost_usd": 0.00068661,
+   "status": "approved",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3827,
+     "question": "A transfer function H(s) of an LTI system is defined as",
+     "options": {
+      "A": "the ratio Y(s)/X(s)",
+      "B": "the ratio X(s)/Y(s)",
+      "C": "the magnitude |Y(s)|/|X(s)|",
+      "D": "the convolution of Y(s) and X(s)"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.8371783494949341,
+      "alignment_lexical": 0.32229606662828514,
+      "grade": 4.790909090909089,
+      "plausibility": 0.7349398136138916,
+      "plausibility_lexical": 0.7222222222222222,
+      "diversity": 0.4383810758590698
+     }
+    },
+    {
+     "thesis_question_id": 3828,
+     "question": "A continuous-time signal is causal if",
+     "options": {
+      "A": "it is zero for all t < 0",
+      "B": "it is zero for all t > 0",
+      "C": "it is symmetric about the vertical axis",
+      "D": "its magnitude is bounded by a finite constant"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6743291616439819,
+      "alignment_lexical": 0.21004614924751036,
+      "grade": 10.350000000000001,
+      "plausibility": 0.4791747033596039,
+      "plausibility_lexical": 0.41269841269841273,
+      "diversity": 0.8374974379936854
+     }
+    },
+    {
+     "thesis_question_id": 3829,
+     "question": "Which of the following is NOT a standard element of a closed-loop control system",
+     "options": {
+      "A": "Sensor that measures the process output",
+      "B": "Actuator that adjusts the process input",
+      "C": "Amplifier that boosts the control signal",
+      "D": "Controller that compares measurement to setpoint"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.7401971817016602,
+      "alignment_lexical": 0.34572474137217146,
+      "grade": 9.255714285714287,
+      "plausibility": 0.2794986665248871,
+      "plausibility_lexical": 0.16363636363636366,
+      "diversity": 0.6017977595329285
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-222437-7dbb69b1",
+   "topic_id": "SYSTEM-2022-1",
+   "model": "gpt-oss",
+   "condition": "rag",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "latency_seconds": 3.8915162086486816,
+   "prompt_tokens": 4647,
+   "completion_tokens": 1152,
+   "cost_usd": 0.00027765,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3297,
+     "question": "Which statement best defines a system in engineering terms?",
+     "options": {
+      "A": "A collection of interconnected components that interact to achieve a specific goal.",
+      "B": "A single component that operates independently without interacting with other elements.",
+      "C": "A set of inputs and outputs without any internal relationships.",
+      "D": "An arrangement of devices that only processes signals without a defined purpose."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6450939774513245,
+      "alignment_lexical": 0.1485284049647284,
+      "grade": 7.58666666666667,
+      "plausibility": 0.5169835090637207,
+      "plausibility_lexical": 0.11842105263157894,
+      "diversity": 0.4574523766835531
+     }
+    },
+    {
+     "thesis_question_id": 3298,
+     "question": "Which signal class has both a countable domain and a countable range?",
+     "options": {
+      "A": "Digital signals, whose domain and range are both countable sets.",
+      "B": "Discrete‑time signals, which have a countable domain but continuous range.",
+      "C": "Continuous‑time signals, possessing an uncountable domain and range.",
+      "D": "Discrete‑valued signals, characterized by a continuous domain and countable range."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7587102651596069,
+      "alignment_lexical": 0.2215409635850303,
+      "grade": 6.790000000000003,
+      "plausibility": 0.7642483711242676,
+      "plausibility_lexical": 0.27148692810457514,
+      "diversity": 0.1513742605845133
+     }
+    },
+    {
+     "thesis_question_id": 3299,
+     "question": "In a closed‑loop control system, which component directly measures the process output?",
+     "options": {
+      "A": "Sensor, which measures the system output and provides feedback to the controller.",
+      "B": "Actuator, which adjusts the process input based on the controller signal.",
+      "C": "Controller, which compares the measured output with the setpoint.",
+      "D": "Process, which represents the plant being controlled."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.5929087400436401,
+      "alignment_lexical": 0.28049198673958886,
+      "grade": 11.706666666666667,
+      "plausibility": 0.5597931146621704,
+      "plausibility_lexical": 0.18611111111111112,
+      "diversity": 0.5656237900257111
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-221228-cba643d5",
+   "topic_id": "SYSTEM-2022-1",
+   "model": "llama33",
+   "condition": "baseline",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "latency_seconds": 1.3804728507995605,
+   "prompt_tokens": 4354,
+   "completion_tokens": 487,
+   "cost_usd": 0.000687422,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 2782,
+     "question": "What is the primary purpose of a transfer function in control systems?",
+     "options": {
+      "A": "To describe the system's dynamic behavior and frequency response",
+      "B": "To analyze the system's stability and controllability",
+      "C": "To design the controller and tune its parameters",
+      "D": "To measure the system's output and compare it to the setpoint"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6313477754592896,
+      "alignment_lexical": 0.2818283990695767,
+      "grade": 7.773333333333333,
+      "plausibility": 0.44972553849220276,
+      "plausibility_lexical": 0.305982905982906,
+      "diversity": 0.5837241113185883
+     }
+    },
+    {
+     "thesis_question_id": 2783,
+     "question": "Which of the following signals is used to analyze a system's frequency response?",
+     "options": {
+      "A": "Step signal",
+      "B": "Impulse signal",
+      "C": "Sinusoidal signal",
+      "D": "Ramp signal"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.6666616797447205,
+      "alignment_lexical": 0.4362087244809172,
+      "grade": 9.44923076923077,
+      "plausibility": 0.4860628843307495,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.46912250916163123
+     }
+    },
+    {
+     "thesis_question_id": 2784,
+     "question": "What is the difference between a continuous-time (CT) signal and a discrete-time (DT) signal?",
+     "options": {
+      "A": "CT signals are periodic, while DT signals are aperiodic",
+      "B": "CT signals have a countable domain, while DT signals have an uncountable domain",
+      "C": "CT signals are represented as mathematical functions of real numbers, while DT signals are represented as functions of integers",
+      "D": "CT signals are used for digital systems, while DT signals are used for analog systems"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.5380891561508179,
+      "alignment_lexical": 0.3447719674738155,
+      "grade": 10.941428571428574,
+      "plausibility": 0.7189376950263977,
+      "plausibility_lexical": 0.2738791423001949,
+      "diversity": 0.32249563932418823
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-223556-62722f5c",
+   "topic_id": "SYSTEM-2022-1",
+   "model": "llama33",
+   "condition": "multi_agent",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "latency_seconds": 6.435470104217529,
+   "prompt_tokens": 8481,
+   "completion_tokens": 1509,
+   "cost_usd": 0.00141858,
+   "status": "revision_exhausted",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3837,
+     "question": "What is the primary purpose of a transfer function in system analysis?",
+     "options": {
+      "A": "To describe the system's internal structure and component relationships",
+      "B": "To quantify the system's dynamic behavior and frequency response",
+      "C": "To analyze the system's stability in the time domain",
+      "D": "To design the system's control strategy and optimize performance"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6522058248519897,
+      "alignment_lexical": 0.30350750669031334,
+      "grade": 9.740000000000002,
+      "plausibility": 0.48945608735084534,
+      "plausibility_lexical": 0.3111111111111111,
+      "diversity": 0.6001090308030446
+     }
+    },
+    {
+     "thesis_question_id": 3838,
+     "question": "Which type of signal is commonly used to analyze a system's response and behavior?",
+     "options": {
+      "A": "Impulse signal, to test the system's frequency response",
+      "B": "Step signal, to evaluate the system's transient and steady-state response",
+      "C": "Sinusoidal signal, to analyze the system's harmonic distortion",
+      "D": "Random noise signal, to test the system's robustness and noise rejection"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.646473228931427,
+      "alignment_lexical": 0.37746612887462044,
+      "grade": 9.255714285714287,
+      "plausibility": 0.3943118155002594,
+      "plausibility_lexical": 0.3551470588235294,
+      "diversity": 0.59996963540713
+     }
+    },
+    {
+     "thesis_question_id": 3839,
+     "question": "What is the main difference between open-loop and closed-loop control systems?",
+     "options": {
+      "A": "Open-loop systems use feedback to adjust the input, while closed-loop systems do not",
+      "B": "Open-loop systems are more stable and less sensitive to disturbances",
+      "C": "Open-loop systems are independent of the system output, while closed-loop systems depend on it",
+      "D": "Open-loop systems are more complex and difficult to implement"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.8057504892349243,
+      "alignment_lexical": 0.22363575443599087,
+      "grade": 9.081818181818182,
+      "plausibility": 0.7538138031959534,
+      "plausibility_lexical": 0.2253968253968254,
+      "diversity": 0.2581280072530111
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-222437-7dbb69b1",
+   "topic_id": "SYSTEM-2022-1",
+   "model": "llama33",
+   "condition": "rag",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "latency_seconds": 4.473837566375733,
+   "prompt_tokens": 4527,
+   "completion_tokens": 523,
+   "cost_usd": 0.0007170999999999999,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 3302,
+     "question": "What is the primary purpose of a transfer function in a linear system?",
+     "options": {
+      "A": "To describe the system's behavior in the time domain",
+      "B": "To quantify the system's dynamic behavior and frequency response",
+      "C": "To analyze the system's stability in the frequency domain",
+      "D": "To design the system's control strategy"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6602238416671753,
+      "alignment_lexical": 0.32834382443203286,
+      "grade": 8.541538461538462,
+      "plausibility": 0.583389163017273,
+      "plausibility_lexical": 0.3406593406593406,
+      "diversity": 0.5333920518557231
+     }
+    },
+    {
+     "thesis_question_id": 3303,
+     "question": "Which of the following signals is used to analyze a system's transient and steady-state response?",
+     "options": {
+      "A": "Impulse signal",
+      "B": "Step signal",
+      "C": "Sinusoidal signal",
+      "D": "Ramp signal"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6509893536567688,
+      "alignment_lexical": 0.4407810647446687,
+      "grade": 9.140000000000004,
+      "plausibility": 0.5387391448020935,
+      "plausibility_lexical": 0.3333333333333333,
+      "diversity": 0.5217987795670826
+     }
+    },
+    {
+     "thesis_question_id": 3304,
+     "question": "What is the main difference between a continuous-time (CT) signal and a discrete-time (DT) signal?",
+     "options": {
+      "A": "The domain of the signal, with CT signals having a countable set and DT signals having an uncountable set",
+      "B": "The range of the signal, with CT signals having a finite range and DT signals having an infinite range",
+      "C": "The domain of the signal, with CT signals having an uncountable set and DT signals having a countable set",
+      "D": "The sampling rate of the signal, with CT signals having a higher sampling rate than DT signals"
+     },
+     "answer": "C",
+     "metrics": {
+      "alignment": 0.5217158198356628,
+      "alignment_lexical": 0.3371936361658275,
+      "grade": 10.713333333333338,
+      "plausibility": 0.7346678376197815,
+      "plausibility_lexical": 0.6949317738791424,
+      "diversity": 0.4128071268399557
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-221228-cba643d5",
+   "topic_id": "SYSTEM-2022-1",
+   "model": "mistral-small",
+   "condition": "baseline",
+   "provider": "openrouter",
+   "requested_model_id": "mistralai/mistral-small-2603",
+   "returned_model_id": "mistralai/mistral-small-2603",
+   "latency_seconds": 6.241427326202393,
+   "prompt_tokens": 4256,
+   "completion_tokens": 535,
+   "cost_usd": 0.00019188,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 4012,
+     "question": "Which of the following best describes the primary purpose of a transfer function in system analysis?",
+     "options": {
+      "A": "To represent the system's dynamic behavior as a ratio of output to input in the Laplace domain.",
+      "B": "To provide a time-domain differential equation describing the system's internal state transitions.",
+      "C": "To visualize the physical connections between system components using directed arrows.",
+      "D": "To quantify the system's energy efficiency by comparing input and output power levels."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6804485321044922,
+      "alignment_lexical": 0.31905872654785533,
+      "grade": 11.3,
+      "plausibility": 0.4408609867095947,
+      "plausibility_lexical": 0.20833333333333334,
+      "diversity": 0.7156954507033031
+     }
+    },
+    {
+     "thesis_question_id": 4013,
+     "question": "In the context of signal classification, which property distinguishes a discrete-time signal from a continuous-time signal?",
+     "options": {
+      "A": "The domain of the signal's independent variable (countable vs. uncountable).",
+      "B": "The range of the signal's dependent variable (quantized vs. continuous).",
+      "C": "The presence of feedback in the system generating the signal.",
+      "D": "The use of Laplace transforms for signal analysis."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.5562031269073486,
+      "alignment_lexical": 0.2810076861554531,
+      "grade": 16.462500000000002,
+      "plausibility": 0.33721956610679626,
+      "plausibility_lexical": 0.27619047619047615,
+      "diversity": 0.7699674069881439
+     }
+    },
+    {
+     "thesis_question_id": 4014,
+     "question": "Which of the following is a key advantage of closed-loop control systems over open-loop systems?",
+     "options": {
+      "A": "Ability to correct for disturbances and reduce steady-state error.",
+      "B": "Simpler implementation with fewer components required.",
+      "C": "Lower sensitivity to measurement noise in the feedback path.",
+      "D": "Guaranteed stability regardless of system parameters."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.8007305860519409,
+      "alignment_lexical": 0.2641176159441311,
+      "grade": 10.713333333333338,
+      "plausibility": 0.37891730666160583,
+      "plausibility_lexical": 0.018518518518518517,
+      "diversity": 0.8635637164115906
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-223556-62722f5c",
+   "topic_id": "SYSTEM-2022-1",
+   "model": "mistral-small",
+   "condition": "multi_agent",
+   "provider": "openrouter",
+   "requested_model_id": "mistralai/mistral-small-2603",
+   "returned_model_id": "mistralai/mistral-small-2603",
+   "latency_seconds": 46.41866664886474,
+   "prompt_tokens": 9452,
+   "completion_tokens": 2369,
+   "cost_usd": 0.00056784,
+   "status": "approved",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 4697,
+     "question": "Which of the following best describes the primary purpose of a transfer function in system analysis?",
+     "options": {
+      "A": "To mathematically represent the relationship between a system's input and output in the Laplace domain by relating output Y(s) to input X(s) as H(s) = Y(s)/X(s)",
+      "B": "To visualize signal flow between system components using block diagrams with directional arrows",
+      "C": "To quantify energy dissipation in system components during steady-state operation by analyzing thermal effects",
+      "D": "To determine the maximum amplitude of a periodic signal without distortion by evaluating its frequency spectrum"
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.6804485321044922,
+      "alignment_lexical": 0.31905872654785533,
+      "grade": 11.3,
+      "plausibility": 0.18316857516765594,
+      "plausibility_lexical": 0.11432877158683612,
+      "diversity": 0.8789867237210274
+     }
+    },
+    {
+     "thesis_question_id": 4698,
+     "question": "In the context of control systems, which element of a closed-loop system is responsible for comparing the measured output to the desired setpoint?",
+     "options": {
+      "A": "Actuator: Converts control signals into physical actions to influence the process",
+      "B": "Controller: Computes the difference between the setpoint and measured output to generate control signals",
+      "C": "Sensor: Measures the system output and provides feedback to the controller",
+      "D": "Process: The system or plant being controlled that transforms inputs into outputs"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.6481792330741882,
+      "alignment_lexical": 0.4035809132976219,
+      "grade": 14.414782608695656,
+      "plausibility": 0.4951739013195038,
+      "plausibility_lexical": 0.17314814814814816,
+      "diversity": 0.482783297697703
+     }
+    },
+    {
+     "thesis_question_id": 4699,
+     "question": "Which of the following signal types is characterized by a domain that is both countable in its independent variable and its range of values?",
+     "options": {
+      "A": "Discrete-Time Signal: Defined only at specific time instants but with continuous amplitude values",
+      "B": "Digital Signal: Quantized in both time and amplitude, with both domain and range being countable",
+      "C": "Continuous-Time Signal: Defined for all time instants with continuous amplitude values",
+      "D": "Discrete-Valued Signal: Quantized in amplitude but defined over a continuous time domain"
+     },
+     "answer": "B",
+     "metrics": {
+      "alignment": 0.7247020602226257,
+      "alignment_lexical": 0.29250285961148426,
+      "grade": 13.436666666666667,
+      "plausibility": 0.6685614585876465,
+      "plausibility_lexical": 0.23078149920255184,
+      "diversity": 0.2661362290382385
+     }
+    }
+   ]
+  },
+  {
+   "batch_id": "BATCH-20261019-222437-7dbb69b1",
+   "topic_id": "SYSTEM-2022-1",
+   "model": "mistral-small",
+   "condition": "rag",
+   "provider": "openrouter",
+   "requested_model_id": "mistralai/mistral-small-2603",
+   "returned_model_id": "mistralai/mistral-small-2603",
+   "latency_seconds": 45.22585892677307,
+   "prompt_tokens": 4437,
+   "completion_tokens": 654,
+   "cost_usd": 0.00021159,
+   "status": "valid",
+   "calls": 1,
+   "items": [
+    {
+     "thesis_question_id": 4522,
+     "question": "Which of the following best describes the role of the transfer function in a linear time-invariant (LTI) system?",
+     "options": {
+      "A": "A mathematical representation quantifying the system's dynamic behavior and frequency response as the ratio of output to input in the Laplace domain.",
+      "B": "A graphical depiction of signal flow and component interconnections used for visualizing system structure and signal paths.",
+      "C": "A time-domain differential equation describing the relationship between system inputs, outputs, and state variables.",
+      "D": "A statistical method for analyzing stochastic signals by decomposing them into sinusoidal components."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.7341214418411255,
+      "alignment_lexical": 0.3593914285571012,
+      "grade": 9.785555555555558,
+      "plausibility": 0.4271984100341797,
+      "plausibility_lexical": 0.1055311176278918,
+      "diversity": 0.6698715885480244
+     }
+    },
+    {
+     "thesis_question_id": 4523,
+     "question": "In the context of signal classification, which property distinguishes a discrete-time signal from a continuous-time signal?",
+     "options": {
+      "A": "The domain of the signal is countable (e.g., integers) rather than uncountable (e.g., real numbers).",
+      "B": "The range of the signal is quantized into a finite set of values.",
+      "C": "The signal is periodic with a fixed period T.",
+      "D": "The signal is deterministic and does not contain any random components."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.5562031269073486,
+      "alignment_lexical": 0.2810076861554531,
+      "grade": 16.462500000000002,
+      "plausibility": 0.4503134787082672,
+      "plausibility_lexical": 0.15894660894660895,
+      "diversity": 0.646224210659663
+     }
+    },
+    {
+     "thesis_question_id": 4524,
+     "question": "Which of the following is a key advantage of closed-loop control systems over open-loop control systems?",
+     "options": {
+      "A": "The ability to correct for disturbances and errors by using feedback from the system output.",
+      "B": "Simplified design and implementation due to the absence of feedback loops.",
+      "C": "Reduced sensitivity to external noise and interference.",
+      "D": "Lower computational requirements for real-time operation."
+     },
+     "answer": "A",
+     "metrics": {
+      "alignment": 0.8046221733093262,
+      "alignment_lexical": 0.26510496134085954,
+      "grade": 11.3,
+      "plausibility": 0.34688353538513184,
+      "plausibility_lexical": 0.11524644945697576,
+      "diversity": 0.7168731441100438
+     }
+    }
+   ]
+  }
+ ]
+}
