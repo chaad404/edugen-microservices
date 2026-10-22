@@ -1,0 +1,113 @@
+# EduGen: four services (Lab, Generator, Evaluator, Review), the client behind an nginx gateway,
+# PostgreSQL and RabbitMQ.  Start everything with:  docker compose up --build
+# Then open http://localhost:8080  (RabbitMQ console: http://localhost:15672)
+#
+# Every setting has a development default, so no configuration is needed for a local demo.
+# Copy .env.example to .env to change passwords or to add API keys for the live models.
+
+name: edugen
+
+services:
+  gateway:
+    build:
+      context: .
+      dockerfile: gateway/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      lab: { condition: service_healthy }
+      review: { condition: service_healthy }
+    restart: unless-stopped
+    networks: [edugen]
+
+  lab:
+    build: ./services/lab
+    environment:
+      DATABASE_URL: postgresql+psycopg://lab:${LAB_DB_PASSWORD:-lab-dev-password}@postgres:5432/lab
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-edugen}:${RABBITMQ_PASSWORD:-edugen-dev-password}@rabbitmq:5672/%2F?heartbeat=60
+      EVALUATOR_URL: http://evaluator:8000
+      GENERATOR_URL: http://generator:8000
+      REVIEW_URL: http://review:8000
+      LAB_JWT_SECRET: ${LAB_JWT_SECRET:-dev-only-lab-secret-change-me-0123456789}
+      OPERATOR_USERNAME: ${OPERATOR_USERNAME:-operator}
+      OPERATOR_PASSWORD: ${OPERATOR_PASSWORD:-edugen-demo}
+      ROOT_PATH: /api/lab
+    depends_on:
+      postgres: { condition: service_healthy }
+      rabbitmq: { condition: service_healthy }
+    restart: unless-stopped
+    networks: [edugen]
+
+  review:
+    build: ./services/review
+    environment:
+      DATABASE_URL: postgresql+psycopg://review:${REVIEW_DB_PASSWORD:-review-dev-password}@postgres:5432/review
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-edugen}:${RABBITMQ_PASSWORD:-edugen-dev-password}@rabbitmq:5672/%2F?heartbeat=60
+      LAB_JWT_SECRET: ${LAB_JWT_SECRET:-dev-only-lab-secret-change-me-0123456789}
+      REVIEW_JWT_SECRET: ${REVIEW_JWT_SECRET:-dev-only-review-secret-change-me-012345}
+      ROOT_PATH: /api/review
+    depends_on:
+      postgres: { condition: service_healthy }
+      rabbitmq: { condition: service_healthy }
+    restart: unless-stopped
+    networks: [edugen]
+
+  # No ports and no container name: more instances share the job queue (docker compose up --scale generator=3)
+  generator:
+    build: ./services/generator
+    environment:
+      RABBITMQ_URL: amqp://${RABBITMQ_USER:-edugen}:${RABBITMQ_PASSWORD:-edugen-dev-password}@rabbitmq:5672/%2F?heartbeat=60
+      EVALUATOR_URL: http://evaluator:8000
+      OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      COHERE_API_KEY: ${COHERE_API_KEY:-}
+      SIMULATOR_DELAY_SECONDS: ${SIMULATOR_DELAY_SECONDS:-1.5}
+    depends_on:
+      rabbitmq: { condition: service_healthy }
+    restart: unless-stopped
+    networks: [edugen]
+
+  evaluator:
+    build: ./services/evaluator
+    restart: unless-stopped
+    networks: [edugen]
+
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres-dev-password}
+      LAB_DB_PASSWORD: ${LAB_DB_PASSWORD:-lab-dev-password}
+      REVIEW_DB_PASSWORD: ${REVIEW_DB_PASSWORD:-review-dev-password}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      - ./infra/postgres/init-databases.sh:/docker-entrypoint-initdb.d/init-databases.sh:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+    networks: [edugen]
+
+  rabbitmq:
+    image: rabbitmq:4.1-management-alpine
+    environment:
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-edugen}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-edugen-dev-password}
+    ports:
+      - "127.0.0.1:15672:15672"  # management console, local machine only
+    volumes:
+      - rabbitdata:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+    restart: unless-stopped
+    networks: [edugen]
+
+volumes:
+  pgdata:
+  rabbitdata:
+
+networks:
+  edugen:
