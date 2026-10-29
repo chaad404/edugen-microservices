@@ -11,7 +11,7 @@ questions **blind**, so the automatic scores can be compared with human judgemen
   is correct or useful.
 - **Audience:** instructors and researchers who compare models (the Lab), expert reviewers (blind rating) and
   students (an anonymous practice quiz).
-- **Current status:** all four services and the web client are implemented. 146 automated tests pass,
+- **Current status:** all four services and the web client are implemented. 147 automated tests pass,
   including cross-service contract tests. The whole system runs with `docker compose up --build`, and the
   end-to-end smoke test (`scripts/smoke_test.py`) passes through the gateway. Next: the live-model run and a
   pilot review study.
@@ -35,7 +35,7 @@ docker compose up --build     # then open http://localhost:8080  (operator / edu
 
 | Week | Goal / Milestone | Verifiable Result |
 |---|---|---|
-| 07 (Oct 19–23) | Concept, architecture and implementation of the four services and the client | Services in `services/`, React client in `client/`, 146 passing tests, Evaluator reproduces the thesis metrics |
+| 07 (Oct 19–23) | Concept, architecture and implementation of the four services and the client | Services in `services/`, React client in `client/`, 147 passing tests, Evaluator reproduces the thesis metrics |
 | 08 (Oct 26–30) | Container deployment and documentation | `docker compose up --build` runs the whole system; documents in `docs/` with Mermaid diagrams |
 | 09 (Nov 2–6) | Live-model run and pilot study | One small experiment with the thesis models (cost estimate shown before start); a pilot review study opened |
 | 10 (Nov 9–13) | Pilot with reviewers and students | Ratings and quiz answers collected; agreement and correlations shown in the Lab |
