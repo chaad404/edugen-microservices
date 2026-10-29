@@ -116,3 +116,26 @@ def test_the_factory_needs_the_mistral_key(catalog, monkeypatch):
         build_provider(catalog["mistral-small"])
     monkeypatch.setenv("MISTRAL_API_KEY", "k")
     assert isinstance(build_provider(catalog["mistral-small"]), MistralProvider)
+
+
+def _body_sent(provider_class, spec):
+    seen = {}
+
+    def handler(request):
+        seen["body"] = json.loads(request.content)
+        if provider_class is CohereProvider:
+            return httpx.Response(200, json={"message": {"content": [{"type": "text", "text": "{}"}]}, "usage": {}})
+        return httpx.Response(200, json={"choices": [{"message": {"content": "{}"}}], "usage": {}})
+
+    provider_class(spec, "k", client_returning(handler)).chat(MESSAGES, json_mode=True)
+    return seen["body"]
+
+
+def test_the_fixed_settings_are_sent_in_each_apis_own_names(catalog):
+    for provider_class, alias in ((OpenRouterProvider, "llama33"), (MistralProvider, "mistral-small")):
+        body = _body_sent(provider_class, catalog[alias])
+        assert (body["temperature"], body["top_p"], body["max_tokens"]) == (0.7, 1.0, 8192), alias
+    cohere = _body_sent(CohereProvider, catalog["cohere"])
+    assert (cohere["temperature"], cohere["p"], cohere["max_tokens"]) == (0.7, 1.0, 8192) and "top_p" not in cohere
+    gpt_oss = _body_sent(OpenRouterProvider, catalog["gpt-oss"])
+    assert gpt_oss["reasoning"] == {"effort": "medium"} and gpt_oss["provider"]["order"] == ["groq"]

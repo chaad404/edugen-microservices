@@ -1,9 +1,15 @@
+import json
+
 import pytest
 
 from conftest import FakeEvaluator, ScriptedProvider, no_sleep, provider_error, request_envelope
 from generator.evaluator_client import EvaluatorUnavailable
 from generator.jobs import COMPLETED, FAILED, JobHandler, PoisonMessage, Runtime, parse_job
 from generator.providers import build_provider
+
+QUESTION = {"question": "Which mechanism retransmits a lost segment before the retransmission timer expires?",
+            "options": {"A": "Fast retransmit", "B": "Slow start", "C": "Congestion avoidance", "D": "Delayed ACK"},
+            "answer": "A"}
 
 
 def handler(catalog, evaluator=None, provider_factory=build_provider) -> JobHandler:
@@ -65,3 +71,16 @@ def test_verify_repair_needs_the_evaluator(catalog):
 
     result = handler(catalog, evaluator=DownEvaluator())(request_envelope(strategy="verify_repair"))
     assert result["payload"]["error_kind"] == "evaluator_unavailable"
+
+
+def test_the_settings_and_the_route_are_recorded_with_every_result(catalog, monkeypatch):
+    provider = ScriptedProvider([json.dumps({"questions": [QUESTION] * 3})])
+    done = handler(catalog, provider_factory=lambda spec, **kw: provider)(request_envelope(model="llama33"))
+    assert done["type"] == COMPLETED
+    assert done["payload"]["trace"]["settings"] == catalog["llama33"].request_settings()
+
+    monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
+    failed = handler(catalog)(request_envelope(model="gpt-oss"))["payload"]
+    assert failed["error_kind"] == "model_unavailable"
+    assert (failed["provider"], failed["requested_model_id"]) == ("openrouter", "openai/gpt-oss-120b")
+    assert failed["trace"]["settings"]["reasoning"] == {"effort": "medium"}

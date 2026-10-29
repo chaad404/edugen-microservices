@@ -8,6 +8,19 @@ import httpx
 # 400 stays retryable: some hosts answer 400 when one sample was not valid JSON (seen in the thesis on Groq).
 NON_RETRYABLE_STATUS = frozenset({401, 402, 403, 404, 410})
 
+# Shared setting name -> the parameter name of each provider's API (Cohere calls top_p "p")
+SETTING_NAMES = {
+    "openrouter": {"temperature": "temperature", "top_p": "top_p", "max_tokens": "max_tokens"},
+    "mistral": {"temperature": "temperature", "top_p": "top_p", "max_tokens": "max_tokens"},
+    "cohere": {"temperature": "temperature", "top_p": "p", "max_tokens": "max_tokens"},
+}
+
+
+def request_fields(provider: str, settings: dict, extra: dict) -> dict:
+    """The settings in the provider's own parameter names, plus the model's provider-specific fields."""
+    names = SETTING_NAMES[provider]
+    return {**{names[key]: value for key, value in settings.items()}, **extra}
+
 
 @dataclass(frozen=True)
 class ChatResult:

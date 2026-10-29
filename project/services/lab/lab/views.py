@@ -25,6 +25,8 @@ def job_view(job: Job) -> dict:
         "id": job.id, "topic_id": job.topic.topic_id, "domain": job.topic.domain, "model": job.model,
         "strategy": job.strategy, "status": job.status, "provider": job.provider,
         "requested_model_id": job.requested_model_id, "returned_model_id": job.returned_model_id,
+        # Sampling settings sent with the requests; None for jobs run before they were recorded
+        "settings": (job.trace or {}).get("settings"),
         "simulated": job.simulated, "attempts": job.attempts, "calls": job.calls,
         "prompt_tokens": job.prompt_tokens, "completion_tokens": job.completion_tokens,
         "cost_usd": round(job.cost_usd, 6), "latency_seconds": job.latency_seconds,

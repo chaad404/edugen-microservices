@@ -50,6 +50,7 @@ flowchart LR
 | Thesis element | In EduGen |
 |---|---|
 | Four models of 70–120B parameters, pinned to one host each | Model registry of the Generator (`services/generator/generator/models.yaml`) |
+| Fixed sampling settings for every model: temperature 0.7, top_p 1.0, max_tokens 8,192, gpt-oss reasoning effort medium | Registry `defaults`, translated for each API and recorded with every job (jobs before 29 October 2026 used each provider's defaults) |
 | Conditions: zero-shot baseline, prompt v2 with key balancing, verify → repair → select | Generator strategies `baseline`, `prompt_v2`, `verify_repair` |
 | Three Pillars metrics (dense all-MiniLM-L6-v2 and lexical variants) with frozen band cut points | Evaluator; reproduces the stored thesis scores within 0.00005 on 60 thesis questions |
 | Blind expert review (UC-200) | Review service, expert flow; agreement in the Lab |

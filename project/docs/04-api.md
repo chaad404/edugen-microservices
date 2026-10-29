@@ -20,7 +20,7 @@ All routes except login need `Authorization: Bearer <operator token>`.
 | `GET /topics`, `GET /topics/{id}`, `POST /topics` | Topics; custom topics need a source text of at least 200 characters | 200 / 201 + `Location` | 404, 409 exists |
 | `POST /experiments/estimate` | Jobs and estimated API cost of a planned run | 200 | 422 |
 | `POST /experiments` | Start a run (`Idempotency-Key` header recommended) | **202 Accepted** + `Location` | 409 key reused, 422 unknown / unavailable model, paid model not confirmed, topic without text; 503 |
-| `GET /experiments`, `GET /experiments/{id}` | List; status resource with jobs | 200 | 404 |
+| `GET /experiments`, `GET /experiments/{id}` | List; status resource with jobs (provider, model IDs and the sampling `settings` of each) | 200 | 404 |
 | `GET /experiments/{id}/items` | Questions with metrics, bands, flags; filters `model`, `strategy`, `topic_id`, paging | 200 | 404 |
 | `GET /experiments/{id}/summary` | Comparison per model × strategy | 200 | 404 |
 | `POST /studies` | Stratified blind sample, handed to the Review service | 201 + codes (or `draft` with `publish_error`) | 422 no items, study too large |
@@ -69,7 +69,7 @@ Location: /api/lab/experiments/5b0e…
 
 | Method and path | Purpose |
 |---|---|
-| `GET /v1/models` | Registry: alias, label, host, model ID, size, price per million tokens, `available`, the missing key if not |
+| `GET /v1/models` | Registry: alias, label, host, model ID, size, price per million tokens, sampling `settings`, `available`, the missing key if not |
 | `GET /v1/strategies` | `baseline`, `prompt_v2`, `verify_repair` |
 | `GET /health`, `GET /ready` | Liveness; readiness = connected to RabbitMQ |
 

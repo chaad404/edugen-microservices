@@ -1,6 +1,9 @@
 import pytest
 
+from generator.catalog import load_catalog
 from generator.validation import InvalidOutput, normalized_questions, parse_json_object
+
+THESIS_SETTINGS = {"temperature": 0.7, "top_p": 1.0, "max_tokens": 8192}
 
 QUESTION = {"question": "Which mechanism retransmits a lost segment early?",
             "options": {"A": "Fast retransmit", "B": "Slow start", "C": "Congestion avoidance", "D": "Delayed ACK"},
@@ -33,6 +36,22 @@ def test_the_thesis_models_are_pinned_to_one_host(catalog):
     mistral = catalog["mistral-small"]
     assert (mistral.provider, mistral.model_id, mistral.api_key_env) == ("mistral", "mistral-small-2603", "MISTRAL_API_KEY")
     assert mistral.routing == {}
+
+
+def test_every_real_model_gets_the_same_fixed_settings(catalog):
+    for alias in ("gpt-oss", "llama33", "mistral-small", "cohere"):
+        assert catalog[alias].settings == THESIS_SETTINGS, alias
+    assert catalog["simulator"].settings == {} and catalog["simulator"].request_settings() == {}
+    assert catalog["gpt-oss"].request_settings() == {**THESIS_SETTINGS, "reasoning": {"effort": "medium"}}
+    assert catalog["gpt-oss"].public()["settings"]["reasoning"] == {"effort": "medium"}
+
+
+def test_an_unknown_setting_stops_the_registry_from_loading(tmp_path):
+    registry = tmp_path / "models.yaml"
+    registry.write_text("defaults: {temprature: 0.7}\n"
+                        "models:\n  m: {provider: openrouter, model_id: x/y, api_key_env: K}\n", encoding="utf-8")
+    with pytest.raises(ValueError, match="temprature"):
+        load_catalog(str(registry))
 
 
 @pytest.mark.parametrize("text", [

@@ -4,6 +4,11 @@
 # Prices are list prices per million tokens (estimates, not invoices).
 pricing_version: "2026-10-19"
 
+# The thesis protocol's fixed sampling settings, sent unchanged to every real model so that differences come
+# from the models and not from each provider's own defaults (jobs before 2026-10-29 used those defaults).
+# max_tokens leaves room for gpt-oss's reasoning tokens. Each job records the settings it was run with.
+defaults: {temperature: 0.7, top_p: 1.0, max_tokens: 8192}
+
 models:
   simulator:
     label: Offline simulator
@@ -20,6 +25,7 @@ models:
     api_key_env: OPENROUTER_API_KEY
     params: 117B total / 5.1B active (MoE)
     routing: {order: [groq], allow_fallbacks: false, require_parameters: true}
+    extra: {reasoning: {effort: medium}}   # as in the thesis protocol
     rpm: 30
     price_per_m: {input: 0.15, output: 0.60}
 

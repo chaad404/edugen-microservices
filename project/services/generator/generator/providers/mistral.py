@@ -4,7 +4,7 @@ from typing import Optional
 import httpx
 
 from ..catalog import ModelSpec
-from .base import ChatResult, ProviderError, post_json
+from .base import ChatResult, ProviderError, post_json, request_fields
 
 
 def _text(content) -> str:
@@ -29,7 +29,8 @@ class MistralProvider:
         self.client = client or httpx.Client(timeout=httpx.Timeout(timeout, connect=10.0))
 
     def chat(self, messages: list[dict], json_mode: bool) -> ChatResult:
-        body = {"model": self.spec.model_id, "messages": messages, **self.spec.settings}
+        body = {"model": self.spec.model_id, "messages": messages,
+                **request_fields(self.name, self.spec.settings, self.spec.extra)}
         if json_mode:
             body["response_format"] = {"type": "json_object"}
         data = post_json(self.client, self.url, {"Authorization": f"Bearer {self._api_key}"}, body)

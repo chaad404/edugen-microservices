@@ -85,10 +85,14 @@ class JobHandler:
         def failed(kind: str, message: str, *, status=None, attempts: int = 0, usage: Optional[Usage] = None) -> dict:
             usage = usage or Usage()
             logger.warning("Job %s (%s/%s) failed: %s: %s", job.job_id, job.model, job.strategy, kind, message)
-            return reply(FAILED, {"error_kind": kind, "error": message[:500], "status_code": status,
-                                  "attempts": attempts, "prompt_tokens": usage.prompt_tokens,
-                                  "completion_tokens": usage.completion_tokens,
-                                  "cost_usd": round(spec.cost(usage.prompt_tokens, usage.completion_tokens), 6) if spec else 0.0})
+            payload = {"error_kind": kind, "error": message[:500], "status_code": status,
+                       "attempts": attempts, "prompt_tokens": usage.prompt_tokens,
+                       "completion_tokens": usage.completion_tokens,
+                       "cost_usd": round(spec.cost(usage.prompt_tokens, usage.completion_tokens), 6) if spec else 0.0}
+            if spec is not None:  # failed jobs record the route and the settings too
+                payload.update(provider=spec.provider, requested_model_id=spec.model_id,
+                               trace={"settings": spec.request_settings()})
+            return reply(FAILED, payload)
 
         if spec is None:
             return failed("invalid_job", f"Unknown model '{job.model}'")
@@ -119,5 +123,6 @@ class JobHandler:
             "attempts": outcome.attempts, "calls": usage.calls, "prompt_tokens": usage.prompt_tokens,
             "completion_tokens": usage.completion_tokens,
             "cost_usd": round(spec.cost(usage.prompt_tokens, usage.completion_tokens), 6),
-            "strategy_status": outcome.status, "trace": outcome.trace, "items": outcome.items,
+            "strategy_status": outcome.status, "trace": {**outcome.trace, "settings": spec.request_settings()},
+            "items": outcome.items,
         })

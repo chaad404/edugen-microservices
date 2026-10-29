@@ -33,8 +33,8 @@ Every message on RabbitMQ has the same envelope:
 | Type | Kind | Producer → consumer | Payload (main fields) |
 |---|---|---|---|
 | `generation.requested` | Command | Lab → Generator (queue `generator.jobs`) | `job_id`, `experiment_id`, `model`, `strategy`, `num_questions`, `topic {topic_id, title, domain, source_text}` |
-| `generation.completed` | Event | Generator → Lab (queue `lab.generation-results`) | `job_id`, `items[]`, `provider`, requested and returned model ID, `simulated`, `attempts`, `calls`, tokens, `cost_usd`, `latency_seconds`, `strategy_status`, `trace` |
-| `generation.failed` | Event | Generator → Lab | `job_id`, `error_kind`, `error`, `status_code`, `attempts`, tokens spent, `cost_usd` |
+| `generation.completed` | Event | Generator → Lab (queue `lab.generation-results`) | `job_id`, `items[]`, `provider`, requested and returned model ID, `simulated`, `attempts`, `calls`, tokens, `cost_usd`, `latency_seconds`, `strategy_status`, `trace` (with the sampling `settings` sent) |
+| `generation.failed` | Event | Generator → Lab | `job_id`, `error_kind`, `error`, `status_code`, `attempts`, tokens spent, `cost_usd`, `provider`, requested model ID, `trace` (the `settings`) |
 | `review.rating.submitted` | Event | Review → Lab (queue `lab.review-events`) | `study_id`, `item_ref`, `rater` (pseudonym), four scores, `key_correct`, `unusable`, `comment`, `revision` |
 | `review.answer.submitted` | Event | Review → Lab | `study_id`, `item_ref`, `participant` (anonymous ID), `chosen` (original label), `correct`, `time_ms` |
 | `review.feedback.submitted` | Event | Review → Lab | `study_id`, `item_ref`, `participant`, `clarity`, `helpfulness`, `difficulty` |
