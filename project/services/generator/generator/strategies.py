@@ -6,6 +6,9 @@ Generation strategies, one per thesis condition (thesis docs/pipeline_v2.md):
 - verify_repair: Writer (3 focused prompt-v2 calls) -> Evaluator checks -> Repairer (LLM, only the flagged
                  options, at most 2 rounds) -> Selector (code) -> key balancing. This is the thesis's
                  multi-agent v2 without course-material retrieval (the course PDFs are not part of this project).
+
+Every strategy records the key letters as the model wrote them (`raw_answers` in the trace) before any
+re-ordering, as the thesis does, so a model's key-position bias stays measurable after the keys are balanced.
 """
 import hashlib
 import random
@@ -90,6 +93,10 @@ def shuffle_batch(questions: Sequence[dict], *seed_parts) -> list[dict]:
 
 # --- Strategies ---
 
+def _letters(items: Sequence[dict]) -> list[str]:
+    return [q["answer"] for q in items]
+
+
 def _expect(n: int):
     return lambda data: normalized_questions(data, n)
 
@@ -97,14 +104,14 @@ def _expect(n: int):
 def baseline(job: Job, llm, evaluator=None) -> Outcome:
     items, usage, attempts, returned = llm.complete_json(prompts.v1_messages(job.source_text, job.num_questions),
                                                          _expect(job.num_questions))
-    return Outcome(items, usage, attempts, returned, "valid")
+    return Outcome(items, usage, attempts, returned, "valid", {"raw_answers": _letters(items)})
 
 
 def prompt_v2(job: Job, llm, evaluator=None) -> Outcome:
     items, usage, attempts, returned = llm.complete_json(prompts.v2_messages(job.source_text, job.num_questions),
                                                          _expect(job.num_questions))
     return Outcome(shuffle_batch(items, job.topic_id, job.model, "prompt_v2"), usage, attempts, returned, "valid",
-                   {"key_balance": "shuffled"})
+                   {"key_balance": "shuffled", "raw_answers": _letters(items)})
 
 
 def _stem_overlap(a: dict, b: dict) -> float:
@@ -204,7 +211,9 @@ def verify_repair(job: Job, llm, evaluator) -> Outcome:
         trace["repairs"].append({"round": round_no, "attempted": len(todo), "valid": len(valid), "accepted": accepted})
 
     chosen = select(candidates, verdicts, job.num_questions)
-    final = shuffle_batch([candidates[i] for i in chosen], job.topic_id, job.model, "verify_repair")
+    picked = [candidates[i] for i in chosen]
+    trace["key_balance"], trace["raw_answers"] = "shuffled", _letters(picked)
+    final = shuffle_batch(picked, job.topic_id, job.model, "verify_repair")
     trace["selected_passing_all_checks"] = sum(verdicts[i].passed for i in chosen)
     status = "all_passed" if all(verdicts[i].passed for i in chosen) else "best_effort"
     return Outcome(final, usage, attempts, returned, status, trace)

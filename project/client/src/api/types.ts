@@ -127,6 +127,9 @@ export interface SummaryGroup {
   pillars: Record<PillarKey, PillarSummary>;
   key_positions: Record<string, number>;
   key_position_p: number | null;
+  raw_key_positions: Record<string, number> | null;
+  raw_key_position_p: number | null;
+  raw_keys_known: number;
   key_longest_rate: number | null;
   flags: Record<string, number>;
   flags_checked: number;

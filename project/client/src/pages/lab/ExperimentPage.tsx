@@ -108,7 +108,7 @@ function SummaryView({ summary, modelLabel }: { summary: Summary | null; modelLa
             <tr>
               <th>Model</th><th>Strategy</th><th>n</th>
               {PILLARS.map((p) => <th key={p.key} title={p.hint}>{p.key} {p.name}</th>)}
-              <th title="Share of keys at A/B/C/D; chi-square p against 25% each">Key position</th>
+              <th title="Share of keys at A/B/C/D as the model wrote them, before any re-ordering; chi-square p against 25% each">Key position</th>
               <th>Item flags</th><th>Cost</th>
             </tr>
           </thead>
@@ -133,7 +133,12 @@ function SummaryView({ summary, modelLabel }: { summary: Summary | null; modelLa
                     </td>
                   );
                 })}
-                <td><KeyPositions counts={g.key_positions} p={g.key_position_p} /></td>
+                <td>
+                  {g.raw_key_positions
+                    ? <KeyPositions counts={g.raw_key_positions} p={g.raw_key_position_p} />
+                    : <><KeyPositions counts={g.key_positions} p={g.key_position_p} />
+                      <div className="muted small" title="The model's own letters were not recorded for this run">after balancing</div></>}
+                </td>
                 <td className="small">
                   {Object.entries(g.flags).slice(0, 3).map(([flag, n]) => <div key={flag}>{flagLabel(flag)}: {n}</div>)}
                   {g.flags_checked === 0 && <span className="muted">checking…</span>}

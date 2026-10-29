@@ -14,6 +14,8 @@ from .views import PILLAR_METRICS
 
 GOOD = {"Better", "Best"}
 LABELS = ("A", "B", "C", "D")
+# Strategies whose options the Generator re-orders after generation: the stored key is not the model's own letter
+KEY_BALANCING = {"prompt_v2", "verify_repair"}
 
 
 def _mean(values) -> Optional[float]:
@@ -32,17 +34,36 @@ def chi2_sf_3(x: float) -> float:
     return math.erfc(math.sqrt(x / 2)) + math.sqrt(2 * x / math.pi) * math.exp(-x / 2)
 
 
-def key_checks(items: list[Item]) -> dict:
-    n = len(items)
-    counts = Counter(i.answer for i in items)
+def _positions(letters: list[str]) -> tuple[dict, Optional[float]]:
+    """Counts per letter and the chi-square p against 25% each."""
+    counts = Counter(letters)
     positions = {label: counts.get(label, 0) for label in LABELS}
-    if not n:
-        return {"key_positions": positions, "key_position_p": None, "key_longest_rate": None}
-    expected = n / 4
+    if not letters:
+        return positions, None
+    expected = len(letters) / 4
     chi2 = sum((c - expected) ** 2 / expected for c in positions.values())
+    return positions, round(chi2_sf_3(chi2), 6)
+
+
+def raw_letter(item: Item, job: Job) -> Optional[str]:
+    """The key letter as the model wrote it; None if the key was moved before such letters were recorded."""
+    recorded = (job.trace or {}).get("raw_answers")
+    if recorded is not None:
+        return recorded[item.position] if item.position < len(recorded) else None
+    return None if job.strategy in KEY_BALANCING else item.answer
+
+
+def key_checks(items: list[Item], jobs: list[Job]) -> dict:
+    n = len(items)
+    positions, p = _positions([i.answer for i in items])
+    by_id = {j.id: j for j in jobs}
+    raw = [letter for letter in (raw_letter(i, by_id[i.job_id]) for i in items if i.job_id in by_id) if letter in LABELS]
+    raw_positions, raw_p = _positions(raw) if raw else (None, None)
     longest = sum(1 for i in items if all(len(i.options[i.answer]) > len(i.options[o]) for o in LABELS if o != i.answer))
-    return {"key_positions": positions, "key_position_p": round(chi2_sf_3(chi2), 6),
-            "key_longest_rate": round(longest / n, 4)}
+    return {"key_positions": positions, "key_position_p": p,
+            # As the model wrote them; for balanced strategies these differ from the stored keys
+            "raw_key_positions": raw_positions, "raw_key_position_p": raw_p, "raw_keys_known": len(raw),
+            "key_longest_rate": round(longest / n, 4) if n else None}
 
 
 def group_summary(items: list[Item], jobs: list[Job], framework: Optional[Framework]) -> dict:
@@ -66,7 +87,7 @@ def group_summary(items: list[Item], jobs: list[Job], framework: Optional[Framew
     flag_counts = Counter(flag.split(":")[0] for i in scored for flag in (i.flags or []))
     return {
         "questions": len(items), "valid": sum(1 for i in items if i.valid), "means": means, "pillars": pillars,
-        **key_checks(scored), "flags": dict(flag_counts.most_common()),
+        **key_checks(scored, jobs), "flags": dict(flag_counts.most_common()),
         "flags_checked": sum(1 for i in scored if i.flags is not None),
         "jobs": len(jobs), "failed_jobs": sum(1 for j in jobs if j.status == "failed"),
         "simulated": any(j.simulated for j in jobs),

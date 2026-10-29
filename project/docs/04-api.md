@@ -22,7 +22,7 @@ All routes except login need `Authorization: Bearer <operator token>`.
 | `POST /experiments` | Start a run (`Idempotency-Key` header recommended) | **202 Accepted** + `Location` | 409 key reused, 422 unknown / unavailable model, paid model not confirmed, topic without text; 503 |
 | `GET /experiments`, `GET /experiments/{id}` | List; status resource with jobs (provider, model IDs and the sampling `settings` of each) | 200 | 404 |
 | `GET /experiments/{id}/items` | Questions with metrics, bands, flags; filters `model`, `strategy`, `topic_id`, paging | 200 | 404 |
-| `GET /experiments/{id}/summary` | Comparison per model × strategy | 200 | 404 |
+| `GET /experiments/{id}/summary` | Comparison per model × strategy; key positions as stored and as the model wrote them (`raw_key_positions`, null where they were not recorded) | 200 | 404 |
 | `POST /studies` | Stratified blind sample, handed to the Review service | 201 + codes (or `draft` with `publish_error`) | 422 no items, study too large |
 | `GET /studies`, `GET /studies/{id}` | Studies | 200 | 404 |
 | `POST /studies/{id}/publish` | Retry handing a draft study to the Review service | 200 | 503 still unavailable |

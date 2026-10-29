@@ -63,6 +63,25 @@ def test_prompt_v2_balances_the_keys(catalog):
     assert Counter(q["answer"] for q in outcome.items) == {"A": 2, "B": 2, "C": 2, "D": 2}
 
 
+def test_every_strategy_records_the_key_letters_as_the_model_wrote_them(catalog):
+    written = [_q(f"Which statement about slow start case number {i} is correct here?", "A") for i in range(8)]
+    reply = json.dumps({"questions": written})
+    spec = catalog["llama33"]
+    balanced = prompt_v2(make_job(num_questions=8, strategy="prompt_v2", model="llama33"),
+                         client_for(spec, ScriptedProvider([reply])))
+    assert balanced.trace["raw_answers"] == ["A"] * 8 and balanced.trace["key_balance"] == "shuffled"
+    assert Counter(q["answer"] for q in balanced.items) == {"A": 2, "B": 2, "C": 2, "D": 2}
+    # Position i of raw_answers belongs to item i: the key text it names is the item's key text
+    assert all(q["options"][q["answer"]] == written[i]["options"][balanced.trace["raw_answers"][i]]
+               for i, q in enumerate(balanced.items))
+
+    kept = baseline(make_job(num_questions=8, model="llama33"), client_for(spec, ScriptedProvider([reply])))
+    assert kept.trace["raw_answers"] == [q["answer"] for q in kept.items] == ["A"] * 8
+
+    repaired = verify_repair(make_job(num_questions=3, strategy="verify_repair"), simulator_client(catalog), FakeEvaluator())
+    assert len(repaired.trace["raw_answers"]) == len(repaired.items) == 3 and repaired.trace["key_balance"] == "shuffled"
+
+
 def test_verify_repair_repairs_flagged_candidates_and_reports_all_passed(catalog):
     evaluator = FakeEvaluator(first_flags=("weak:B", "weak:C"))
     outcome = verify_repair(make_job(strategy="verify_repair"), simulator_client(catalog), evaluator)

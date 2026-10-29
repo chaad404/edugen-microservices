@@ -133,8 +133,10 @@ def test_an_experiment_runs_through_generator_and_evaluator(system):
     for group in summary["groups"]:
         assert group["pillars"]["P1"]["band_of_mean"] is not None and group["valid"] == 6
     # The key-balancing strategies spread the keys over all four letters
-    balanced = next(g for g in summary["groups"] if g["strategy"] == "prompt_v2")["key_positions"]
-    assert max(balanced.values()) - min(balanced.values()) <= 2
+    balanced = next(g for g in summary["groups"] if g["strategy"] == "prompt_v2")
+    assert max(balanced["key_positions"].values()) - min(balanced["key_positions"].values()) <= 2
+    # ... while the letters the model wrote before the balancing reach the Lab too
+    assert balanced["raw_keys_known"] == 6 and sum(balanced["raw_key_positions"].values()) == 6
 
     items = lab.get(f"/experiments/{experiment_id}/items", headers=auth).json()
     assert items["total"] == 18 and all(i["flags"] is not None for i in items["items"])

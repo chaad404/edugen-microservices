@@ -172,6 +172,32 @@ def test_summary_compares_models_and_strategies_with_bands(client, auth, session
     assert degraded["bands_available"] is False and degraded["groups"][0]["means"]["alignment"] == 0.72
 
 
+def test_the_comparison_shows_the_key_letters_as_the_model_wrote_them(client, auth, session_factory, fakes):
+    experiment_id = start(client, auth)
+    first, second = jobs_of(session_factory, experiment_id)  # baseline, prompt_v2
+    balanced = completed(second.id)  # stored keys A, B, C after balancing; the model wrote A three times
+    balanced["payload"]["trace"] = {"key_balance": "shuffled", "raw_answers": ["A", "A", "A"]}
+    with session_factory() as session:
+        handle_generation_result(session, completed(first.id))
+        handle_generation_result(session, balanced)
+        session.commit()
+    groups = {g["strategy"]: g for g in client.get(f"/experiments/{experiment_id}/summary", headers=auth).json()["groups"]}
+    assert groups["prompt_v2"]["key_positions"] == {"A": 1, "B": 1, "C": 1, "D": 0}
+    assert groups["prompt_v2"]["raw_key_positions"] == {"A": 3, "B": 0, "C": 0, "D": 0}
+    assert groups["prompt_v2"]["raw_keys_known"] == 3 and groups["prompt_v2"]["raw_key_position_p"] < 0.05
+    # Nothing re-orders the baseline's options, so its stored keys are the model's own letters
+    assert groups["baseline"]["raw_key_positions"] == groups["baseline"]["key_positions"]
+
+    # A balanced job from before the letters were recorded: its own letters are unknown, not guessed
+    older = start(client, auth)
+    old_balanced = jobs_of(session_factory, older)[1]
+    with session_factory() as session:
+        handle_generation_result(session, completed(old_balanced.id))
+        session.commit()
+    groups = {g["strategy"]: g for g in client.get(f"/experiments/{older}/summary", headers=auth).json()["groups"]}
+    assert groups["prompt_v2"]["raw_key_positions"] is None and groups["prompt_v2"]["raw_keys_known"] == 0
+
+
 def test_unknown_experiment_is_404(client, auth):
     assert client.get("/experiments/does-not-exist", headers=auth).status_code == 404
     with client:  # lifespan with run_seed=False still creates nothing new

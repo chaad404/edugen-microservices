@@ -11,7 +11,7 @@ questions **blind**, so the automatic scores can be compared with human judgemen
   is correct or useful.
 - **Audience:** instructors and researchers who compare models (the Lab), expert reviewers (blind rating) and
   students (an anonymous practice quiz).
-- **Current status:** all four services and the web client are implemented. 155 automated tests pass,
+- **Current status:** all four services and the web client are implemented. 157 automated tests pass,
   including cross-service contract tests. The whole system runs with `docker compose up --build`, and the
   end-to-end smoke test (`scripts/smoke_test.py`) passes through the gateway. Next: the live-model run and a
   pilot review study.
