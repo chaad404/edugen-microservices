@@ -59,6 +59,7 @@ services:
       RABBITMQ_URL: amqp://${RABBITMQ_USER:-edugen}:${RABBITMQ_PASSWORD:-edugen-dev-password}@rabbitmq:5672/%2F?heartbeat=60
       EVALUATOR_URL: http://evaluator:8000
       OPENROUTER_API_KEY: ${OPENROUTER_API_KEY:-}
+      MISTRAL_API_KEY: ${MISTRAL_API_KEY:-}
       COHERE_API_KEY: ${COHERE_API_KEY:-}
       SIMULATOR_DELAY_SECONDS: ${SIMULATOR_DELAY_SECONDS:-1.5}
     depends_on:

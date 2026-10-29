@@ -29,7 +29,10 @@ def test_cost_uses_the_price_per_million_tokens(catalog):
 def test_the_thesis_models_are_pinned_to_one_host(catalog):
     assert catalog["llama33"].routing["order"] == ["coreweave"]
     assert catalog["llama33"].routing["allow_fallbacks"] is False
-    assert catalog["mistral-small"].model_id == "mistralai/mistral-small-2603"
+    # Mistral serves its own model, called directly: no gateway routing
+    mistral = catalog["mistral-small"]
+    assert (mistral.provider, mistral.model_id, mistral.api_key_env) == ("mistral", "mistral-small-2603", "MISTRAL_API_KEY")
+    assert mistral.routing == {}
 
 
 @pytest.mark.parametrize("text", [

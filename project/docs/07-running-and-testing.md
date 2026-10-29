@@ -18,7 +18,8 @@ The first build downloads the base images and the embedding model (about 90 MB).
 | http://localhost:15672 | RabbitMQ console (user `edugen`, password `edugen-dev-password`) |
 
 Operator sign-in: `operator` / `edugen-demo`. Copy `.env.example` to `.env` to change passwords. To use the live
-thesis models, add `OPENROUTER_API_KEY` and `COHERE_API_KEY`; runs with them cost money and must be confirmed.
+thesis models, add `OPENROUTER_API_KEY`, `MISTRAL_API_KEY` and `COHERE_API_KEY`; runs with them cost money and
+must be confirmed.
 
 Stop with `docker compose down`; add `-v` to delete the databases as well.
 
@@ -60,7 +61,7 @@ On Linux and macOS the interpreter is `.venv/bin/python`.
 | Suite | Tests | Covers |
 |---|---|---|
 | Evaluator | 45 | Metrics on known values, band edges, every flag, batch checks, the problem-detail errors, dense model missing |
-| Generator | 47 | Providers against mocked HTTP (routing, 429, non-retryable codes), backoff, circuit breaker, rate limiter, simulator, all strategies, job failures, consumer acknowledgement and dead-lettering |
+| Generator | 50 | Providers against mocked HTTP (routing, Mistral's own API, 429, non-retryable codes), backoff, circuit breaker, rate limiter, simulator, all strategies, job failures, consumer acknowledgement and dead-lettering |
 | Lab | 31 | Login and token checks, 202 + outbox, paid-model guard, idempotency keys, inbox, evaluation retry, SSE resume, comparison, thesis import, stratified sampling, blindness of the study payload, review events, Krippendorff's alpha (reference example 0.743), Spearman |
 | Review | 21 | Study contract (extra fields rejected), idempotent creation, expert order and revisions, linear quiz, answer lock, the key revealed only after the answer is stored, option shuffling, record-level authorization |
 | Cross-service | 3 | The four real services connected through their APIs and message handlers: an experiment with all strategies, a blind study and its way back to the Lab, outbox safety |

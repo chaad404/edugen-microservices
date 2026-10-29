@@ -1,6 +1,7 @@
 # Model registry. An alias is never re-pointed to a different model (thesis rule): if a model must change,
 # add a new alias. The four thesis models are pinned to one host each, so every request runs on the same
-# backend and precision. Prices are list prices per million tokens (estimates, not invoices).
+# backend and precision. The route to that host may change (each job records the provider it used).
+# Prices are list prices per million tokens (estimates, not invoices).
 pricing_version: "2026-10-19"
 
 models:
@@ -32,14 +33,16 @@ models:
     rpm: 30
     price_per_m: {input: 0.71, output: 0.71}
 
+  # Same model on the same host as before; since 2026-10-29 it is called through Mistral's own API instead of
+  # OpenRouter, whose shared Mistral pool answered HTTP 429 (5 of the 9 Mistral jobs of the 23 October run
+  # failed on it).
   mistral-small:
     label: Mistral Small 4
-    provider: openrouter
-    model_id: mistralai/mistral-small-2603
-    api_key_env: OPENROUTER_API_KEY
+    provider: mistral
+    model_id: mistral-small-2603
+    api_key_env: MISTRAL_API_KEY
     params: 119B total / 6.5B active (MoE)
-    routing: {order: [mistral], allow_fallbacks: false, require_parameters: true}
-    rpm: 20
+    rpm: 6      # the account allows 100 requests and 100k tokens a minute; a call can use ~15k tokens
     price_per_m: {input: 0.15, output: 0.60}
 
   cohere:

@@ -8,13 +8,15 @@ flowchart TB
     expert([Expert reviewer])
     student([Student])
     edugen[EduGen]
-    openrouter[OpenRouter<br/>gpt-oss, Llama 3.3, Mistral Small 4]
+    openrouter[OpenRouter<br/>gpt-oss, Llama 3.3]
+    mistral[Mistral<br/>Mistral Small 4]
     cohere[Cohere<br/>Command A]
 
     operator -- "runs experiments, opens studies" --> edugen
     expert -- "rates questions blind" --> edugen
     student -- "answers the quiz" --> edugen
     edugen -- "chat completions (optional, paid)" --> openrouter
+    edugen -- "chat completions (optional, paid)" --> mistral
     edugen -- "chat (optional, paid)" --> cohere
 ```
 

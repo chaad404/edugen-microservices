@@ -11,7 +11,7 @@ questions **blind**, so the automatic scores can be compared with human judgemen
   is correct or useful.
 - **Audience:** instructors and researchers who compare models (the Lab), expert reviewers (blind rating) and
   students (an anonymous practice quiz).
-- **Current status:** all four services and the web client are implemented. 147 automated tests pass,
+- **Current status:** all four services and the web client are implemented. 150 automated tests pass,
   including cross-service contract tests. The whole system runs with `docker compose up --build`, and the
   end-to-end smoke test (`scripts/smoke_test.py`) passes through the gateway. Next: the live-model run and a
   pilot review study.
@@ -19,7 +19,7 @@ questions **blind**, so the automatic scores can be compared with human judgemen
 | Service | Responsibility |
 |---|---|
 | **Lab** | Experiments, generated questions and their scores, model comparison, review studies, live progress (SSE) |
-| **Generator** | Generation jobs from a RabbitMQ work queue; four thesis models via OpenRouter and Cohere, plus an offline simulator |
+| **Generator** | Generation jobs from a RabbitMQ work queue; four thesis models via OpenRouter, Mistral and Cohere, plus an offline simulator |
 | **Evaluator** | Stateless scoring: the Three Pillars, their frozen bands and the item-writing checks |
 | **Review** | Blind expert review and an anonymous student quiz; never learns which model wrote a question |
 
