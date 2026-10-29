@@ -61,10 +61,10 @@ On Linux and macOS the interpreter is `.venv/bin/python`.
 | Suite | Tests | Covers |
 |---|---|---|
 | Evaluator | 45 | Metrics on known values, band edges, every flag, batch checks, the problem-detail errors, dense model missing |
-| Generator | 55 | Providers against mocked HTTP (routing, Mistral's own API, the fixed settings in each API's names, 429, non-retryable codes), backoff, circuit breaker, rate limiter, simulator, all strategies and the key letters they record, job failures, consumer acknowledgement and dead-lettering |
-| Lab | 33 | Login and token checks, 202 + outbox, recorded sampling settings, key positions as the model wrote them, paid-model guard, idempotency keys, inbox, evaluation retry, SSE resume, comparison, thesis import, stratified sampling, blindness of the study payload, review events, Krippendorff's alpha (reference example 0.743), Spearman |
+| Generator | 56 | Registry (fixed settings, measured output per question), providers against mocked HTTP (routing, Mistral's own API, the settings in each API's names, 429, non-retryable codes), backoff, circuit breaker, rate limiter, simulator, all strategies and the key letters they record, job failures, consumer acknowledgement and dead-lettering |
+| Lab | 34 | Login and token checks, 202 + outbox, recorded sampling settings, key positions as the model wrote them, paid-model guard, expected cost and its true maximum, idempotency keys, inbox, evaluation retry, SSE resume, comparison, thesis import, stratified sampling, blindness of the study payload, review events, Krippendorff's alpha (reference example 0.743), Spearman |
 | Review | 21 | Study contract (extra fields rejected), idempotent creation, expert order and revisions, linear quiz, answer lock, the key revealed only after the answer is stored, option shuffling, record-level authorization |
-| Cross-service | 3 | The four real services connected through their APIs and message handlers: an experiment with all strategies, a blind study and its way back to the Lab, outbox safety |
+| Cross-service | 4 | The four real services connected through their APIs and message handlers: an experiment with all strategies, a blind study and its way back to the Lab, outbox safety, the Lab's cost bound against the Generator's call limits |
 
 ## Thesis data
 

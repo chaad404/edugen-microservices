@@ -1,7 +1,9 @@
 # Model registry. An alias is never re-pointed to a different model (thesis rule): if a model must change,
 # add a new alias. The four thesis models are pinned to one host each, so every request runs on the same
 # backend and precision. The route to that host may change (each job records the provider it used).
-# Prices are list prices per million tokens (estimates, not invoices).
+# Prices are list prices per million tokens (estimates, not invoices). output_tokens_per_question is what the
+# model wrote per question in the 23 October run (all strategies; gpt-oss includes its reasoning tokens); the
+# Lab uses it for the expected cost of a run.
 pricing_version: "2026-10-19"
 
 # The thesis protocol's fixed sampling settings, sent unchanged to every real model so that differences come
@@ -24,6 +26,7 @@ models:
     model_id: openai/gpt-oss-120b
     api_key_env: OPENROUTER_API_KEY
     params: 117B total / 5.1B active (MoE)
+    output_tokens_per_question: 326
     routing: {order: [groq], allow_fallbacks: false, require_parameters: true}
     extra: {reasoning: {effort: medium}}   # as in the thesis protocol
     rpm: 30
@@ -35,6 +38,7 @@ models:
     model_id: meta-llama/llama-3.3-70b-instruct
     api_key_env: OPENROUTER_API_KEY
     params: 70B dense
+    output_tokens_per_question: 96
     routing: {order: [coreweave], quantizations: [fp16], allow_fallbacks: false, require_parameters: true}
     rpm: 30
     price_per_m: {input: 0.71, output: 0.71}
@@ -48,6 +52,7 @@ models:
     model_id: mistral-small-2603
     api_key_env: MISTRAL_API_KEY
     params: 119B total / 6.5B active (MoE)
+    output_tokens_per_question: 132
     rpm: 6      # the account allows 100 requests and 100k tokens a minute; a call can use ~15k tokens
     price_per_m: {input: 0.15, output: 0.60}
 
@@ -57,5 +62,6 @@ models:
     model_id: command-a-03-2025
     api_key_env: COHERE_API_KEY
     params: 111B dense
+    output_tokens_per_question: 118
     rpm: 18
     price_per_m: {input: 2.50, output: 10.00}

@@ -67,6 +67,8 @@ Delivery is at-least-once, never exactly-once. Every consumer is therefore idemp
 
 - Models without a configured key are shown as unavailable and are refused; there is no silent fallback to the
   simulator.
-- `POST /experiments/estimate` and the client show the estimated cost before a run.
+- `POST /experiments/estimate` and the client show the cost before a run: the expected cost, from the output
+  each model wrote per question in earlier runs, and a true maximum, as if every call used all its attempts
+  and the full `max_tokens`.
 - An experiment with a paid model is refused (422 `paid-models-not-confirmed`) unless `confirm_paid` is set.
 - Every job stores its tokens and cost, including the tokens of failed attempts.

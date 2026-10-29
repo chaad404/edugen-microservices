@@ -1,7 +1,10 @@
+from types import SimpleNamespace
+
 from sqlalchemy import func, select
 
 from conftest import outbox_payloads
 from lab.models import Experiment, Job
+from lab.orchestration import estimate
 from lab.seed import import_thesis_sample
 from conftest import SEED
 
@@ -34,6 +37,7 @@ def test_paid_models_need_an_explicit_confirmation(client, auth):
     problem = response.json()
     assert problem["type"] == "urn:edugen:problem:paid-models-not-confirmed"
     assert problem["estimate"]["jobs"] == 4 and problem["estimate"]["estimated_cost_usd"] > 0
+    assert "expected about $" in problem["detail"] and "at most $" in problem["detail"]
     assert client.post("/experiments", json={**body, "confirm_paid": True}, headers=auth).status_code == 202
 
 
@@ -80,6 +84,23 @@ def test_without_the_model_catalog_no_experiment_starts(client, auth, fakes):
 def test_estimate_reports_jobs_and_cost(client, auth):
     body = client.post("/experiments/estimate", json={**BODY, "models": ["llama33"]}, headers=auth).json()
     assert body["jobs"] == 2 and body["paid_models"] == ["llama33"] and body["estimated_cost_usd"] > 0
+    assert body["max_cost_usd"] > body["estimated_cost_usd"] and body["max_per_model"]["llama33"] == body["max_cost_usd"]
+
+
+def test_the_estimate_uses_measured_output_and_bounds_every_attempt():
+    topic = SimpleNamespace(source_text="x" * 400)  # prompt: 400 / 4 + 900 = 1,000 tokens expected
+    model = {"alias": "m", "paid": True, "price_per_m": {"input": 1.0, "output": 2.0},
+             "settings": {"max_tokens": 8192}, "output_tokens_per_question": 100}
+    cost = estimate([topic], [model], ["baseline"], 5)
+    assert cost["estimated_cost_usd"] == round((1000 * 1.0 + 500 * 2.0) / 1e6, 4)
+    # At most: 4 attempts, each with the generous prompt (400 / 2 + 3,000) and the full max_tokens
+    assert cost["max_cost_usd"] == round(4 * (3200 * 1.0 + 8192 * 2.0) / 1e6, 4)
+
+    unbounded = {**model, "alias": "u", "settings": {}}
+    cost = estimate([topic], [model, unbounded], ["baseline"], 5)
+    assert cost["max_per_model"] == {"m": 0.0783, "u": None} and cost["max_cost_usd"] is None
+    free = {"alias": "simulator", "paid": False, "price_per_m": {"input": 0, "output": 0}}
+    assert estimate([topic], [free], ["verify_repair"], 5)["max_cost_usd"] == 0
 
 
 def test_catalog_routes(client, auth, fakes):

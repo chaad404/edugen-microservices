@@ -23,16 +23,18 @@ from sqlalchemy import select  # noqa: E402
 
 import evaluator.main as evaluator_main  # noqa: E402
 import generator.main as generator_main  # noqa: E402
+from generator import config as generator_config  # noqa: E402
 import lab.main as lab_main  # noqa: E402
 import review.main as review_main  # noqa: E402
 from evaluator.embedder import normalize  # noqa: E402
 from generator.catalog import load_catalog  # noqa: E402
 from generator.evaluator_client import EvaluatorClient as GeneratorsEvaluatorClient  # noqa: E402
 from generator.jobs import JobHandler, Runtime  # noqa: E402
+from generator.strategies import REPAIR_ROUNDS, WRITER_CALLS  # noqa: E402
 from lab.clients import EvaluatorClient, GeneratorClient, ReviewClient  # noqa: E402
 from lab.db import make_engine as lab_engine, make_session_factory as lab_sessions  # noqa: E402
 from lab.models import Base as LabBase, OutboxMessage as LabOutbox  # noqa: E402
-from lab.orchestration import evaluate_pending, handle_generation_result, mark_dispatched  # noqa: E402
+from lab.orchestration import MAX_CALLS_PER_JOB, evaluate_pending, handle_generation_result, mark_dispatched  # noqa: E402
 from lab.outbox import OutboxRelay  # noqa: E402
 from lab.seed import THESIS_EXPERIMENT_ID, import_thesis_sample, seed_demo_topics  # noqa: E402
 from lab.studies import handle_review_event  # noqa: E402
@@ -178,6 +180,12 @@ def test_a_blind_study_runs_through_the_review_service_and_back(system):
     assert analytics["progress"] == {"raters": 1, "ratings": 3, "participants": 1, "answers": 3, "feedback": 3}
     rated = [i for i in analytics["items"] if i["expert"]["ratings"]]
     assert len(rated) == 3 and all(i["model"] in {"cohere", "gpt-oss", "llama33", "mistral-small"} for i in rated)
+
+
+def test_the_labs_cost_bound_uses_the_generators_call_limits():
+    attempts = generator_config.MAX_ATTEMPTS
+    assert MAX_CALLS_PER_JOB == {"baseline": attempts, "prompt_v2": attempts,
+                                 "verify_repair": (WRITER_CALLS + REPAIR_ROUNDS) * attempts}
 
 
 def test_jobs_are_not_lost_when_published_before_any_consumer(system):

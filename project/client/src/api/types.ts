@@ -73,7 +73,9 @@ export interface Experiment {
 export interface Estimate {
   jobs: number;
   estimated_cost_usd: number;
+  max_cost_usd: number | null;
   per_model: Record<string, number>;
+  max_per_model: Record<string, number | null>;
   paid_models: string[];
 }
 

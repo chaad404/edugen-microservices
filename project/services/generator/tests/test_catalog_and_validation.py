@@ -46,6 +46,13 @@ def test_every_real_model_gets_the_same_fixed_settings(catalog):
     assert catalog["gpt-oss"].public()["settings"]["reasoning"] == {"effort": "medium"}
 
 
+def test_the_registry_carries_the_measured_output_per_question(catalog):
+    measured = {alias: catalog[alias].public()["output_tokens_per_question"]
+                for alias in ("gpt-oss", "llama33", "mistral-small", "cohere")}
+    assert measured == {"gpt-oss": 326, "llama33": 96, "mistral-small": 132, "cohere": 118}
+    assert catalog["simulator"].output_tokens_per_question is None
+
+
 def test_an_unknown_setting_stops_the_registry_from_loading(tmp_path):
     registry = tmp_path / "models.yaml"
     registry.write_text("defaults: {temprature: 0.7}\n"

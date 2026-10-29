@@ -24,6 +24,7 @@ class ModelSpec:
     extra: dict = field(default_factory=dict)  # request fields of one provider, e.g. gpt-oss reasoning effort
     params: Optional[str] = None
     notes: Optional[str] = None
+    output_tokens_per_question: Optional[int] = None  # measured; the Lab's expected cost uses it
 
     @property
     def paid(self) -> bool:
@@ -50,7 +51,8 @@ class ModelSpec:
             "params": self.params, "rpm": self.rpm, "paid": self.paid, "available": self.available,
             "requires": None if self.available else self.api_key_env,
             "price_per_m": {"input": self.price_input, "output": self.price_output},
-            "settings": self.request_settings(), "notes": self.notes,
+            "settings": self.request_settings(), "output_tokens_per_question": self.output_tokens_per_question,
+            "notes": self.notes,
         }
 
 
@@ -71,5 +73,6 @@ def load_catalog(path: str) -> dict[str, ModelSpec]:
             price_output=float(prices.get("output", 0)), api_key_env=spec.get("api_key_env"),
             routing=spec.get("routing") or {}, settings=settings, extra=spec.get("extra") or {},
             params=spec.get("params"), notes=spec.get("notes"),
+            output_tokens_per_question=spec.get("output_tokens_per_question"),
         )
     return catalog

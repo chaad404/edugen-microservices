@@ -27,9 +27,9 @@ CATALOG = [
     {"alias": "simulator", "label": "Offline simulator", "available": True, "paid": False, "requires": None,
      "price_per_m": {"input": 0, "output": 0}},
     {"alias": "llama33", "label": "Llama 3.3 70B", "available": True, "paid": True, "requires": None,
-     "price_per_m": {"input": 0.71, "output": 0.71}},
+     "price_per_m": {"input": 0.71, "output": 0.71}, "settings": {"max_tokens": 8192}, "output_tokens_per_question": 96},
     {"alias": "cohere", "label": "Command A", "available": False, "paid": True, "requires": "COHERE_API_KEY",
-     "price_per_m": {"input": 2.5, "output": 10.0}},
+     "price_per_m": {"input": 2.5, "output": 10.0}, "settings": {"max_tokens": 8192}, "output_tokens_per_question": 118},
 ]
 
 

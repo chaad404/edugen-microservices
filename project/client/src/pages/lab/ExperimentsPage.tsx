@@ -149,7 +149,10 @@ function NewExperiment() {
 
       {estimate && (
         <p className="estimate">
-          {estimate.jobs} jobs · estimated API cost up to <strong>{fmt.usd(estimate.estimated_cost_usd)}</strong>
+          {estimate.jobs} jobs · API cost expected about <strong>{fmt.usd(estimate.estimated_cost_usd)}</strong>
+          <span className="muted" title="If every call needed all its attempts and wrote the full max_tokens">
+            {" "}· at most {estimate.max_cost_usd === null ? "unbounded" : fmt.usd(estimate.max_cost_usd)}
+          </span>
         </p>
       )}
       {paid && (

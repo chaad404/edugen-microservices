@@ -26,8 +26,12 @@ from .problems import Problem
 
 STRATEGIES = ("baseline", "prompt_v2", "verify_repair")
 TERMINAL = {"succeeded", "failed"}
-# Calls per job for the cost estimate; verify_repair = 3 Writer calls + up to 2 repairs, plus a retry margin
+# Calls per job for the expected cost; verify_repair = 3 Writer calls + up to 2 repairs, plus a retry margin
 CALLS_PER_JOB = {"baseline": 1, "prompt_v2": 1, "verify_repair": 6}
+# The most calls a job can make: every planned call uses all 4 attempts of the Generator (3 Writer + 2 repair
+# calls for verify_repair). A contract test keeps these equal to the Generator's limits.
+MAX_CALLS_PER_JOB = {"baseline": 4, "prompt_v2": 4, "verify_repair": 20}
+OUTPUT_TOKENS_PER_QUESTION = 130  # for a model whose registry entry has no measured figure
 
 
 def channel(experiment_id: str) -> str:
@@ -35,21 +39,41 @@ def channel(experiment_id: str) -> str:
 
 
 def estimate(topics: Sequence[Topic], models: Sequence[dict], strategies: Sequence[str], n: int) -> dict:
-    """Rough upper estimate of the API cost: prompt ~ text/4 + template, ~130 output tokens per question."""
-    total, per_model = 0.0, {}
+    """
+    API cost of a planned run at list prices.
+    - Expected: prompt ~ text/4 + 900 template tokens, and the output per question the model wrote in earlier
+      runs (gpt-oss writes reasoning tokens as well), for the usual number of calls.
+    - At most: every call takes all its attempts and writes max_tokens, and the prompt is counted generously
+      (text/2 + 3,000 tokens for the template and repair items). A paid model without max_tokens has no bound.
+    """
+    expected_total, max_total = 0.0, 0.0
+    per_model, max_per_model = {}, {}
     for model in models:
         price = model["price_per_m"]
-        cost = 0.0
+        per_question = model.get("output_tokens_per_question") or OUTPUT_TOKENS_PER_QUESTION
+        max_tokens = (model.get("settings") or {}).get("max_tokens")
+        expected = maximum = 0.0
         for topic in topics:
-            prompt_tokens = len(topic.source_text or "") / 4 + 900
-            completion_tokens = 130 * n
+            text = len(topic.source_text or "")
             for strategy in strategies:
-                calls = CALLS_PER_JOB[strategy]
-                cost += calls * (prompt_tokens * price["input"] + completion_tokens * price["output"]) / 1e6
-        per_model[model["alias"]] = round(cost, 4)
-        total += cost
-    return {"jobs": len(topics) * len(models) * len(strategies), "estimated_cost_usd": round(total, 4),
-            "per_model": per_model}
+                expected += CALLS_PER_JOB[strategy] * (
+                    (text / 4 + 900) * price["input"] + per_question * n * price["output"]) / 1e6
+                if max_tokens:
+                    maximum += MAX_CALLS_PER_JOB[strategy] * (
+                        (text / 2 + 3000) * price["input"] + max_tokens * price["output"]) / 1e6
+        bounded = bool(max_tokens) or not model["paid"]
+        per_model[model["alias"]] = round(expected, 4)
+        max_per_model[model["alias"]] = round(maximum, 4) if bounded else None
+        expected_total += expected
+        max_total = max_total + maximum if bounded and max_total is not None else None
+    return {"jobs": len(topics) * len(models) * len(strategies), "estimated_cost_usd": round(expected_total, 4),
+            "max_cost_usd": round(max_total, 4) if max_total is not None else None,
+            "per_model": per_model, "max_per_model": max_per_model}
+
+
+def describe_cost(cost: dict) -> str:
+    bound = f"at most ${cost['max_cost_usd']}" if cost["max_cost_usd"] is not None else "no upper bound"
+    return f"expected about ${cost['estimated_cost_usd']}, {bound}"
 
 
 def validate_request(session: Session, topic_ids: Sequence[str], model_aliases: Sequence[str],
@@ -84,7 +108,7 @@ def create_experiment(session: Session, *, name: str, topic_ids: Sequence[str], 
     paid = [s["alias"] for s in specs if s["paid"]]
     if paid and not confirm_paid:
         raise Problem(422, "paid-models-not-confirmed", "Paid models need confirmation",
-                      f"{', '.join(paid)} call paid APIs (estimated up to ${cost['estimated_cost_usd']}). "
+                      f"{', '.join(paid)} call paid APIs ({describe_cost(cost)}). "
                       "Repeat the request with confirm_paid=true.", estimate=cost)
 
     experiment = Experiment(id=str(uuid.uuid4()), name=name, origin="live", status="running",
@@ -105,7 +129,8 @@ def create_experiment(session: Session, *, name: str, topic_ids: Sequence[str], 
                 }, correlation_id=experiment.id)
                 session.add(outbox_message(command, COMMANDS, GENERATION_REQUESTED, aggregate_id=job.id))
     record_event(session, channel(experiment.id), "experiment.created",
-                 {"experiment_id": experiment.id, "jobs": cost["jobs"], "estimated_cost_usd": cost["estimated_cost_usd"]})
+                 {"experiment_id": experiment.id, "jobs": cost["jobs"], "estimated_cost_usd": cost["estimated_cost_usd"],
+                  "max_cost_usd": cost["max_cost_usd"]})
     session.flush()  # applies the column defaults, so the response shows what will be stored
     return experiment
 
