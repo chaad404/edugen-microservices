@@ -165,22 +165,28 @@ def _revised(data: dict, count: int) -> list[Optional[dict]]:
 
 def verify_repair(job: Job, llm, evaluator) -> Outcome:
     usage, trace = Usage(), {"writer": [], "repairs": []}
-    candidates, attempts, returned = [], 0, None
+    candidates, attempts, returned, failures = [], 0, None, []
     for focus in prompts.focus_groups(job.source_text, WRITER_CALLS):
         try:
             items, u, a, r = llm.complete_json(prompts.v2_messages(job.source_text, job.num_questions, focus),
                                                _expect(job.num_questions))
         except GenerationFailed as e:  # one failed Writer call still leaves the others' candidates
             usage.merge(e.usage)
-            trace["writer"].append({"focus": focus, "outcome": "failed"})
+            failures.append(e)
+            trace["writer"].append({"focus": focus, "outcome": "failed", "error_kind": e.kind})
             continue
         usage.merge(u)
         attempts, returned = max(attempts, a), returned or r
         candidates += items
         trace["writer"].append({"focus": focus, "outcome": "ok", "attempts": a})
     if len(candidates) < job.num_questions:
-        raise GenerationFailed("invalid_output", f"Writer produced {len(candidates)} valid questions, "
-                               f"fewer than {job.num_questions}", attempts or llm.max_attempts, usage)
+        # Name the real cause: a host that did not answer is not a model that wrote unusable questions
+        at_host = sum(1 for e in failures if e.kind == "provider_error")
+        kind = "provider_error" if at_host else "invalid_output"
+        cause = f"{at_host} of {len(failures)} failed Writer calls failed at the host" if at_host else "unusable output"
+        raise GenerationFailed(kind, f"Writer produced {len(candidates)} valid questions, fewer than "
+                               f"{job.num_questions}: {cause} (last error: {failures[-1] if failures else 'none'})",
+                               attempts or llm.max_attempts, usage)
 
     verdicts = evaluator.check(job.source_text, candidates)
     trace["candidates"] = len(candidates)

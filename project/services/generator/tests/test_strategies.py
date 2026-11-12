@@ -94,8 +94,17 @@ def test_verify_repair_repairs_flagged_candidates_and_reports_all_passed(catalog
 
 def test_verify_repair_fails_when_no_writer_call_succeeds(catalog):
     provider = ScriptedProvider([provider_error(503)] * 3)
-    with pytest.raises(GenerationFailed):
+    with pytest.raises(GenerationFailed) as failure:
         verify_repair(make_job(strategy="verify_repair"), client_for(catalog["simulator"], provider, 1), FakeEvaluator())
+    # The host never answered, so the job must not be reported as unusable model output
+    assert failure.value.kind == "provider_error" and "3 of 3 failed Writer calls failed at the host" in str(failure.value)
+
+
+def test_verify_repair_blames_the_output_when_the_host_answered_every_time(catalog):
+    provider = ScriptedProvider(['{"questions": []}'] * 3)
+    with pytest.raises(GenerationFailed) as failure:
+        verify_repair(make_job(strategy="verify_repair"), client_for(catalog["simulator"], provider, 1), FakeEvaluator())
+    assert failure.value.kind == "invalid_output" and failure.value.usage.calls == 3
 
 
 def test_selection_prefers_passing_questions_and_skips_near_duplicates():
