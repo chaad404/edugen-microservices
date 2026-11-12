@@ -54,7 +54,7 @@ def create_app(runtime: Optional[Runtime] = None, *, start_worker: bool = config
     def models():
         return [spec.public() for spec in runtime.catalog.values()]
 
-    @app.get("/v1/strategies", tags=["catalog"], summary="Generation strategies (thesis conditions)")
+    @app.get("/v1/strategies", tags=["catalog"], summary="Generation strategies")
     def strategies():
         return [{"key": key, "description": text} for key, text in DESCRIPTIONS.items()]
 

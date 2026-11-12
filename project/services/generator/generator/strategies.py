@@ -28,8 +28,8 @@ REPAIR_BATCH = 8
 MAX_STEM_OVERLAP = 0.8
 
 DESCRIPTIONS = {
-    "baseline": "Thesis April 2026 zero-shot template: topic text only, one call.",
-    "prompt_v2": "Thesis prompt v2 (evidence quote, item-writing rules), one call, keys balanced over A-D.",
+    "baseline": "The thesis prototype's zero-shot template (v1): topic text only, one call.",
+    "prompt_v2": "The thesis prompt (v2: evidence quote, item-writing rules), one call, keys balanced over A-D.",
     "verify_repair": "Writer (3 calls) -> Evaluator checks -> targeted LLM repair (max 2 rounds) -> selection.",
 }
 

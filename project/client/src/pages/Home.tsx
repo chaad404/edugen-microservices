@@ -6,9 +6,9 @@ export default function Home() {
       <section className="hero">
         <h1>Which language model writes the better exam question?</h1>
         <p>
-          EduGen generates multiple-choice questions with several language models, scores them with the deterministic
-          Three Pillars framework of my BSc thesis, and lets experts and students evaluate them blind, so the automatic
-          scores can be compared with human judgement.
+          EduGen generates multiple-choice questions with several language models, scores them with deterministic text
+          metrics (the Three Pillars framework from my BSc thesis work), and lets experts and students evaluate them
+          blind, so the automatic scores can be compared with human judgement.
         </p>
       </section>
       <div className="role-grid">

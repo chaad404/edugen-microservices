@@ -15,8 +15,8 @@ from ..views import topic_view
 router = APIRouter(tags=["catalog"], dependencies=[Depends(require_operator)])
 
 STRATEGY_INFO = {
-    "baseline": "Thesis April 2026 zero-shot template: topic text only, one call.",
-    "prompt_v2": "Thesis prompt v2 (evidence quote, item-writing rules), one call, keys balanced over A-D.",
+    "baseline": "The thesis prototype's zero-shot template (v1): topic text only, one call.",
+    "prompt_v2": "The thesis prompt (v2: evidence quote, item-writing rules), one call, keys balanced over A-D.",
     "verify_repair": "Writer (3 calls) -> Evaluator checks -> targeted LLM repair (max 2 rounds) -> selection.",
 }
 
@@ -29,7 +29,7 @@ def models(request: Request):
         raise Problem(503, "model-catalog-unavailable", "Model catalog unavailable", str(e)) from None
 
 
-@router.get("/strategies", summary="Generation strategies (the thesis conditions)")
+@router.get("/strategies", summary="Generation strategies")
 def strategies():
     return [{"key": key, "description": STRATEGY_INFO[key]} for key in STRATEGIES]
 

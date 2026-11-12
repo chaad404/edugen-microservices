@@ -26,8 +26,8 @@ def create_app(embedder: Optional[Embedder] = None, *, load_on_startup: bool = T
     app = FastAPI(
         title="EduGen Evaluator",
         version=__version__,
-        description="Deterministic quality metrics for multiple-choice questions: the Three Pillars of the "
-                    "thesis framework, their frozen bands and the item-writing checks.",
+        description="Deterministic quality metrics for multiple-choice questions: the Three Pillars framework of "
+                    "the thesis prototype, its frozen bands and the item-writing checks.",
         lifespan=lifespan,
     )
     app.state.embedder = embedder
