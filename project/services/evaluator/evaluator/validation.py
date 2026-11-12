@@ -1,4 +1,4 @@
-"""Canonical MCQ shape and structural validation (ported from the thesis, src/utils/validators.py)."""
+"""Canonical MCQ shape and structural validation (ported from the thesis prototype, src/utils/validators.py)."""
 import re
 
 LABELS = ("A", "B", "C", "D")

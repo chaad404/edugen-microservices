@@ -1,7 +1,7 @@
 """
 Protection around calls to a model host (course chapter 6.5-6.6):
 
-- RateLimiter: spaces requests so a model never sees more than its `rpm` (ported from the thesis)
+- RateLimiter: spaces requests so a model never sees more than its `rpm` (ported from the thesis prototype)
 - CircuitBreaker: after repeated technical failures, fails fast for a while instead of hammering the host
 - RetryPolicy: exponential backoff with full jitter; HTTP 429 waits out most of a rate-limit window
 """
@@ -75,7 +75,7 @@ class RetryPolicy:
     def delay(self, attempt: int, error: Optional[Exception]) -> float:
         """Seconds to wait before attempt `attempt + 1`."""
         if isinstance(error, ProviderError) and error.status == 429:
-            # Free tiers count requests per minute: wait out most of a window (thesis rule), or what the host asks
+            # Free tiers count requests per minute: wait out most of a window (a rule from the prototype's runs), or what the host asks
             return max(error.retry_after or 0.0, 20.0 * attempt + self.rng.uniform(0, 5))
         if isinstance(error, ProviderError) and error.retry_after:
             return min(self.cap, error.retry_after)

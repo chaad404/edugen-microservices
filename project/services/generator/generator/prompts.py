@@ -1,7 +1,7 @@
 """
-Prompts of the thesis conditions. v1 is the April 2026 baseline template, unchanged (its single example
-answer is "A", which is one cause of the key-position bias the thesis found). v2 and the repair prompt come
-from the thesis pipeline v2 (docs/pipeline_v2.md).
+Prompts. v1 is the baseline template of the thesis prototype (April 2026), unchanged: its single example
+answer is "A", which can anchor where a model puts the key. v2 is the prompt the thesis itself uses; the repair
+prompt comes from the prototype's pipeline v2 (docs/pipeline_v2.md).
 """
 import json
 import re
@@ -66,7 +66,7 @@ def focus_groups(text: str, groups: int) -> list[Optional[list[str]]]:
 
 
 def repair_instructions(item: dict, flags: Sequence[str]) -> list[str]:
-    """Plain-language instructions for the repair step, one per flag (ported from the thesis verifier)."""
+    """Plain-language instructions for the repair step, one per flag (ported from the prototype's verifier)."""
     key, notes = item["answer"], []
     for flag in flags:
         code, _, labels = flag.partition(":")

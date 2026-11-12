@@ -1,5 +1,5 @@
 """
-The comparison table: one row per model x strategy, the thesis framework applied to its questions.
+The comparison table: one row per model x strategy, the Three Pillars framework applied to its questions.
 
 As in the thesis there is no overall score, because the pillars trade off against each other. The table
 is descriptive; the thesis tests differences by topic (Friedman, then Wilcoxon with Holm correction).

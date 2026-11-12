@@ -1,6 +1,6 @@
 """
 Canonical MCQ shape, structural validation and tolerant JSON parsing of model output
-(ported from the thesis, src/utils/validators.py). The Evaluator validates again on its side:
+(ported from the thesis prototype, src/utils/validators.py). The Evaluator validates again on its side:
 each service checks its own inputs.
 """
 import json

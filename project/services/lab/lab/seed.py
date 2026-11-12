@@ -1,6 +1,6 @@
 """
 Start-up data: the demo topics (written for this project, free to publish) and the public sample of the
-thesis results. Both imports are idempotent, so every start of the service may run them.
+thesis prototype's results. Both imports are idempotent, so every start of the service may run them.
 """
 import json
 import logging
@@ -33,8 +33,8 @@ def seed_demo_topics(session: Session, path: Path) -> int:
 
 def import_thesis_sample(session: Session, path: Path) -> bool:
     """
-    Imports the thesis sample as one completed experiment with the scores recorded by the thesis. Its jobs and
-    questions are imported once; on later starts only the title and description follow the seed file, so a
+    Imports the prototype sample as one completed experiment with the scores the prototype recorded. Its jobs
+    and questions are imported once; on later starts only the title and description follow the seed file, so a
     reworded label also reaches a database that already holds the sample.
     """
     if not path.exists():
@@ -48,7 +48,7 @@ def import_thesis_sample(session: Session, path: Path) -> bool:
     for t in data["topics"]:
         topic = session.scalar(select(Topic).where(Topic.topic_id == t["topic_id"]))
         if topic is None:
-            # The thesis topic texts were drafted from other students' notes: they stay out of this project
+            # The prototype's topic texts were drafted from other students' notes: they stay out of this project
             topic = Topic(topic_id=t["topic_id"], domain=t["domain"], title=t["title"], source_text=None, origin="thesis")
             session.add(topic)
         topics[t["topic_id"]] = topic

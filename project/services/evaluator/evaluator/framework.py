@@ -1,9 +1,13 @@
 """
-The quality framework of the thesis: four pillars, their frozen cut points and band labels.
+The quality framework of the thesis prototype: four pillars, their frozen cut points and band labels.
 
-Cut points for alignment, plausibility and diversity are the pooled quartiles of the April 2026 thesis baseline
-(2,080 questions), frozen and applied unchanged to every later cohort. Readability uses US grade levels.
-A value equal to a cut point belongs to the higher band.
+Cut points for alignment, plausibility and diversity are the pooled quartiles of the prototype's April 2026
+baseline (2,080 questions), frozen and applied unchanged to every later cohort. Readability uses US grade
+levels. A value equal to a cut point belongs to the higher band.
+
+The bands are therefore relative to that pool: "Weak" means the lowest quarter of the April questions, not a
+poor question. The thesis itself no longer reports them as a headline; this service keeps the framework as the
+prototype defined it, which is also how the imported sample was scored.
 """
 from bisect import bisect_right
 from dataclasses import dataclass

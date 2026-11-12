@@ -1,6 +1,6 @@
 """
-Item-writing checks for one question and for a batch (ported from the thesis verifier,
-src/generation/verifier.py, and the batch checks in docs/baseline_framework.md section 5).
+Item-writing checks for one question and for a batch (ported from the verifier of the thesis prototype,
+src/generation/verifier.py, and the batch checks in its docs/baseline_framework.md section 5).
 
 Flags are "code" or "code:A[,B]" strings, so a repair step knows which option to rewrite and why.
 """

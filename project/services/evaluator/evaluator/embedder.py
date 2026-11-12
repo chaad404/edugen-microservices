@@ -1,7 +1,7 @@
 """
 Sentence embeddings for the dense metrics.
 
-The thesis computed them with sentence-transformers (PyTorch). This service runs the same
+The thesis prototype computed them with sentence-transformers (PyTorch). This service runs the same
 all-MiniLM-L6-v2 weights through ONNX Runtime (fastembed), which keeps the image small. If the model
 cannot be loaded, the dense metrics are reported as unavailable: lexical scores are never substituted.
 """

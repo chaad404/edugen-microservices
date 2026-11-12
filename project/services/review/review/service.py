@@ -129,7 +129,7 @@ def session_view(session: Session, caller: Caller) -> dict:
 # --- Expert review (UC-200) ---
 
 def expert_order(study: Study, rater_name: str) -> list[StudyItem]:
-    """A different but stable order per rater, so order effects average out (ported from the thesis)."""
+    """A different but stable order per rater, so order effects average out (ported from the thesis prototype)."""
     items = sorted(study.items, key=lambda i: i.id)
     _rng(rater_name.strip().lower()).shuffle(items)
     return items

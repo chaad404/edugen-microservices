@@ -5,7 +5,7 @@ from typing import Optional
 import httpx
 
 # Client errors that will not fix themselves by retrying: bad key, no credit, no access, unknown or retired model.
-# 400 stays retryable: some hosts answer 400 when one sample was not valid JSON (seen in the thesis on Groq).
+# 400 stays retryable: some hosts answer 400 when one sample was not valid JSON (seen in the prototype's runs on Groq).
 NON_RETRYABLE_STATUS = frozenset({401, 402, 403, 404, 410})
 
 # Shared setting name -> the parameter name of each provider's API (Cohere calls top_p "p")

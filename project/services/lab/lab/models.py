@@ -77,7 +77,7 @@ class Job(Base):
 
 
 class Item(Base):
-    """A generated question with its automatic scores (from the Evaluator, or recorded by the thesis)."""
+    """A generated question with its automatic scores (from the Evaluator, or recorded by the thesis prototype)."""
     __tablename__ = "items"
     id: Mapped[int] = mapped_column(primary_key=True)
     job_id: Mapped[str] = mapped_column(ForeignKey("jobs.id"), index=True)

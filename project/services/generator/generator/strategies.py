@@ -1,10 +1,11 @@
 """
-Generation strategies, one per thesis condition (thesis docs/pipeline_v2.md):
+Generation strategies (the conditions of the thesis prototype's pipeline v2, docs/pipeline_v2.md):
 
-- baseline:      the April 2026 zero-shot template, topic text only, one call
-- prompt_v2:     prompt v2, one call, then the options are re-ordered so the keys are spread over A-D
+- baseline:      the prototype's April 2026 zero-shot template (v1), topic text only, one call
+- prompt_v2:     prompt v2 (the prompt of the thesis), one call, then the options are re-ordered so the keys
+                 are spread over A-D
 - verify_repair: Writer (3 focused prompt-v2 calls) -> Evaluator checks -> Repairer (LLM, only the flagged
-                 options, at most 2 rounds) -> Selector (code) -> key balancing. This is the thesis's
+                 options, at most 2 rounds) -> Selector (code) -> key balancing. This is the prototype's
                  multi-agent v2 without course-material retrieval (the course PDFs are not part of this project).
 
 Every strategy records the key letters as the model wrote them (`raw_answers` in the trace) before any
@@ -57,7 +58,7 @@ class Outcome:
     trace: dict = field(default_factory=dict)
 
 
-# --- Key balancing (ported from the thesis pipeline v2) ---
+# --- Key balancing (ported from the prototype's pipeline v2) ---
 
 def _seed(*parts) -> int:
     return int(hashlib.sha256("|".join(map(str, parts)).encode()).hexdigest()[:12], 16)
@@ -123,7 +124,7 @@ def select(items: Sequence[dict], verdicts: Sequence[Verdict], n: int) -> list[i
     """
     Picks n questions: those that pass every check first, then those without serious flags, then by fewest
     flags; higher pillar quality breaks ties. A stem too similar to one already picked is skipped while
-    alternatives remain. (The thesis compares stem embeddings; word overlap avoids another Evaluator call.)
+    alternatives remain. (The prototype compares stem embeddings; word overlap avoids another Evaluator call.)
     """
     order = sorted(range(len(items)), key=lambda i: (verdicts[i].serious, len(verdicts[i].flags), -(verdicts[i].quality or 0)))
     chosen = []

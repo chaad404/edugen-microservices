@@ -6,8 +6,8 @@ re-planned afterwards and rests on a new run; this data shows what the prototype
 The prototype's database is opened read-only. Topic source texts, prompts, raw model outputs and generation traces
 are never exported: they contain the topic texts, which were drafted from other students' notes.
 
-    python export_thesis_sample.py <thesis app.db> <output.json> [--topics-per-domain 1] [--per-cell 3]
-    python export_thesis_sample.py <thesis app.db> project/data/local/thesis_full.json --full
+    python export_thesis_sample.py <prototype app.db> <output.json> [--topics-per-domain 1] [--per-cell 3]
+    python export_thesis_sample.py <prototype app.db> project/data/local/thesis_full.json --full
 """
 import argparse
 import json

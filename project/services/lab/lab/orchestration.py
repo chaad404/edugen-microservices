@@ -259,7 +259,7 @@ def evaluate_pending(session: Session, evaluator: EvaluatorClient, limit: int = 
 
 def backfill_thesis_flags(session: Session, evaluator: EvaluatorClient, limit: int = 100) -> int:
     """
-    Imported thesis questions come with their recorded metrics but without per-question flags. The option
+    Imported prototype questions come with their recorded metrics but without per-question flags. The option
     checks need no source text, so the Evaluator adds them; the recorded metrics are kept.
     """
     items = list(session.scalars(select(Item).where(Item.metrics_source == "thesis", Item.checked_at.is_(None))

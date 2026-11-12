@@ -1,8 +1,9 @@
 """
-Deterministic text metrics of the Three Pillars (ported from the thesis, src/evaluation/nlp_metrics.py).
+Deterministic text metrics of the Three Pillars (ported from the thesis prototype,
+src/evaluation/nlp_metrics.py).
 
 The framework bands use the dense variants (all-MiniLM-L6-v2 embeddings). The lexical variants (TF cosine,
-Jaccard) are kept for comparison with the thesis tables. Dense vectors are L2-normalised, so a dot product
+Jaccard) are kept for comparison with the prototype's tables. Dense vectors are L2-normalised, so a dot product
 is a cosine similarity.
 """
 import math

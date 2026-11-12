@@ -1,6 +1,6 @@
 """
-Human versus automatic evaluation of a study (thesis experiment protocol, section 6):
-inter-rater agreement (Krippendorff's alpha, ported from the thesis), Spearman correlations between the
+Human versus automatic evaluation of a study (experiment protocol of the thesis prototype, section 6):
+inter-rater agreement (Krippendorff's alpha, ported from the prototype), Spearman correlations between the
 human judgements and the automatic pillars, and classic item analysis of the student answers.
 """
 from collections import Counter, defaultdict
@@ -16,7 +16,7 @@ from .views import study_view
 DIMENSIONS = ("relevance", "clarity", "difficulty", "distractors")
 LABELS = ("A", "B", "C", "D")
 AUTOMATIC = ("alignment", "grade", "plausibility", "diversity")
-# (human judgement, automatic metric): what the thesis expects each pillar to approximate
+# (human judgement, automatic metric): what each pillar is expected to approximate
 CORRELATIONS = (("expert_relevance", "alignment"), ("expert_distractors", "plausibility"),
                 ("expert_distractors", "diversity"), ("expert_difficulty", "grade"),
                 ("student_p_value", "plausibility"), ("student_perceived_difficulty", "grade"))

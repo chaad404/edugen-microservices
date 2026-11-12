@@ -1,10 +1,11 @@
 """
-Checks that the Evaluator service reproduces the scores stored by the thesis, on real thesis questions.
+Checks that the Evaluator service reproduces the scores stored by the thesis prototype, on questions from its
+database.
 
-The thesis database is opened read-only; nothing is written. The embedding model is downloaded once into
+The prototype's database is opened read-only; nothing is written. The embedding model is downloaded once into
 the given cache folder.
 
-    python verify_against_thesis.py <thesis app.db> <model cache folder> [number of questions]
+    python verify_against_thesis.py <prototype app.db> <model cache folder> [number of questions]
 """
 import sqlite3
 import sys
@@ -49,7 +50,7 @@ def main() -> None:
             if old is not None and new is not None:
                 differences[name].append(abs(new - old))
 
-    print(f"Compared {len(differences['grade'])} thesis questions")
+    print(f"Compared {len(differences['grade'])} prototype questions")
     for name, values in differences.items():
         if values:
             print(f"{name:22s} max |difference| = {max(values):.5f}   mean = {sum(values) / len(values):.6f}")
