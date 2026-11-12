@@ -96,7 +96,8 @@ def import_recorded_runs(session: Session, directory: Path) -> int:
     Imports live runs that were made on another deployment and shipped as files (scripts/export_run.py writes
     them), so a fresh deployment shows real-model results without API keys or cost. A run is imported once, with
     its jobs, their traces, the generated questions and the scores they had. It is marked `recorded`: it is never
-    passed off as a run of this deployment. Where the run itself already exists, its own record is kept.
+    passed off as a run of this deployment. Where the run already exists (imported earlier, or made here), its
+    record is kept and only the title and description follow the file.
     """
     if not directory.is_dir():
         return 0
@@ -108,9 +109,8 @@ def import_recorded_runs(session: Session, directory: Path) -> int:
             continue
         run = data["experiment"]
         existing = session.get(Experiment, run["id"])
-        if existing is not None:
-            if existing.origin == "recorded":  # as for the sample: a reworded title reaches existing databases
-                existing.name, existing.description = run["name"], run.get("description")
+        if existing is not None:  # as for the sample: a reworded title reaches existing databases
+            existing.name, existing.description = run["name"], run.get("description")
             continue
 
         topics = {}

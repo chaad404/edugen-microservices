@@ -79,21 +79,19 @@ def test_a_recorded_run_is_imported_once_with_its_jobs_questions_and_traces(sess
     assert group["key_positions"] == {"A": 0, "B": 0, "C": 1, "D": 1} and group["raw_key_positions"]["A"] == 2
 
 
-def test_a_recorded_title_is_refreshed_but_a_run_made_here_keeps_its_own_record(session_factory, tmp_path):
+def test_a_reworded_title_reaches_the_run_but_a_run_made_here_stays_a_live_run(session_factory, tmp_path):
     folder = tmp_path / "recorded"
     write(folder, "run.json", recorded_run())
     with session_factory() as session:
         import_recorded_runs(session, folder)
-        session.commit()
-    write(folder, "run.json", recorded_run(name="Reworded"))
-    with session_factory() as session:
-        assert import_recorded_runs(session, folder) == 0
-        session.commit()
-        assert session.get(Experiment, RUN_ID).name == "Reworded"
         session.get(Experiment, RUN_ID).origin = "live"  # as if this deployment had made the run itself
         session.commit()
-    write(folder, "run.json", recorded_run(name="Reworded again"))
+    write(folder, "run.json", recorded_run(name="Reworded", status="completed"))
     with session_factory() as session:
         assert import_recorded_runs(session, folder) == 0
         session.commit()
-        assert session.get(Experiment, RUN_ID).name == "Reworded"
+        experiment = session.get(Experiment, RUN_ID)
+        assert experiment.name == "Reworded"
+        # ... and nothing else of its own record changes
+        assert experiment.origin == "live" and experiment.status == "completed_with_failures"
+        assert session.scalar(select(func.count()).select_from(Job).where(Job.experiment_id == RUN_ID)) == 2
