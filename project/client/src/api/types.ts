@@ -175,6 +175,40 @@ export interface Study {
   created_at: string;
 }
 
+/** One question of a study with everything people said and did about it (operator view, unblinded). */
+export interface StudyItemResult {
+  item_ref: string;
+  model: string;
+  strategy: string;
+  domain: string;
+  topic_id: string;
+  question: string;
+  answer: string;
+  automatic: Record<string, number | null>;
+  expert: {
+    ratings: number;
+    relevance: number | null;
+    clarity: number | null;
+    difficulty: number | null;
+    distractors: number | null;
+    key_correct_rate: number | null;
+    unusable: number;
+    comments: string[];
+  };
+  student: {
+    attempts: number;
+    p_value: number | null;
+    /** Set from three answers on, when the share of correct answers is extreme */
+    difficulty_note: "too_hard" | "too_easy" | null;
+    mean_time_ms: number | null;
+    option_counts: Record<string, number>;
+    dead_distractors: string[];
+    clarity: number | null;
+    helpfulness: number | null;
+    perceived_difficulty: number | null;
+  };
+}
+
 export interface StudyAnalytics {
   study: Study;
   progress: { raters: number; ratings: number; participants: number; answers: number; feedback: number };
@@ -188,17 +222,7 @@ export interface StudyAnalytics {
   }>;
   agreement: Record<string, { level: string; raters: number; items_with_2_raters: number; alpha: number | null }>;
   correlations: Array<{ human: string; metric: string; n: number; spearman_rho: number | null }>;
-  items: Array<{
-    item_ref: string;
-    model: string;
-    strategy: string;
-    domain: string;
-    question: string;
-    answer: string;
-    automatic: Record<string, number | null>;
-    expert: Record<string, unknown> & { ratings: number };
-    student: { attempts: number; p_value: number | null; dead_distractors: string[]; option_counts: Record<string, number> };
-  }>;
+  items: StudyItemResult[];
   note: string;
 }
 

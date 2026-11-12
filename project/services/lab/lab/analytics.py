@@ -21,6 +21,9 @@ CORRELATIONS = (("expert_relevance", "alignment"), ("expert_distractors", "plaus
                 ("expert_distractors", "diversity"), ("expert_difficulty", "grade"),
                 ("student_p_value", "plausibility"), ("student_perceived_difficulty", "grade"))
 MIN_PAIRS = 5
+# Classic item analysis of the quiz answers. With fewer answers than MIN_ATTEMPTS a question gets no verdict.
+MIN_ATTEMPTS = 3
+TOO_HARD, TOO_EASY = 0.20, 0.90  # share correct outside this range: the question hardly separates students
 
 
 def krippendorff_alpha(reliability_data: Sequence[Sequence[Optional[float]]], level: str = "ordinal") -> Optional[float]:
@@ -97,6 +100,16 @@ def _key_rate(ratings) -> Optional[float]:
     return round(decided.count("yes") / len(decided), 4) if decided else None
 
 
+def difficulty_note(p_value: Optional[float], attempts: int) -> Optional[str]:
+    """
+    "too_hard" or "too_easy" when the share of correct answers is extreme. A very low share often means an
+    unclear question or a wrong key rather than a hard one, so it is a reason to read the question again.
+    """
+    if p_value is None or attempts < MIN_ATTEMPTS:
+        return None
+    return "too_hard" if p_value < TOO_HARD else "too_easy" if p_value > TOO_EASY else None
+
+
 def study_analytics(session: Session, study: Study) -> dict:
     ratings = list(session.scalars(select(HumanRating).where(HumanRating.study_id == study.id)))
     answers = list(session.scalars(select(QuizAnswer).where(QuizAnswer.study_id == study.id)))
@@ -114,6 +127,7 @@ def study_analytics(session: Session, study: Study) -> dict:
         item, job = si.item, si.item.job
         r, a, f = by_ref["ratings"][si.item_ref], by_ref["answers"][si.item_ref], by_ref["feedback"][si.item_ref]
         picks = Counter(x.chosen for x in a)
+        p_value = _mean(1.0 if x.correct else 0.0 for x in a)
         items.append({
             "item_ref": si.item_ref, "item_id": item.id, "model": job.model, "strategy": job.strategy,
             "domain": job.topic.domain, "topic_id": job.topic.topic_id, "question": item.question,
@@ -121,12 +135,12 @@ def study_analytics(session: Session, study: Study) -> dict:
             "expert": {"ratings": len(r), **{d: _mean(getattr(x, d) for x in r) for d in DIMENSIONS},
                        "key_correct_rate": _key_rate(r), "unusable": sum(1 for x in r if x.unusable),
                        "comments": [x.comment for x in r if x.comment]},
-            "student": {"attempts": len(a), "p_value": _mean(1.0 if x.correct else 0.0 for x in a),
+            "student": {"attempts": len(a), "p_value": p_value, "difficulty_note": difficulty_note(p_value, len(a)),
                         "mean_time_ms": _mean(x.time_ms for x in a),
                         "option_counts": {label: picks.get(label, 0) for label in LABELS},
                         # a distractor nobody picks does not work; only meaningful with a few attempts
                         "dead_distractors": [label for label in LABELS if label != item.answer and not picks.get(label)]
-                        if len(a) >= 3 else [],
+                        if len(a) >= MIN_ATTEMPTS else [],
                         "clarity": _mean(x.clarity for x in f), "helpfulness": _mean(x.helpfulness for x in f),
                         "perceived_difficulty": _mean(x.difficulty for x in f)},
         })
@@ -190,5 +204,6 @@ def study_analytics(session: Session, study: Study) -> dict:
         "progress": {"raters": len(raters), "ratings": len(ratings), "participants": len({a.participant for a in answers}),
                      "answers": len(answers), "feedback": len(feedback)},
         "groups": group_rows, "agreement": agreement, "correlations": correlations, "items": items,
-        "note": f"Correlations need at least {MIN_PAIRS} items with both values; agreement needs two raters per item.",
+        "note": (f"Correlations need at least {MIN_PAIRS} items with both values; agreement needs two raters per item; "
+                 f"a question is judged too hard, too easy or as having an unused option from {MIN_ATTEMPTS} answers on."),
     }

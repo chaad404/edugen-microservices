@@ -60,6 +60,8 @@ button.link { background: none; border: 0; color: var(--primary); padding: 4px; 
 .check input { margin-top: 4px; }
 .check.disabled { opacity: 0.6; }
 .check.confirm { border-color: var(--warn); margin-top: 12px; }
+.check.inline { border: 0; padding: 0; font-size: 0.82rem; color: var(--muted); align-items: center; }
+.check.inline input { margin-top: 0; }
 .estimate { margin: 14px 0 0; }
 
 .badge { display: inline-block; font-size: 0.75rem; padding: 1px 8px; border-radius: 999px; border: 1px solid currentColor; white-space: nowrap; margin-left: 4px; }
@@ -81,6 +83,10 @@ button.link { background: none; border: 0; color: var(--primary); padding: 4px; 
 .table th, .table td { text-align: left; padding: 8px; border-bottom: 1px solid var(--border); vertical-align: top; }
 .table th { color: var(--muted); font-weight: 600; white-space: nowrap; }
 .compare td.leader { background: #f0fdf4; }
+.item-cell { min-width: 300px; max-width: 460px; }
+.item-cell .comment { font-style: italic; margin-top: 2px; }
+.option-counts { display: flex; gap: 10px; white-space: nowrap; }
+.option-key { font-weight: 700; color: var(--best); }
 
 .progress { position: relative; height: 22px; background: #eef1f5; border-radius: 999px; overflow: hidden; margin: 8px 0; }
 .progress-fill { height: 100%; background: var(--primary); transition: width 0.4s; }

@@ -131,3 +131,6 @@ def test_analytics_combine_human_and_automatic_evaluation(client, auth, thesis, 
     first = analytics["items"][0]
     assert first["student"]["attempts"] == 3 and first["model"] in {"cohere", "gpt-oss", "llama33", "mistral-small"}
     assert first["student"]["p_value"] is not None and sum(first["student"]["option_counts"].values()) == 3
+    # Item analysis: of A, B and the key, at most two letters differ from the key, so one or two options stay unused
+    assert 1 <= len(first["student"]["dead_distractors"]) <= 2 and first["answer"] not in first["student"]["dead_distractors"]
+    assert first["student"]["difficulty_note"] is None  # one or two of three answers are correct: a normal share

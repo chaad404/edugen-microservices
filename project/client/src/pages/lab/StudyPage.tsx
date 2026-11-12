@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { labApi } from "../../api/lab";
-import type { StudyAnalytics } from "../../api/types";
+import type { StudyAnalytics, StudyItemResult } from "../../api/types";
 import { Badge, Card, ErrorBox, fmt, Loading, StatusBadge } from "../../components/ui";
 import { useEventStream } from "../../hooks/useEventStream";
 import { strategyLabel } from "../../labels";
@@ -121,7 +121,86 @@ export default function StudyPage() {
           <p className="muted small">{data.note}</p>
         </Card>
       </div>
+
+      <ItemResults items={data.items} modelLabel={modelLabel} />
     </div>
+  );
+}
+
+const DIFFICULTY_NOTE = { too_hard: "few correct: unclear or wrong key?", too_easy: "almost all correct" } as const;
+
+/** Classic item analysis next to the expert view: which questions worked, and which options nobody chose. */
+function ItemResults({ items, modelLabel }: { items: StudyItemResult[]; modelLabel: (alias: string) => string }) {
+  const [onlyWithData, setOnlyWithData] = useState(false);
+  const numbered = items.map((item, index) => ({ item, number: index + 1 }));  // the number stays when rows are hidden
+  const withData = numbered.filter(({ item }) => item.expert.ratings > 0 || item.student.attempts > 0);
+  const shown = onlyWithData ? withData : numbered;
+  return (
+    <Card title="Per question: expert ratings and student answers"
+      actions={
+        <label className="check inline">
+          <input type="checkbox" checked={onlyWithData} onChange={(e) => setOnlyWithData(e.target.checked)} />
+          <span>Only questions with data ({withData.length} of {items.length})</span>
+        </label>
+      }>
+      <div className="table-scroll">
+        <table className="table">
+          <thead>
+            <tr>
+              <th>#</th><th>Question</th>
+              <th title="Number of expert ratings">Ratings</th><th>Relevance</th><th>Clarity</th><th>Difficulty</th><th>Distractors</th>
+              <th title="Share of experts who found the marked answer correct (unsure not counted)">Key correct</th>
+              <th title="Number of student answers">Answers</th>
+              <th title="Share of students who answered correctly">Correct (p)</th>
+              <th title="How often each option was chosen, in the original labels; the key is marked">Options chosen</th>
+            </tr>
+          </thead>
+          <tbody>
+            {shown.map(({ item, number }) => (
+              <tr key={item.item_ref}>
+                <td>{number}</td>
+                <td className="item-cell">
+                  <div>{item.question}</div>
+                  <div className="muted small">{modelLabel(item.model)} · {strategyLabel(item.strategy)} · {item.topic_id}</div>
+                  {item.expert.unusable > 0 && <Badge tone="weak">unusable × {item.expert.unusable}</Badge>}
+                  {item.expert.comments.map((comment, n) => <div key={n} className="muted small comment">“{comment}”</div>)}
+                </td>
+                <td>{item.expert.ratings || "–"}</td>
+                <td>{fmt.num(item.expert.relevance, 1)}</td><td>{fmt.num(item.expert.clarity, 1)}</td>
+                <td>{fmt.num(item.expert.difficulty, 1)}</td><td>{fmt.num(item.expert.distractors, 1)}</td>
+                <td>{fmt.pct(item.expert.key_correct_rate)}</td>
+                <td>{item.student.attempts || "–"}</td>
+                <td>
+                  {fmt.num(item.student.p_value, 2)}
+                  {item.student.difficulty_note && <div><Badge tone="warn">{DIFFICULTY_NOTE[item.student.difficulty_note]}</Badge></div>}
+                </td>
+                <td>
+                  {item.student.attempts > 0 && (
+                    <div className="option-counts">
+                      {(["A", "B", "C", "D"] as const).map((label) => (
+                        <span key={label} className={label === item.answer ? "option-key" : undefined}
+                          title={label === item.answer ? "The marked answer" : undefined}>
+                          {label} {item.student.option_counts[label] ?? 0}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                  {item.student.dead_distractors.length > 0 && (
+                    <Badge tone="warn" title="Wrong options that no student chose: they do not work as distractors">
+                      unused: {item.student.dead_distractors.join(", ")}
+                    </Badge>
+                  )}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      {!shown.length && <p className="muted">No ratings or answers yet.</p>}
+      <p className="muted small">
+        Expert columns are means on the 1–5 scales. The operator sees the model here; reviewers and students never do.
+      </p>
+    </Card>
   );
 }
 

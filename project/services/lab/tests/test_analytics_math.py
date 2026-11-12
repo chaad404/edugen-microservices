@@ -1,6 +1,6 @@
 import pytest
 
-from lab.analytics import _ranks, krippendorff_alpha, spearman
+from lab.analytics import _ranks, difficulty_note, krippendorff_alpha, spearman
 
 
 def test_perfect_agreement_is_one():
@@ -30,3 +30,11 @@ def test_spearman():
     assert spearman([1, 2, 3, 4, 5], [5, 4, 3, 2, 1]) == pytest.approx(-1.0)
     assert spearman([1, 2, 3], [1, 2, 3]) is None          # too few pairs
     assert spearman([1, 1, 1, 1, 1], [1, 2, 3, 4, 5]) is None  # no variation
+
+
+def test_a_question_is_judged_too_hard_or_too_easy_only_with_enough_answers():
+    assert difficulty_note(0.0, 2) is None           # two answers say nothing yet
+    assert difficulty_note(None, 5) is None
+    assert difficulty_note(0.1, 10) == "too_hard"
+    assert difficulty_note(1.0, 3) == "too_easy"
+    assert difficulty_note(0.2, 5) is None and difficulty_note(0.9, 10) is None  # the limits belong to the normal range
