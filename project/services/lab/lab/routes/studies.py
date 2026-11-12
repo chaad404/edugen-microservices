@@ -27,7 +27,7 @@ def start_study(body: StudyCreate, request: Request, session: Session = Depends(
                 operator: Operator = Depends(require_operator)):
     study = create_study(session, title=body.title, kind=body.kind, experiment_ids=body.experiment_ids,
                          per_cell=body.per_cell, seed=body.seed, student_items=body.student_items,
-                         operator=operator.username)
+                         operator=operator.username, topic_ids=body.topic_ids)
     session.commit()  # the sample is kept even if the Review service is down; publishing can be retried
     publish_study(session, study, request.app.state.review, operator.token)
     session.commit()

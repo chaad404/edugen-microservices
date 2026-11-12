@@ -73,6 +73,16 @@ def test_the_same_seed_gives_the_same_sample(client, auth, thesis, session_facto
     assert items[0] == items[1]
 
 
+def test_a_study_can_be_limited_to_chosen_topics(client, auth, thesis, fakes):
+    response = make_study(client, auth, thesis, topic_ids=["NETCOMP-2022-1"])
+    assert response.status_code == 201 and response.json()["items"] == 12  # 4 models x 3 conditions on one topic
+    assert {item["domain"] for item in fakes.review.calls[-1]["payload"]["items"]} == {"NETCOMP"}
+    unknown = make_study(client, auth, thesis, topic_ids=["NO-SUCH-TOPIC"])
+    assert unknown.status_code == 422 and unknown.json()["type"].endswith("unknown-topic")
+    empty = make_study(client, auth, thesis, topic_ids=["NETCOMP-DEMO-1"])  # exists, but not in this experiment
+    assert empty.status_code == 422 and empty.json()["type"].endswith("no-items")
+
+
 def test_publishing_is_retried_when_the_review_service_was_down(client, auth, thesis, fakes):
     fakes.review.down = True
     study = make_study(client, auth, thesis).json()

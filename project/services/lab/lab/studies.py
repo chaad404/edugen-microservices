@@ -8,7 +8,7 @@ so the Review service cannot reveal them, not even by mistake.
 import random
 import uuid
 from collections import defaultdict
-from typing import Sequence
+from typing import Optional, Sequence
 
 from sqlalchemy import or_, select
 from sqlalchemy.orm import Session
@@ -17,7 +17,7 @@ from .clients import ReviewClient, ServiceError, ServiceUnavailable
 from .db import utcnow
 from .events import record_event
 from .messages import REVIEW_ANSWER, REVIEW_FEEDBACK, REVIEW_RATING
-from .models import Experiment, HumanRating, Item, Job, QuizAnswer, QuizFeedback, Study, StudyItem
+from .models import Experiment, HumanRating, Item, Job, QuizAnswer, QuizFeedback, Study, StudyItem, Topic
 from .orchestration import _claim
 from .problems import Problem
 
@@ -43,19 +43,24 @@ def stratified_sample(items: Sequence[Item], per_cell: int, seed: int) -> list[I
 
 
 def create_study(session: Session, *, title: str, kind: str, experiment_ids: Sequence[str], per_cell: int,
-                 seed: int, student_items: int, operator: str) -> Study:
+                 seed: int, student_items: int, operator: str,
+                 topic_ids: Optional[Sequence[str]] = None) -> Study:
     found = set(session.scalars(select(Experiment.id).where(Experiment.id.in_(experiment_ids))))
     missing = sorted(set(experiment_ids) - found)
     if missing:
         raise Problem(422, "unknown-experiment", "Unknown experiment", ", ".join(missing))
-    pool = list(session.scalars(
-        select(Item).join(Job).where(Job.experiment_id.in_(experiment_ids),
-                                     or_(Item.valid.is_(None), Item.valid.is_(True)),
-                                     or_(Item.alignment.is_not(None), Item.plausibility.is_not(None)))
-        .order_by(Item.id)))
-    items = stratified_sample(pool, per_cell, seed)
+    query = select(Item).join(Job).where(Job.experiment_id.in_(experiment_ids),
+                                         or_(Item.valid.is_(None), Item.valid.is_(True)),
+                                         or_(Item.alignment.is_not(None), Item.plausibility.is_not(None)))
+    if topic_ids:  # a small study that every participant can see in full, e.g. one topic for a pilot
+        unknown = sorted(set(topic_ids) - set(session.scalars(select(Topic.topic_id).where(Topic.topic_id.in_(topic_ids)))))
+        if unknown:
+            raise Problem(422, "unknown-topic", "Unknown topic", ", ".join(unknown))
+        query = query.join(Topic, Job.topic_pk == Topic.id).where(Topic.topic_id.in_(topic_ids))
+    items = stratified_sample(list(session.scalars(query.order_by(Item.id))), per_cell, seed)
     if not items:
-        raise Problem(422, "no-items", "Nothing to review", "The experiments have no scored questions yet.")
+        raise Problem(422, "no-items", "Nothing to review",
+                      "The experiments have no scored questions yet" + (" on these topics." if topic_ids else "."))
     if len(items) > MAX_STUDY_ITEMS:
         raise Problem(422, "study-too-large", "Study too large",
                       f"{len(items)} questions sampled; a study holds at most {MAX_STUDY_ITEMS}. Lower per_cell.")
@@ -66,7 +71,8 @@ def create_study(session: Session, *, title: str, kind: str, experiment_ids: Seq
     session.add(study)
     for position, item in enumerate(items):
         study.items.append(StudyItem(item_ref=str(uuid.uuid4()), item=item, position=position))
-    record_event(session, channel(study.id), "study.created", {"study_id": study.id, "items": len(items)})
+    record_event(session, channel(study.id), "study.created",
+                 {"study_id": study.id, "items": len(items), "topic_ids": list(topic_ids) if topic_ids else None})
     session.flush()
     return study
 

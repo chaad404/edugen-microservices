@@ -48,7 +48,10 @@ export const labApi = {
     lab<{ events: LabEvent[]; last_id: number }>(`/events?channel=${encodeURIComponent(channel)}&after=${after}`),
   studies: () => lab<Study[]>("/studies"),
   study: (id: string) => lab<Study>(`/studies/${id}`),
-  createStudy: (body: { title: string; kind: string; experiment_ids: string[]; per_cell: number; student_items: number; seed: number }) =>
+  createStudy: (body: {
+    title: string; kind: string; experiment_ids: string[]; per_cell: number; student_items: number; seed: number;
+    topic_ids?: string[];
+  }) =>
     lab<Study>("/studies", { method: "POST", body }),
   republish: (id: string) => lab<Study>(`/studies/${id}/publish`, { method: "POST" }),
   analytics: (id: string) => lab<StudyAnalytics>(`/studies/${id}/analytics`),

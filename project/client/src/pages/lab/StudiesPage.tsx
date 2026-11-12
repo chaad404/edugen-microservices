@@ -2,27 +2,30 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import { labApi } from "../../api/lab";
-import type { Experiment, Study } from "../../api/types";
+import type { Experiment, Study, Topic } from "../../api/types";
 import { Card, ErrorBox, fmt, Loading, StatusBadge } from "../../components/ui";
 
 export default function StudiesPage() {
   const navigate = useNavigate();
   const [studies, setStudies] = useState<Study[] | null>(null);
   const [experiments, setExperiments] = useState<Experiment[]>([]);
+  const [topics, setTopics] = useState<Topic[]>([]);
   const [form, setForm] = useState({ title: "", kind: "both", experiment_ids: [] as string[], per_cell: 1, student_items: 10, seed: 2026 });
+  const [topic, setTopic] = useState("");  // "" = every topic of the chosen experiments
   const [error, setError] = useState<unknown>(null);
   const [busy, setBusy] = useState(false);
 
   useEffect(() => {
     labApi.studies().then(setStudies).catch(setError);
     labApi.experiments().then((list) => setExperiments(list.filter((e) => e.status !== "running"))).catch(setError);
+    labApi.topics().then(setTopics).catch(setError);
   }, []);
 
   const create = async () => {
     setBusy(true);
     setError(null);
     try {
-      const study = await labApi.createStudy(form);
+      const study = await labApi.createStudy(topic ? { ...form, topic_ids: [topic] } : form);
       navigate(`/lab/studies/${study.id}`);
     } catch (e) {
       setError(e);
@@ -37,6 +40,7 @@ export default function StudiesPage() {
         <p className="muted">
           A stratified sample (the same number of questions from every model × strategy × domain cell) is copied to
           the Review service without the model, strategy or scores. Experts and students only see the question.
+          For a short session choose one topic: every participant can then see all of its questions.
         </p>
         <div className="form grid-2">
           <label>Title<input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })} placeholder="e.g. Pilot expert review" /></label>
@@ -50,6 +54,12 @@ export default function StudiesPage() {
           <label>Questions per cell<input type="number" min={1} max={20} value={form.per_cell} onChange={(e) => setForm({ ...form, per_cell: Number(e.target.value) })} /></label>
           <label>Questions per student<input type="number" min={1} max={40} value={form.student_items} onChange={(e) => setForm({ ...form, student_items: Number(e.target.value) })} /></label>
           <label>Sampling seed<input type="number" value={form.seed} onChange={(e) => setForm({ ...form, seed: Number(e.target.value) })} /></label>
+          <label>Topics
+            <select value={topic} onChange={(e) => setTopic(e.target.value)}>
+              <option value="">All topics of the experiments</option>
+              {topics.map((t) => <option key={t.topic_id} value={t.topic_id}>Only: {t.title} ({t.topic_id})</option>)}
+            </select>
+          </label>
         </div>
         <h3>From experiments</h3>
         <div className="checks">

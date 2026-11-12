@@ -47,5 +47,12 @@ class StudyCreate(BaseModel):
     per_cell: int = Field(default=2, ge=1, le=20, description="Questions per model x strategy x domain cell")
     seed: int = Field(default=2026, description="Same seed, same sample")
     student_items: int = Field(default=10, ge=1, le=40, description="Questions each student answers")
+    topic_ids: Optional[list[str]] = Field(default=None, min_length=1, max_length=20,
+                                           description="Sample only these topics (default: every topic)")
 
     check_unique = field_validator("experiment_ids")(_unique)
+
+    @field_validator("topic_ids")
+    @classmethod
+    def unique_topics(cls, value: Optional[list[str]]) -> Optional[list[str]]:
+        return value if value is None else _unique(value)
