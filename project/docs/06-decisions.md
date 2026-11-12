@@ -134,3 +134,29 @@ questions are obviously synthetic, so model comparisons come from the recorded l
 new live runs.
 
 **Review when.** A free, local model (for example through Ollama) is fast enough on the demo machine.
+
+## ADR 9: Live-run results travel as files, not as a database copy
+
+**Situation.** A live run costs money, and its results exist only in the database of the machine that made it.
+A reader who clones the repository, or a demo on another machine, could show real-model results only by paying
+for a new run with their own API keys.
+
+**Alternatives.**
+1. Commit a database dump and restore it at start-up.
+2. Describe the results in the documentation only.
+3. Export a finished experiment through the Lab's own API into a file, and import such files at start-up.
+
+**Decision.** Alternative 3. `scripts/export_run.py` reads one experiment through the operator API and writes a
+versioned file (`edugen-recorded-run/1`). The Lab imports every file in `seed/recorded/` once, as an experiment
+with the origin `recorded`.
+
+**Consequences.** Every deployment shows the recorded comparison, the job traces and the failure states without
+keys or cost, and the numbers in [08 Results](08-results.md) can be checked against it. The export goes through
+the API, so it carries only what an operator may see: no topic text, and the script refuses to write anything
+that looks like a credential. The file format is one more contract to keep stable; a contract test exports a
+run from one Lab and imports it into another. The scores are the recorded ones and are not recomputed. A dump
+would have tied the data to one schema and one database engine, and would have copied whole tables, including
+the event log and the idempotency keys.
+
+**Review when.** The framework's metric definitions change, because recorded scores would then disagree with new
+ones, or the recorded files grow beyond a few megabytes.
