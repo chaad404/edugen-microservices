@@ -103,7 +103,7 @@ button.link { background: none; border: 0; color: var(--primary); padding: 4px; 
 .tab { background: none; border: 1px solid transparent; border-radius: 8px; padding: 8px 14px; color: var(--muted); }
 .tab.active { background: var(--surface); border-color: var(--border); color: var(--text); font-weight: 600; }
 
-.keypos { display: flex; align-items: flex-end; gap: 3px; height: 44px; }
+.keypos { display: flex; align-items: flex-end; gap: 3px; height: 44px; margin-bottom: 16px; } /* room for the letters under the bars */
 .keypos-bar { width: 14px; height: 32px; display: flex; flex-direction: column; justify-content: flex-end; align-items: center; font-size: 0.65rem; position: relative; }
 .keypos-fill { width: 100%; background: var(--info); border-radius: 2px 2px 0 0; min-height: 1px; }
 .keypos-bar span { position: absolute; bottom: -14px; color: var(--muted); }
