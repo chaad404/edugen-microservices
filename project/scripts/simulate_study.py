@@ -11,8 +11,8 @@ the study page filling up live, without needing people. The judgements are synth
 
 Never report these numbers as results. The study title and the rater names say "simulated".
 
-    python scripts/simulate_study.py [http://localhost:8080] [--experiment ID ...] [--raters 3] [--students 7]
-                                     [--questions N] [--per-cell 1] [--seed 2026]
+    python scripts/simulate_study.py [http://localhost:8080] [--experiment ID ...] [--topic TOPIC-ID ...]
+                                     [--raters 3] [--students 7] [--questions N] [--per-cell 1] [--seed 2026]
 
 Without --experiment the imported prototype sample is used. Without --questions every simulated student answers
 all questions of the study (at most 40), so each question collects enough answers for the item analysis.
@@ -151,6 +151,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description="Fill a blind study with simulated raters and students (demo only).")
     parser.add_argument("base", nargs="?", default="http://localhost:8080")
     parser.add_argument("--experiment", action="append", help="source experiment ID; repeatable (default: the sample)")
+    parser.add_argument("--topic", action="append", help="sample only this topic; repeatable (default: every topic)")
     parser.add_argument("--raters", type=int, default=3)
     parser.add_argument("--students", type=int, default=7)  # 3 + 7 sessions stay inside the gateway's burst limit
     parser.add_argument("--questions", type=int, default=40,
@@ -165,10 +166,11 @@ def main() -> None:
 
     print(f"EduGen SIMULATED study against {args.base}: synthetic participants, not human data")
     token = api.call("POST", "/api/lab/auth/login", {"username": args.username, "password": args.password})["access_token"]
-    study = api.call("POST", "/api/lab/studies", {
-        "title": f"Simulated pilot {time.strftime('%H:%M:%S')} (synthetic participants)", "kind": "both",
-        "experiment_ids": experiments, "per_cell": args.per_cell, "student_items": args.questions, "seed": args.seed},
-        token, expect=(201,))
+    body = {"title": f"Simulated pilot {time.strftime('%H:%M:%S')} (synthetic participants)", "kind": "both",
+            "experiment_ids": experiments, "per_cell": args.per_cell, "student_items": args.questions, "seed": args.seed}
+    if args.topic:
+        body["topic_ids"] = args.topic
+    study = api.call("POST", "/api/lab/studies", body, token, expect=(201,))
     if study["status"] != "open":
         raise SystemExit(f"FAILED: the study is {study['status']}: {study.get('publish_error')}")
     print(f"  ok  study of {study['items']} questions opened: {args.base}/lab/studies/{study['id']}")
