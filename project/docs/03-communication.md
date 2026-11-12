@@ -107,6 +107,9 @@ sequenceDiagram
     Lab-->>Op: SSE job.succeeded, experiment.completed
 ```
 
+*Sequence view of one experiment. It shows the order of calls and messages, not their duration: the steps after
+`202 Accepted` take from seconds to minutes.*
+
 ### Job lifecycle
 
 ```mermaid
@@ -152,6 +155,9 @@ sequenceDiagram
     Lab->>Lab: inbox check, store, join with model and scores
     Lab-->>Op: SSE study events, analytics updated
 ```
+
+*Sequence view of one study, from the blinded hand-over to the analytics. Experts and students act whenever they
+like; their results reach the Lab as events.*
 
 ### Student quiz flow
 
