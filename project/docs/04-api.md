@@ -20,13 +20,13 @@ All routes except login need `Authorization: Bearer <operator token>`.
 | `GET /topics`, `GET /topics/{id}`, `POST /topics` | Topics; custom topics need a source text of at least 200 characters | 200 / 201 + `Location` | 404, 409 exists |
 | `POST /experiments/estimate` | Jobs, the expected API cost and a true maximum (every attempt used, full `max_tokens`) of a planned run | 200 | 422 |
 | `POST /experiments` | Start a run (`Idempotency-Key` header recommended) | **202 Accepted** + `Location` | 409 key reused, 422 unknown / unavailable model, paid model not confirmed, topic without text; 503 |
-| `GET /experiments`, `GET /experiments/{id}` | List; status resource with jobs (provider, model IDs and the sampling `settings` of each) | 200 | 404 |
+| `GET /experiments`, `GET /experiments/{id}` | List; status resource with jobs (provider, model IDs, sampling `settings` and `trace` of each). `origin` is `live`, `recorded` (a run imported from a file) or `thesis_import` (the prototype sample) | 200 | 404 |
 | `GET /experiments/{id}/items` | Questions with metrics, bands, flags; filters `model`, `strategy`, `topic_id`, paging | 200 | 404 |
 | `GET /experiments/{id}/summary` | Comparison per model × strategy; key positions as stored and as the model wrote them (`raw_key_positions`, null where they were not recorded) | 200 | 404 |
-| `POST /studies` | Stratified blind sample, handed to the Review service | 201 + codes (or `draft` with `publish_error`) | 422 no items, study too large |
+| `POST /studies` | Stratified blind sample, of all topics or of the given `topic_ids`, handed to the Review service | 201 + codes (or `draft` with `publish_error`) | 422 no items, unknown topic, study too large |
 | `GET /studies`, `GET /studies/{id}` | Studies | 200 | 404 |
 | `POST /studies/{id}/publish` | Retry handing a draft study to the Review service | 200 | 503 still unavailable |
-| `GET /studies/{id}/analytics` | Human vs automatic: per group, agreement, correlations, items | 200 | 404 |
+| `GET /studies/{id}/analytics` | Human vs automatic: per group, agreement, correlations, and per question the ratings, the share of correct answers with a `difficulty_note`, and the unused options | 200 | 404 |
 | `GET /events?channel=&after=` | Progress events after a cursor (polling) | 200 | 422 |
 | `GET /events/stream?channel=&ticket=` | Server-Sent Events, resumes from `Last-Event-ID` or `after` | 200 `text/event-stream` | 401 / 403 bad ticket |
 | `GET /health`, `GET /ready` | Liveness; readiness (database reachable) | 200 | 503 |

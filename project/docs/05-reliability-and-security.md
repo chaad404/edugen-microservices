@@ -9,6 +9,7 @@
 | LLM host keeps failing | Circuit breaker per model: after 5 technical failures it fails fast for 30 s, then lets one trial call through | `generator/resilience.py` |
 | Bad API key, no credit, retired model (401, 402, 403, 404, 410) | No retry; the job fails at once with `provider_rejected` | `generator/providers/base.py` |
 | Model answers with unusable JSON | Retried as a new attempt; the tokens of every attempt are counted in the cost | `generator/llm.py` |
+| Every Writer call of a verify-repair job fails at the host | The job fails as `provider_error`, not as unusable model output; the trace keeps the kind of each failed call | `generator/strategies.py` |
 | Evaluator stopped | Generated questions are stored; the job waits in `generated` and scoring is retried with a growing delay (2, 4, 8 … 60 s); the client shows "waiting for the Evaluator" | `lab/orchestration.py` |
 | Evaluator without its embedding model | Readiness fails; the Lab treats it as unavailable and waits. Lexical scores are never stored in place of dense ones | `evaluator/main.py`, `lab/clients.py` |
 | Review service stopped when a study is created | The sample is kept as a `draft` with the reason; `POST /studies/{id}/publish` retries with the same idempotency key | `lab/studies.py` |

@@ -89,6 +89,7 @@ Each service has its own code base under `services/`, its own tests, its own ima
 | Model and strategy of a question | Lab | Nobody. Review knows only an opaque `item_ref` |
 | Ratings, answers, feedback | Review | The Lab receives them as events and keeps its own analysis copy |
 | Framework cut points | Evaluator | The Lab reads them via `GET /v1/framework` (cached) to band its aggregates |
+| Recorded live runs, the prototype sample | Lab | Nobody. They are imported once from files in the Lab's image and marked by their origin |
 
 No service reads another service's database. In the deployment, one PostgreSQL server holds two databases with
 two roles, and a role can connect only to its own database (`infra/postgres/init-databases.sh`).
@@ -115,6 +116,7 @@ flowchart TB
 ```
 
 *Deployment view.* Only the gateway is reachable from outside (and the RabbitMQ console from the local machine).
+Both published ports can be changed (`EDUGEN_PORT`, `RABBITMQ_CONSOLE_PORT`).
 The Generator and Evaluator have no published ports. More Generator instances share the job queue:
 `docker compose up --scale generator=3`.
 
