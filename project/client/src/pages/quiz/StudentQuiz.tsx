@@ -6,9 +6,9 @@ import { codeRole, reviewApi, sessionStore } from "../../api/review";
 import type { QuizState } from "../../api/types";
 import { Card, ErrorBox, Likert, Loading, ProgressBar } from "../../components/ui";
 
-const NOTICE = "This quiz is part of a BSc thesis on automatically generated exam questions. Your answers, " +
-  "the time you take and your ratings are stored anonymously, without your name or any other personal data, and are " +
-  "used only for research. You can stop at any time.";
+const NOTICE = "This quiz is part of a student project at the University of Pécs on automatically generated exam " +
+  "questions. Your answers, the time you take and your ratings are stored anonymously, without your name or any other " +
+  "personal data, and are used only to evaluate the questions. You can stop at any time.";
 
 export default function StudentQuiz() {
   const [params] = useSearchParams();
