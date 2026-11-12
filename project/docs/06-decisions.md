@@ -35,7 +35,8 @@ Generator.
 ## ADR 2: A message queue for generation
 
 **Situation.** A generation job takes from a second (simulator) to several minutes (verify → repair with a slow
-host), and hosts reject bursts with HTTP 429. In the thesis, batches had to be resumed by hand after rate limits.
+host), and hosts reject bursts with HTTP 429. In the thesis prototype, batches had to be resumed by hand after
+rate limits.
 
 **Alternatives.** A synchronous HTTP call from the Lab; HTTP with `202 Accepted` and polling of the Generator;
 a durable work queue.
@@ -82,8 +83,8 @@ because `EventSource` cannot send headers. Tickets live 5 minutes and are valid 
 
 ## ADR 5: Blindness by data ownership
 
-**Situation.** The thesis requires that neither experts nor students can see which model wrote a question
-(UI.2.1, TR.1.3).
+**Situation.** The thesis's specification requires that neither experts nor students can see which model wrote a
+question (UI.2.1, TR.1.3).
 
 **Alternatives.** Send everything to the Review service and hide fields in its API; send only what a reviewer
 may see.
@@ -129,6 +130,7 @@ questions built from the topic text. It is a separate registry entry, always lab
 as a fallback for a real model.
 
 **Consequences.** The whole pipeline (queue, retries, verify → repair, scoring, SSE) can be shown offline. Its
-questions are obviously synthetic, so model comparisons come from the imported thesis results or from live runs.
+questions are obviously synthetic, so model comparisons come from the recorded live run, the prototype sample or
+new live runs.
 
 **Review when.** A free, local model (for example through Ollama) is fast enough on the demo machine.

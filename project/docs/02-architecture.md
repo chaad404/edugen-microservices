@@ -21,7 +21,8 @@ flowchart TB
 ```
 
 *C4 level 1, context view.* Without API keys EduGen runs fully offline: the Generator then offers only the
-labelled simulator, and the thesis results come from the imported sample.
+labelled simulator, and real-model results come from the two imported data sets, a recorded live run and the
+sample of the thesis prototype.
 
 ## Containers
 

@@ -58,10 +58,11 @@ Delivery is at-least-once, never exactly-once. Every consumer is therefore idemp
 - **Blind by contract.** The study contract forbids unknown fields (`extra = "forbid"`). A request that tried to
   send a model name with an item would be rejected with 422. A test checks this.
 - **Students are anonymous.** A random participant ID, no name, no IP address in the data, and consent to a
-  participation notice before the first question (thesis NFR.2.3 and NFR.6.2).
+  participation notice before the first question (NFR.2.3 and NFR.6.2 of the thesis's functional specification).
 - **Experts use a pseudonym** of their choice, which lets them resume their review.
-- **The thesis's private inputs stay private:** no topic source texts, prompts or course PDFs are in the
-  repository or the images.
+- **Private inputs stay private:** no topic text of the thesis or its prototype, no raw model reply and no
+  course PDF is in the repository or the images. The recorded run and the prototype sample hold questions,
+  scores and job records only.
 
 ## Cost control for paid models
 
