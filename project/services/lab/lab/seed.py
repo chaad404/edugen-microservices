@@ -32,10 +32,18 @@ def seed_demo_topics(session: Session, path: Path) -> int:
 
 
 def import_thesis_sample(session: Session, path: Path) -> bool:
-    """Imports the thesis sample as one completed experiment with the scores recorded by the thesis."""
-    if not path.exists() or session.get(Experiment, THESIS_EXPERIMENT_ID) is not None:
+    """
+    Imports the thesis sample as one completed experiment with the scores recorded by the thesis. Its jobs and
+    questions are imported once; on later starts only the title and description follow the seed file, so a
+    reworded label also reaches a database that already holds the sample.
+    """
+    if not path.exists():
         return False
     data = json.loads(path.read_text(encoding="utf-8"))
+    existing = session.get(Experiment, THESIS_EXPERIMENT_ID)
+    if existing is not None:
+        existing.name, existing.description = data["name"], data.get("description")
+        return False
     topics = {}
     for t in data["topics"]:
         topic = session.scalar(select(Topic).where(Topic.topic_id == t["topic_id"]))

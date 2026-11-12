@@ -5,7 +5,7 @@ from sqlalchemy import func, select
 
 from conftest import SEED
 from lab.messages import REVIEW_ANSWER, REVIEW_FEEDBACK, REVIEW_RATING, envelope
-from lab.models import Item, Job, StudyItem
+from lab.models import Experiment, Item, Job, StudyItem
 from lab.seed import THESIS_EXPERIMENT_ID, import_thesis_sample
 from lab.studies import handle_review_event
 
@@ -32,6 +32,19 @@ def test_the_thesis_sample_is_imported_once_with_its_recorded_scores(session_fac
     summary = client.get(f"/experiments/{thesis}/summary", headers=auth).json()
     assert {g["model"] for g in summary["groups"]} == {"cohere", "gpt-oss", "llama33", "mistral-small"}
     assert {g["strategy"] for g in summary["groups"]} == {"baseline", "rag", "multi_agent"}
+
+
+def test_a_reworded_sample_title_reaches_a_database_that_already_holds_the_sample(session_factory, thesis, tmp_path):
+    reworded = json.loads((SEED / "thesis_sample.json").read_text(encoding="utf-8"))
+    reworded.update(name="Reworded title", description="Reworded description")
+    path = tmp_path / "sample.json"
+    path.write_text(json.dumps(reworded), encoding="utf-8")
+    with session_factory() as session:
+        assert import_thesis_sample(session, path) is False  # nothing is imported a second time
+        session.commit()
+        experiment = session.get(Experiment, thesis)
+        assert (experiment.name, experiment.description) == ("Reworded title", "Reworded description")
+        assert session.scalar(select(func.count()).select_from(Item)) == 108
 
 
 def test_a_study_is_a_stratified_sample_sent_blinded_to_the_review_service(client, auth, thesis, fakes):
