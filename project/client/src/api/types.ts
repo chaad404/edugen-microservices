@@ -31,6 +31,18 @@ export interface Topic {
   source_length: number;
 }
 
+/** What a strategy recorded about its own work; the repair fields exist only for verify_repair. */
+export interface JobTrace {
+  settings?: Record<string, unknown>;
+  raw_answers?: string[];
+  key_balance?: string;
+  writer?: Array<{ outcome: "ok" | "failed"; attempts?: number; error_kind?: string }>;
+  repairs?: Array<{ round: number; outcome?: string; attempted?: number; valid?: number; accepted?: number }>;
+  candidates?: number;
+  passed_before_repair?: number;
+  selected_passing_all_checks?: number;
+}
+
 export interface Job {
   id: string;
   topic_id: string;
@@ -39,6 +51,11 @@ export interface Job {
   strategy: string;
   status: "queued" | "dispatched" | "generated" | "succeeded" | "failed";
   provider: string | null;
+  requested_model_id: string | null;
+  returned_model_id: string | null;
+  /** Sampling settings sent with every request; null for jobs run before they were recorded */
+  settings: Record<string, unknown> | null;
+  trace: JobTrace | null;
   simulated: boolean;
   attempts: number;
   calls: number;

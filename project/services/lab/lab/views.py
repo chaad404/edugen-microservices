@@ -27,6 +27,8 @@ def job_view(job: Job) -> dict:
         "requested_model_id": job.requested_model_id, "returned_model_id": job.returned_model_id,
         # Sampling settings sent with the requests; None for jobs run before they were recorded
         "settings": (job.trace or {}).get("settings"),
+        # What the strategy did: the key letters as written, and the Writer calls and repair rounds of verify_repair
+        "trace": job.trace,
         "simulated": job.simulated, "attempts": job.attempts, "calls": job.calls,
         "prompt_tokens": job.prompt_tokens, "completion_tokens": job.completion_tokens,
         "cost_usd": round(job.cost_usd, 6), "latency_seconds": job.latency_seconds,

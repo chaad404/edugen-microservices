@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import { labApi } from "../../api/lab";
-import type { Experiment, Item, LabEvent, Summary } from "../../api/types";
+import type { Experiment, Item, Job, LabEvent, Summary } from "../../api/types";
 import { Badge, BandBadge, Card, ErrorBox, fmt, Loading, ProgressBar, StatusBadge } from "../../components/ui";
 import { useEventStream } from "../../hooks/useEventStream";
 import { flagLabel, PILLARS, strategyLabel } from "../../labels";
@@ -214,19 +214,52 @@ function ItemList({ items, modelLabel }: { items: Item[]; modelLabel: (a: string
   );
 }
 
+/** "temperature 0.7 · top_p 1 · max_tokens 8192 · reasoning effort medium" */
+function settingsText(settings: Record<string, unknown> | null): string {
+  if (!settings) return "provider defaults (run before the settings were fixed)";
+  if (!Object.keys(settings).length) return "none";
+  const flat = (value: unknown): string =>
+    value !== null && typeof value === "object"
+      ? Object.entries(value as Record<string, unknown>).map(([k, v]) => `${k} ${flat(v)}`).join(" ")
+      : String(value);
+  return Object.entries(settings).map(([key, value]) => `${key} ${flat(value)}`).join(" · ");
+}
+
+/** What verify → repair → select did, from the trace the Generator recorded. */
+function repairText(job: Job): string | null {
+  const trace = job.trace;
+  if (!trace || trace.candidates === undefined) return null;
+  const rounds = trace.repairs ?? [];
+  const accepted = rounds.reduce((sum, round) => sum + (round.accepted ?? 0), 0);
+  const repaired = rounds.length
+    ? rounds.some((round) => round.outcome === "failed") && !accepted
+      ? "; repair call failed"
+      : `; ${accepted} repaired in ${rounds.length} round${rounds.length === 1 ? "" : "s"}`
+    : "";
+  return `${trace.candidates} candidates, ${trace.passed_before_repair ?? 0} passed every check${repaired}; ` +
+    `${trace.selected_passing_all_checks ?? 0} of ${job.items} selected pass`;
+}
+
 function JobTable({ experiment, modelLabel }: { experiment: Experiment; modelLabel: (a: string) => string }) {
   return (
     <Card title="Jobs: one per topic × model × strategy">
       <div className="table-scroll">
         <table className="table">
           <thead>
-            <tr><th>Topic</th><th>Model</th><th>Strategy</th><th>Status</th><th>Calls</th><th>Tokens</th><th>Cost</th><th>Latency</th><th>Notes</th></tr>
+            <tr>
+              <th>Topic</th><th>Model</th><th title="The API the job was sent to, the model ID and the sampling settings">Route and settings</th>
+              <th>Strategy</th><th>Status</th><th>Calls</th><th>Tokens</th><th>Cost</th><th>Latency</th><th>Notes</th>
+            </tr>
           </thead>
           <tbody>
             {(experiment.jobs ?? []).map((j) => (
               <tr key={j.id}>
                 <td>{j.topic_id}</td>
                 <td>{modelLabel(j.model)}{j.simulated && <Badge tone="info">simulated</Badge>}</td>
+                <td className="small">
+                  {j.provider ? <>{j.provider} · <code>{j.requested_model_id}</code></> : "–"}
+                  {j.provider && !j.simulated && <div className="muted">{settingsText(j.settings)}</div>}
+                </td>
                 <td>{strategyLabel(j.strategy)}</td>
                 <td><StatusBadge status={j.status} /></td>
                 <td>{j.calls || "–"}</td>
@@ -236,6 +269,7 @@ function JobTable({ experiment, modelLabel }: { experiment: Experiment; modelLab
                 <td className="small">
                   {j.error_kind && <span className="error-text">{j.error_kind}: {j.error}</span>}
                   {j.strategy_status && j.strategy_status !== "valid" && <Badge>{j.strategy_status.replaceAll("_", " ")}</Badge>}
+                  {repairText(j) && <div className="muted">{repairText(j)}</div>}
                   {j.evaluation_attempts > 0 && j.status === "generated" && <Badge tone="warn">waiting for the Evaluator</Badge>}
                 </td>
               </tr>

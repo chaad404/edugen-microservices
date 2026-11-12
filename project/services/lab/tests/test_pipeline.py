@@ -68,17 +68,20 @@ def test_results_are_consumed_idempotently(client, auth, session_factory):
     assert job.status == "generated" and len(job.items) == 3 and job.simulated and job.prompt_tokens == 900
 
 
-def test_the_job_view_shows_the_recorded_settings(client, auth, session_factory):
+def test_the_job_view_shows_the_recorded_settings_and_the_trace(client, auth, session_factory):
     experiment_id = start(client, auth)
     first, second = jobs_of(session_factory, experiment_id)
     message = completed(first.id)
-    message["payload"]["trace"] = {"settings": {"temperature": 0.7, "top_p": 1.0, "max_tokens": 8192}}
+    trace = {"settings": {"temperature": 0.7, "top_p": 1.0, "max_tokens": 8192}, "raw_answers": ["A", "A", "B"],
+             "candidates": 9, "passed_before_repair": 1, "repairs": [{"round": 1, "attempted": 4, "valid": 4, "accepted": 2}]}
+    message["payload"]["trace"] = trace
     with session_factory() as session:
         handle_generation_result(session, message)
         session.commit()
     jobs = {j["id"]: j for j in client.get(f"/experiments/{experiment_id}", headers=auth).json()["jobs"]}
     assert jobs[first.id]["settings"] == {"temperature": 0.7, "top_p": 1.0, "max_tokens": 8192}
-    assert jobs[second.id]["settings"] is None  # not run yet, or run before settings were recorded
+    assert jobs[first.id]["trace"] == trace  # what the strategy did, as the Generator recorded it
+    assert jobs[second.id]["settings"] is None and jobs[second.id]["trace"] is None  # not run yet
 
 
 def test_evaluation_scores_the_items_and_completes_the_experiment(client, auth, session_factory, fakes):
