@@ -1,8 +1,9 @@
 """
-Exports thesis results for the Lab: a small public sample (committed), or the full October 2026 comparison
-for local use only (write it under project/data/local/, which git ignores).
+Exports results of the thesis prototype for the Lab: a small public sample (committed), or the full October 2026
+comparison for local use only (write it under project/data/local/, which git ignores). The thesis itself was
+re-planned afterwards and rests on a new run; this data shows what the prototype measured.
 
-The thesis database is opened read-only. Topic source texts, prompts, raw model outputs and generation traces
+The prototype's database is opened read-only. Topic source texts, prompts, raw model outputs and generation traces
 are never exported: they contain the topic texts, which were drafted from other students' notes.
 
     python export_thesis_sample.py <thesis app.db> <output.json> [--topics-per-domain 1] [--per-cell 3]
@@ -83,9 +84,10 @@ def main() -> None:
 
     n_items = sum(len(b["items"]) for b in batches)
     output = {
-        "name": "Thesis results: October 2026 comparison" + ("" if args.full else " (public sample)"),
+        "name": "Thesis prototype: October 2026 comparison" + ("" if args.full else " (public sample)"),
         "description": (f"{len(chosen)} topics x {len(MODELS)} models x {len(OCTOBER)} conditions (baseline, RAG, "
-                        f"multi-agent), {n_items} questions with the scores recorded by the thesis framework. "
+                        f"multi-agent), {n_items} questions with the scores the thesis prototype recorded on "
+                        "19 October 2026. It used the v1 prompt and each provider's default sampling settings. "
                         "Topic source texts are not included."),
         "exported_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
         "questions_per_job": 5, "topics": [topics[t] for t in chosen], "batches": batches,

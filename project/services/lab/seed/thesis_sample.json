@@ -1,6 +1,6 @@
 {
- "name": "Thesis results: October 2026 comparison (public sample)",
- "description": "3 topics x 4 models x 3 conditions (baseline, RAG, multi-agent), 108 questions with the scores recorded by the thesis framework. Topic source texts are not included.",
+ "name": "Thesis prototype: October 2026 comparison (public sample)",
+ "description": "3 topics x 4 models x 3 conditions (baseline, RAG, multi-agent), 108 questions with the scores the thesis prototype recorded on 19 October 2026. It used the v1 prompt and each provider's default sampling settings. Topic source texts are not included.",
  "exported_at": "2026-10-22T13:56:19+00:00",
  "questions_per_job": 5,
  "topics": [

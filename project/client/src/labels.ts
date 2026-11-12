@@ -4,8 +4,9 @@ export const STRATEGY_LABELS: Record<string, string> = {
   baseline: "Baseline (zero-shot)",
   prompt_v2: "Prompt v2 + key balancing",
   verify_repair: "Verify → repair → select",
-  rag: "RAG (thesis)",
-  multi_agent: "Multi-agent (thesis)",
+  // Conditions of the thesis prototype: they occur only in its imported sample
+  rag: "RAG (prototype)",
+  multi_agent: "Multi-agent (prototype)",
 };
 
 export const DOMAIN_LABELS: Record<string, string> = {

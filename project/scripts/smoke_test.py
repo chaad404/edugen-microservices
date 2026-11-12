@@ -94,7 +94,7 @@ def main():
     study = call("POST", "/api/lab/studies", {"title": "Smoke study", "kind": "both", "per_cell": 1, "student_items": 3,
                                               "experiment_ids": [THESIS_EXPERIMENT]}, token, expect=(201,))
     assert study["status"] == "open", study
-    step(f"blind study of {study['items']} thesis questions opened: {study['expert_code']}, {study['student_code']}")
+    step(f"blind study of {study['items']} sample questions opened: {study['expert_code']}, {study['student_code']}")
 
     expert = call("POST", "/api/review/v1/sessions", {"code": study["expert_code"], "rater_name": "Smoke rater"})["token"]
     for _ in range(3):

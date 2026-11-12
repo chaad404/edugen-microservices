@@ -185,7 +185,9 @@ function ItemList({ items, modelLabel }: { items: Item[]; modelLabel: (a: string
           <article key={item.id} className="item">
             <header className="muted small">
               {item.topic_id} · {modelLabel(item.model)} · {strategyLabel(item.strategy)}
-              {item.metrics_source === "thesis" && <Badge tone="info">scored by the thesis</Badge>}
+              {item.metrics_source === "thesis" && (
+                <Badge tone="info" title="Scores as the thesis prototype recorded them; they are not recomputed here">recorded scores</Badge>
+              )}
             </header>
             <p className="question">{item.question}</p>
             <ol className="options">
