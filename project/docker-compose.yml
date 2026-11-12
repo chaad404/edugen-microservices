@@ -3,7 +3,7 @@
 # Then open http://localhost:8080  (RabbitMQ console: http://localhost:15672)
 #
 # Every setting has a development default, so no configuration is needed for a local demo.
-# Copy .env.example to .env to change passwords or to add API keys for the live models.
+# Copy .env.example to .env to change passwords, ports, or to add API keys for the live models.
 
 name: edugen
 
@@ -13,7 +13,7 @@ services:
       context: .
       dockerfile: gateway/Dockerfile
     ports:
-      - "8080:80"
+      - "${EDUGEN_PORT:-8080}:80"  # the only public entry point; set EDUGEN_PORT if 8080 is taken
     depends_on:
       lab: { condition: service_healthy }
       review: { condition: service_healthy }
@@ -95,7 +95,7 @@ services:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-edugen}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-edugen-dev-password}
     ports:
-      - "127.0.0.1:15672:15672"  # management console, local machine only
+      - "127.0.0.1:${RABBITMQ_CONSOLE_PORT:-15672}:15672"  # management console, local machine only
     volumes:
       - rabbitdata:/var/lib/rabbitmq
     healthcheck:
