@@ -17,6 +17,7 @@ import pytest
 SERVICES = Path(__file__).resolve().parents[1] / "services"
 for name in ("evaluator", "generator", "lab", "review"):
     sys.path.insert(0, str(SERVICES / name))
+sys.path.insert(0, str(SERVICES.parent / "scripts"))
 
 from fastapi.testclient import TestClient  # noqa: E402
 from sqlalchemy import select  # noqa: E402
@@ -36,10 +37,11 @@ from lab.db import make_engine as lab_engine, make_session_factory as lab_sessio
 from lab.models import Base as LabBase, OutboxMessage as LabOutbox  # noqa: E402
 from lab.orchestration import MAX_CALLS_PER_JOB, evaluate_pending, handle_generation_result, mark_dispatched  # noqa: E402
 from lab.outbox import OutboxRelay  # noqa: E402
-from lab.seed import THESIS_EXPERIMENT_ID, import_thesis_sample, seed_demo_topics  # noqa: E402
+from lab.seed import THESIS_EXPERIMENT_ID, import_recorded_runs, import_thesis_sample, seed_demo_topics  # noqa: E402
 from lab.studies import handle_review_event  # noqa: E402
 from review.db import make_engine as review_engine, make_session_factory as review_sessions  # noqa: E402
 from review.models import Base as ReviewBase, OutboxMessage as ReviewOutbox  # noqa: E402
+from export_run import build_export  # noqa: E402
 
 SEED = SERVICES / "lab" / "seed"
 
@@ -180,6 +182,49 @@ def test_a_blind_study_runs_through_the_review_service_and_back(system):
     assert analytics["progress"] == {"raters": 1, "ratings": 3, "participants": 1, "answers": 3, "feedback": 3}
     rated = [i for i in analytics["items"] if i["expert"]["ratings"]]
     assert len(rated) == 3 and all(i["model"] in {"cohere", "gpt-oss", "llama33", "mistral-small"} for i in rated)
+
+
+def test_a_recorded_run_shows_the_same_comparison_on_another_deployment(system, tmp_path):
+    """scripts/export_run.py on one deployment, the start-up import on another: nothing is lost in between."""
+    lab, auth = system["lab"], system["auth"]
+    body = {"name": "Run to record", "topic_ids": ["NETCOMP-DEMO-1"], "models": ["simulator"],
+            "strategies": ["baseline", "prompt_v2", "verify_repair"], "questions_per_job": 4}
+    experiment_id = lab.post("/experiments", json=body, headers=auth).json()["id"]
+    deliver_jobs(system)
+    with system["lab_db"]() as session:
+        evaluate_pending(session, system["evaluator"])
+        session.commit()
+    detail = lab.get(f"/experiments/{experiment_id}", headers=auth).json()
+    items = lab.get(f"/experiments/{experiment_id}/items?limit=500", headers=auth).json()["items"]
+    export = build_export(detail, items, lab.get("/topics", headers=auth).json())
+    assert "source_text" not in json.dumps(export)  # topic texts stay where they are
+    (tmp_path / "run.json").write_text(json.dumps(export), encoding="utf-8")
+
+    other_db = lab_sessions(lab_engine("sqlite://"))  # a second deployment that never ran anything
+    LabBase.metadata.create_all(other_db.kw["bind"])
+    with other_db() as session:
+        seed_demo_topics(session, SEED / "demo_topics.json")
+        assert import_recorded_runs(session, tmp_path) == 1
+        session.commit()
+    state = lab.app.state
+    other = TestClient(lab_main.create_app(session_factory=other_db, start_workers=False, run_seed=False,
+                                           evaluator=state.evaluator, generator=state.generator, review=state.review))
+
+    recorded = other.get(f"/experiments/{experiment_id}", headers=auth).json()
+    assert recorded["origin"] == "recorded" and detail["origin"] == "live"
+    def job_facts(jobs):
+        return [(j["strategy"], j["status"], j["calls"], j["cost_usd"], j["trace"]) for j in jobs]
+
+    def question_facts(questions):
+        return sorted((i["strategy"], i["position"], i["question"], i["answer"], json.dumps(i["metrics"]), i["flags"])
+                      for i in questions)
+
+    assert job_facts(recorded["jobs"]) == job_facts(detail["jobs"])
+    here, there = (c.get(f"/experiments/{experiment_id}/summary", headers=auth).json() for c in (lab, other))
+    assert there["groups"] == here["groups"] and there["leaders"] == here["leaders"]
+    assert sum(g["raw_keys_known"] for g in there["groups"]) == 12  # the letters the model wrote travelled along
+    copied = other.get(f"/experiments/{experiment_id}/items?limit=500", headers=auth).json()["items"]
+    assert question_facts(copied) == question_facts(items)
 
 
 def test_the_labs_cost_bound_uses_the_generators_call_limits():
