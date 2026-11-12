@@ -1,0 +1,5369 @@
+{
+ "format": "edugen-recorded-run/1",
+ "exported_at": "2026-11-12T16:51:11+00:00",
+ "experiment": {
+  "id": "5336a6ea-6150-4313-964a-35d65b258431",
+  "name": "Live run of 23 October 2026: 4 models x 3 strategies on the 3 demo topics",
+  "description": "First run with the real models, 5 questions per job. It used each provider's default sampling settings (the fixed settings came on 29 October). 30 of 36 jobs succeeded: Mistral Small 4 was still called through OpenRouter, whose shared pool answered HTTP 429. For the two key-balancing strategies the models' own key letters were not recorded yet. Cost: 0.31 USD at list prices.",
+  "status": "completed_with_failures",
+  "questions_per_job": 5,
+  "models": [
+   "gpt-oss",
+   "llama33",
+   "mistral-small",
+   "cohere"
+  ],
+  "strategies": [
+   "baseline",
+   "prompt_v2",
+   "verify_repair"
+  ],
+  "created_by": "operator",
+  "created_at": "2026-10-23T13:49:35.486115+00:00",
+  "finished_at": "2026-10-23T14:21:50.920661+00:00"
+ },
+ "topics": [
+  {
+   "topic_id": "NETCOMP-DEMO-1",
+   "domain": "NETCOMP",
+   "title": "TCP congestion control"
+  },
+  {
+   "topic_id": "SPECALK-DEMO-1",
+   "domain": "SPECALK",
+   "title": "REST-style HTTP APIs"
+  },
+  {
+   "topic_id": "SYSTEM-DEMO-1",
+   "domain": "SYSTEM",
+   "title": "Linear time-invariant systems and stability"
+  }
+ ],
+ "jobs": [
+  {
+   "id": "38299cd3-f709-459c-9be0-15a31c168605",
+   "topic_id": "NETCOMP-DEMO-1",
+   "model": "gpt-oss",
+   "strategy": "baseline",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 905,
+   "completion_tokens": 1188,
+   "cost_usd": 0.000849,
+   "latency_seconds": 3.776,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {},
+   "created_at": "2026-10-23T13:49:35.512785+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.044514+00:00",
+   "generated_at": "2026-10-23T13:49:39.823735+00:00",
+   "finished_at": "2026-10-23T13:49:40.536455+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "When determining how much data the sender may transmit, which rule is applied?",
+     "options": {
+      "A": "Transmit no more than the smaller of the congestion window and the receive window.",
+      "B": "Transmit no more than the larger of the congestion window and the receive window.",
+      "C": "Transmit exactly the sum of the congestion window and the receive window.",
+      "D": "Transmit only up to the advertised receive window regardless of the congestion window."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5341,
+      "alignment_lexical": 0.3405,
+      "grade": 7.6338,
+      "plausibility": 0.8728,
+      "plausibility_lexical": 0.5823,
+      "diversity": 0.2033
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple",
+      "too_close:B",
+      "too_close:C",
+      "too_close:D",
+      "same_mistake:B,C"
+     ],
+     "quality": 0
+    },
+    {
+     "position": 1,
+     "question": "What event causes TCP slow start to terminate?",
+     "options": {
+      "A": "The congestion window reaches the slow start threshold (ssthresh).",
+      "B": "The sender receives a duplicate acknowledgment for the first segment.",
+      "C": "The retransmission timeout expires without any acknowledgment.",
+      "D": "The receiver advertises a zero receive window size."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6079,
+      "alignment_lexical": 0.1349,
+      "grade": 5.23,
+      "plausibility": 0.2505,
+      "plausibility_lexical": 0.0923,
+      "diversity": 0.7449
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple",
+      "weak:B",
+      "weak:C"
+     ],
+     "quality": 3
+    },
+    {
+     "position": 2,
+     "question": "During congestion avoidance, how does the congestion window typically change each round‑trip time?",
+     "options": {
+      "A": "It increases by approximately one maximum segment size.",
+      "B": "It doubles in size, matching exponential growth.",
+      "C": "It remains constant until a loss is reported.",
+      "D": "It decreases by half of its current value each RTT."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6776,
+      "alignment_lexical": 0.394,
+      "grade": 11.2646,
+      "plausibility": 0.4232,
+      "plausibility_lexical": 0.1152,
+      "diversity": 0.6155
+     },
+     "flags": [],
+     "quality": 7
+    },
+    {
+     "position": 3,
+     "question": "Which mechanism allows TCP to detect a lost segment before the retransmission timer expires?",
+     "options": {
+      "A": "Receiving three duplicate acknowledgments for the same data.",
+      "B": "Observing a zero‑window advertisement from the receiver.",
+      "C": "Noticing a decrease in round‑trip time measurements.",
+      "D": "Counting the number of segments sent without any ACKs."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7887,
+      "alignment_lexical": 0.3547,
+      "grade": 12.6271,
+      "plausibility": 0.1219,
+      "plausibility_lexical": 0.0431,
+      "diversity": 0.8181
+     },
+     "flags": [
+      "weak:B",
+      "weak:C",
+      "weak:D"
+     ],
+     "quality": 9
+    },
+    {
+     "position": 4,
+     "question": "After fast retransmit is triggered, what does TCP do with ssthresh and the congestion window?",
+     "options": {
+      "A": "Sets ssthresh to half of the flight data and resumes with a congestion window near that value.",
+      "B": "Sets ssthresh equal to the current congestion window and restarts slow start from one segment.",
+      "C": "Leaves ssthresh unchanged and reduces the congestion window to one maximum segment size.",
+      "D": "Ignores ssthresh and continues increasing the congestion window linearly."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6627,
+      "alignment_lexical": 0.4454,
+      "grade": 7.5667,
+      "plausibility": 0.7082,
+      "plausibility_lexical": 0.256,
+      "diversity": 0.2461
+     },
+     "flags": [
+      "stem_too_simple",
+      "same_mistake:C,D"
+     ],
+     "quality": 4
+    }
+   ]
+  },
+  {
+   "id": "cfe63484-6f12-407b-8157-b5a4236811ad",
+   "topic_id": "NETCOMP-DEMO-1",
+   "model": "gpt-oss",
+   "strategy": "prompt_v2",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 1114,
+   "completion_tokens": 1478,
+   "cost_usd": 0.001054,
+   "latency_seconds": 3.721,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "key_balance": "shuffled"
+   },
+   "created_at": "2026-10-23T13:49:35.512791+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.055500+00:00",
+   "generated_at": "2026-10-23T13:49:43.547024+00:00",
+   "finished_at": "2026-10-23T13:49:43.848293+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "At any time the sender may transmit at most the minimum of which two windows?",
+     "options": {
+      "A": "The sender's buffer and the receiver's buffer.",
+      "B": "The receive window and the congestion window.",
+      "C": "The round‑trip time and the retransmission timeout.",
+      "D": "The maximum segment size and the slow‑start threshold."
+     },
+     "answer": "B",
+     "evidence": "At any time the sender may transmit at most the minimum of the two windows.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6534,
+      "alignment_lexical": 0.51,
+      "grade": 6.78,
+      "plausibility": 0.4154,
+      "plausibility_lexical": 0.2013,
+      "diversity": 0.6895
+     },
+     "flags": [
+      "stem_too_simple",
+      "weak:D",
+      "evidence_supports:A"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 1,
+     "question": "During slow start, how does the congestion window change for each acknowledgement received?",
+     "options": {
+      "A": "It increases by one maximum segment size for each ACK.",
+      "B": "It remains constant until a loss occurs.",
+      "C": "It is reduced by one maximum segment size for each ACK.",
+      "D": "It doubles each round‑trip time regardless of ACKs."
+     },
+     "answer": "A",
+     "evidence": "In slow start the sender increases the congestion window by one maximum segment size for every acknowledgement it receives.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7319,
+      "alignment_lexical": 0.4279,
+      "grade": 8.5415,
+      "plausibility": 0.5974,
+      "plausibility_lexical": 0.31,
+      "diversity": 0.6458
+     },
+     "flags": [
+      "too_close:C"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 2,
+     "question": "When does the slow‑start phase terminate?",
+     "options": {
+      "A": "When the congestion window reaches ssthresh or a loss is detected.",
+      "B": "When the sender has transmitted ten segments.",
+      "C": "When the round‑trip time exceeds the retransmission timeout.",
+      "D": "When the receiver advertises a zero window."
+     },
+     "answer": "A",
+     "evidence": "Slow start ends when the congestion window reaches the slow start threshold, called ssthresh, or when a loss is detected.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.4816,
+      "alignment_lexical": 0.3825,
+      "grade": 4.45,
+      "plausibility": 0.3976,
+      "plausibility_lexical": 0.1761,
+      "diversity": 0.6357
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple",
+      "length_cue"
+     ],
+     "quality": 3
+    },
+    {
+     "position": 3,
+     "question": "What event causes TCP to perform fast retransmit?",
+     "options": {
+      "A": "The congestion window falling below one segment.",
+      "B": "Receiving a single duplicate acknowledgement.",
+      "C": "A timeout expiring without any acknowledgements.",
+      "D": "Receiving three duplicate acknowledgements."
+     },
+     "answer": "D",
+     "evidence": "After three duplicate acknowledgements the sender retransmits the missing segment immediately instead of waiting for the retransmission timer, which is called fast retransmit.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6684,
+      "alignment_lexical": 0.0762,
+      "grade": 6.705,
+      "plausibility": 0.408,
+      "plausibility_lexical": 0.1323,
+      "diversity": 0.8192
+     },
+     "flags": [
+      "stem_too_simple",
+      "too_close:B",
+      "weak:A",
+      "weak:C"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 4,
+     "question": "What does fast recovery do after three duplicate acknowledgements?",
+     "options": {
+      "A": "Resets the congestion window to one segment and re‑enters slow start.",
+      "B": "Leaves ssthresh unchanged and reduces the congestion window by one segment.",
+      "C": "Sets ssthresh to half of data in flight and continues with a congestion window of about that size.",
+      "D": "Doubles the congestion window immediately to compensate for loss."
+     },
+     "answer": "C",
+     "evidence": "Fast recovery then sets ssthresh to half of the data in flight and continues with a congestion window of about that size instead of falling back to slow start.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6628,
+      "alignment_lexical": 0.0829,
+      "grade": 10.2089,
+      "plausibility": 0.622,
+      "plausibility_lexical": 0.1524,
+      "diversity": 0.3633
+     },
+     "flags": [
+      "same_mistake:A,D",
+      "length_cue"
+     ],
+     "quality": 7
+    }
+   ]
+  },
+  {
+   "id": "ae34ebaa-e5d0-42a6-bcac-baf56d724405",
+   "topic_id": "NETCOMP-DEMO-1",
+   "model": "gpt-oss",
+   "strategy": "verify_repair",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 5,
+   "prompt_tokens": 8116,
+   "completion_tokens": 13519,
+   "cost_usd": 0.009329,
+   "latency_seconds": 36.201,
+   "strategy_status": "best_effort",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "writer": [
+     {
+      "focus": [
+       "The congestion window"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Slow start",
+       "Congestion avoidance"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Loss detection",
+       "Fast retransmit and fast recovery"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     }
+    ],
+    "repairs": [
+     {
+      "round": 1,
+      "attempted": 8,
+      "valid": 8,
+      "accepted": 3
+     },
+     {
+      "round": 2,
+      "attempted": 8,
+      "valid": 8,
+      "accepted": 4
+     }
+    ],
+    "candidates": 15,
+    "passed_before_repair": 0,
+    "selected_passing_all_checks": 2
+   },
+   "created_at": "2026-10-23T13:49:35.512793+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.062980+00:00",
+   "generated_at": "2026-10-23T13:50:19.751544+00:00",
+   "finished_at": "2026-10-23T13:50:20.350645+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "Which party in a TCP connection advertises the receive window that limits the sender’s data flow?",
+     "options": {
+      "A": "The intermediate router",
+      "B": "The sender’s transport layer",
+      "C": "The receiver",
+      "D": "The sender"
+     },
+     "answer": "C",
+     "evidence": "The receive window is advertised by the receiver",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7329,
+      "alignment_lexical": 0.5632,
+      "grade": 10.5625,
+      "plausibility": 0.3855,
+      "plausibility_lexical": 0.25,
+      "diversity": 0.5867
+     },
+     "flags": [],
+     "quality": 8
+    },
+    {
+     "position": 1,
+     "question": "How is the size of TCP’s congestion window quantified in terms of measurement units used by the sender?",
+     "options": {
+      "A": "In bytes or MSS",
+      "B": "In bits",
+      "C": "In MSS per round‑trip interval",
+      "D": "In packets"
+     },
+     "answer": "A",
+     "evidence": "The congestion window is measured in bytes or in maximum segment sizes",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7397,
+      "alignment_lexical": 0.6192,
+      "grade": 9.13,
+      "plausibility": 0.4486,
+      "plausibility_lexical": 0.2167,
+      "diversity": 0.7116
+     },
+     "flags": [],
+     "quality": 7
+    },
+    {
+     "position": 2,
+     "question": "At which point does a TCP connection cease using the slow‑start algorithm and transition to a different congestion‑control phase?",
+     "options": {
+      "A": "When the congestion window reaches the slow‑start threshold (ssthresh).",
+      "B": "When the congestion window equals the advertised receive‑window size.",
+      "C": "When the retransmission timeout expires and a loss is detected.",
+      "D": "When the congestion window drops below the slow‑start threshold."
+     },
+     "answer": "A",
+     "evidence": "Slow start ends when the congestion window reaches the slow start threshold, called ssthresh, or when a loss is detected.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.662,
+      "alignment_lexical": 0.4255,
+      "grade": 12.9358,
+      "plausibility": 0.6297,
+      "plausibility_lexical": 0.3539,
+      "diversity": 0.5612
+     },
+     "flags": [
+      "too_close:D"
+     ],
+     "quality": 9
+    },
+    {
+     "position": 3,
+     "question": "In TCP, the congestion window limits unacknowledged data; which network component does this window specifically protect?",
+     "options": {
+      "A": "The sender’s buffer space",
+      "B": "The application layer’s data rate",
+      "C": "The receiver’s buffer space",
+      "D": "The network’s capacity"
+     },
+     "answer": "D",
+     "evidence": "while the congestion window is kept by the sender and protects the network.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7421,
+      "alignment_lexical": 0.4223,
+      "grade": 14.25,
+      "plausibility": 0.3912,
+      "plausibility_lexical": 0.2738,
+      "diversity": 0.5601
+     },
+     "flags": [
+      "evidence_supports:A"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 4,
+     "question": "What causes the TCP congestion window to be adjusted during a connection’s lifetime as the sender observes network conditions?",
+     "options": {
+      "A": "A static configuration set by the operating system",
+      "B": "The sender learning about the state of the path",
+      "C": "A change in the sender’s application data rate",
+      "D": "The current time of day"
+     },
+     "answer": "B",
+     "evidence": "and changes as the sender learns about the state of the path.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7123,
+      "alignment_lexical": 0.527,
+      "grade": 12.9358,
+      "plausibility": 0.1225,
+      "plausibility_lexical": 0.1381,
+      "diversity": 0.904
+     },
+     "flags": [
+      "weak:A",
+      "weak:D"
+     ],
+     "quality": 8
+    }
+   ]
+  },
+  {
+   "id": "6382264d-7f23-46b8-942e-202ab59674d4",
+   "topic_id": "NETCOMP-DEMO-1",
+   "model": "llama33",
+   "strategy": "baseline",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 848,
+   "completion_tokens": 572,
+   "cost_usd": 0.001008,
+   "latency_seconds": 6.321,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {},
+   "created_at": "2026-10-23T13:49:35.512795+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.071728+00:00",
+   "generated_at": "2026-10-23T13:50:26.075437+00:00",
+   "finished_at": "2026-10-23T13:50:26.107405+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What is the primary purpose of the congestion window in TCP?",
+     "options": {
+      "A": "To protect the receiver's buffer by limiting unacknowledged data",
+      "B": "To protect the network by limiting unacknowledged data sent by the sender",
+      "C": "To optimize data transmission by adjusting the receive window",
+      "D": "To manage the sender's buffer by controlling the amount of incoming data"
+     },
+     "answer": "B",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7535,
+      "alignment_lexical": 0.6763,
+      "grade": 6.9364,
+      "plausibility": 0.5868,
+      "plausibility_lexical": 0.3664,
+      "diversity": 0.4585
+     },
+     "flags": [
+      "stem_too_simple"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 1,
+     "question": "How does the congestion window change during the slow start phase in TCP?",
+     "options": {
+      "A": "It decreases by one maximum segment size for every acknowledgement received",
+      "B": "It remains constant until the slow start threshold is reached",
+      "C": "It increases by one maximum segment size for every acknowledgement received",
+      "D": "It grows exponentially based on the round-trip time"
+     },
+     "answer": "C",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.754,
+      "alignment_lexical": 0.6082,
+      "grade": 4.9108,
+      "plausibility": 0.5351,
+      "plausibility_lexical": 0.312,
+      "diversity": 0.5988
+     },
+     "flags": [
+      "stem_too_simple",
+      "too_close:A",
+      "length_cue"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 2,
+     "question": "What is the primary difference between congestion avoidance and slow start in TCP?",
+     "options": {
+      "A": "Congestion avoidance uses a smaller congestion window than slow start",
+      "B": "Congestion avoidance grows the congestion window linearly, while slow start grows it exponentially",
+      "C": "Congestion avoidance reduces the congestion window after a loss, while slow start increases it",
+      "D": "Congestion avoidance ignores acknowledgements, while slow start relies on them"
+     },
+     "answer": "B",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6424,
+      "alignment_lexical": 0.4785,
+      "grade": 9.4492,
+      "plausibility": 0.8525,
+      "plausibility_lexical": 0.3819,
+      "diversity": 0.1601
+     },
+     "flags": [
+      "too_close:A",
+      "too_close:C",
+      "same_mistake:A,C",
+      "length_cue"
+     ],
+     "quality": 2
+    },
+    {
+     "position": 3,
+     "question": "How does TCP detect losses and respond to congestion?",
+     "options": {
+      "A": "TCP detects losses through duplicate acknowledgements and responds by reducing the congestion window additively",
+      "B": "TCP detects losses through timeouts and responds by increasing the congestion window multiplicatively",
+      "C": "TCP detects losses through duplicate acknowledgements and timeouts, and responds by reducing the congestion window multiplicatively",
+      "D": "TCP detects losses through packet corruption and responds by resetting the connection"
+     },
+     "answer": "C",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6178,
+      "alignment_lexical": 0.1825,
+      "grade": 6.2756,
+      "plausibility": 0.8763,
+      "plausibility_lexical": 0.6612,
+      "diversity": 0.2404
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple",
+      "too_close:A",
+      "too_close:B",
+      "same_mistake:A,B",
+      "length_cue"
+     ],
+     "quality": 0
+    },
+    {
+     "position": 4,
+     "question": "What is the purpose of fast retransmit and fast recovery in TCP?",
+     "options": {
+      "A": "To reduce the congestion window to zero after a loss and restart from scratch",
+      "B": "To retransmit lost segments immediately and continue with a reduced congestion window",
+      "C": "To ignore duplicate acknowledgements and continue transmitting data without adjustments",
+      "D": "To increase the congestion window after a loss to compensate for the delay"
+     },
+     "answer": "B",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6597,
+      "alignment_lexical": 0.4345,
+      "grade": 5.8067,
+      "plausibility": 0.5343,
+      "plausibility_lexical": 0.2061,
+      "diversity": 0.6021
+     },
+     "flags": [
+      "stem_too_simple"
+     ],
+     "quality": 5
+    }
+   ]
+  },
+  {
+   "id": "c34eac8e-8c3e-48b1-ab28-8e22375a39fe",
+   "topic_id": "NETCOMP-DEMO-1",
+   "model": "llama33",
+   "strategy": "prompt_v2",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 1053,
+   "completion_tokens": 477,
+   "cost_usd": 0.001086,
+   "latency_seconds": 5.313,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "key_balance": "shuffled"
+   },
+   "created_at": "2026-10-23T13:49:35.512797+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.078832+00:00",
+   "generated_at": "2026-10-23T13:50:31.401337+00:00",
+   "finished_at": "2026-10-23T13:50:31.833621+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What limits the sender's unacknowledged data in flight?",
+     "options": {
+      "A": "Receive window only",
+      "B": "Maximum segment size only",
+      "C": "Minimum of receive and congestion windows",
+      "D": "Congestion window only"
+     },
+     "answer": "C",
+     "evidence": "At any time the sender may transmit at most the minimum of the two windows.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.4149,
+      "alignment_lexical": 0.3926,
+      "grade": 6.705,
+      "plausibility": 0.4747,
+      "plausibility_lexical": 0.0833,
+      "diversity": 0.793
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple",
+      "weak:B",
+      "length_cue"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 1,
+     "question": "How does the congestion window grow in slow start?",
+     "options": {
+      "A": "Exponentially per round-trip time",
+      "B": "Exponentially per segment",
+      "C": "Linearly per round-trip time",
+      "D": "Linearly per segment"
+     },
+     "answer": "A",
+     "evidence": "the congestion window roughly doubles in every round-trip time, which is exponential growth despite the name.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7701,
+      "alignment_lexical": 0.5364,
+      "grade": 3.6533,
+      "plausibility": 0.4994,
+      "plausibility_lexical": 0.381,
+      "diversity": 0.568
+     },
+     "flags": [
+      "stem_too_simple",
+      "too_close:C",
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 2,
+     "question": "What happens when the sender receives three duplicate acknowledgements?",
+     "options": {
+      "A": "It waits for the retransmission timer",
+      "B": "It retransmits the missing segment immediately",
+      "C": "It reduces the congestion window to zero",
+      "D": "It increases the congestion window"
+     },
+     "answer": "B",
+     "evidence": "After three duplicate acknowledgements the sender retransmits the missing segment immediately instead of waiting for the retransmission timer, which is called fast retransmit.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.538,
+      "alignment_lexical": 0.3484,
+      "grade": 10.2089,
+      "plausibility": 0.2299,
+      "plausibility_lexical": 0.2013,
+      "diversity": 0.452
+     },
+     "flags": [
+      "off_topic",
+      "weak:C",
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 3,
+     "question": "What is the purpose of the slow start threshold?",
+     "options": {
+      "A": "To limit the receive window",
+      "B": "To detect losses",
+      "C": "To end the congestion avoidance phase",
+      "D": "To switch from slow start to congestion avoidance"
+     },
+     "answer": "D",
+     "evidence": "Slow start ends when the congestion window reaches the slow start threshold, called ssthresh, or when a loss is detected.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5517,
+      "alignment_lexical": 0.6302,
+      "grade": 2.3422,
+      "plausibility": 0.446,
+      "plausibility_lexical": 0.1673,
+      "diversity": 0.7048
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple",
+      "too_close:C",
+      "weak:B",
+      "length_cue"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 4,
+     "question": "How does the congestion window grow in congestion avoidance?",
+     "options": {
+      "A": "Exponentially per maximum segment size",
+      "B": "Linearly per segment",
+      "C": "Linearly per round-trip time",
+      "D": "Exponentially per round-trip time"
+     },
+     "answer": "C",
+     "evidence": "the congestion window grows by about one maximum segment size per round-trip time.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7337,
+      "alignment_lexical": 0.4852,
+      "grade": 8.8978,
+      "plausibility": 0.4819,
+      "plausibility_lexical": 0.3704,
+      "diversity": 0.6257
+     },
+     "flags": [
+      "too_close:D",
+      "weak:A",
+      "evidence_supports:D"
+     ],
+     "quality": 7
+    }
+   ]
+  },
+  {
+   "id": "3dfeb331-8d9b-4b83-a31b-57db5fa1a07b",
+   "topic_id": "NETCOMP-DEMO-1",
+   "model": "llama33",
+   "strategy": "verify_repair",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 5,
+   "prompt_tokens": 7916,
+   "completion_tokens": 3298,
+   "cost_usd": 0.007962,
+   "latency_seconds": 39.395,
+   "strategy_status": "best_effort",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "writer": [
+     {
+      "focus": [
+       "The congestion window"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Slow start",
+       "Congestion avoidance"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Loss detection",
+       "Fast retransmit and fast recovery"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     }
+    ],
+    "repairs": [
+     {
+      "round": 1,
+      "attempted": 8,
+      "valid": 8,
+      "accepted": 5
+     },
+     {
+      "round": 2,
+      "attempted": 8,
+      "valid": 8,
+      "accepted": 4
+     }
+    ],
+    "candidates": 15,
+    "passed_before_repair": 0,
+    "selected_passing_all_checks": 1
+   },
+   "created_at": "2026-10-23T13:49:35.512799+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.088817+00:00",
+   "generated_at": "2026-10-23T13:51:10.804913+00:00",
+   "finished_at": "2026-10-23T13:51:10.899854+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What is the result for the sender when a segment is lost in a TCP connection, according to the context?",
+     "options": {
+      "A": "the sender assumes heavy network congestion",
+      "B": "the sender ignores the lost segment",
+      "C": "the sender restarts the connection from the beginning",
+      "D": "the sender assumes the network is idle"
+     },
+     "answer": "A",
+     "evidence": "TCP treats a lost segment as a signal of congestion, and it detects losses in two ways. If no acknowledgement arrives before the retransmission timeout expires, the sender assumes heavy congestion,",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7273,
+      "alignment_lexical": 0.6451,
+      "grade": 8.73,
+      "plausibility": 0.5213,
+      "plausibility_lexical": 0.3074,
+      "diversity": 0.5349
+     },
+     "flags": [],
+     "quality": 6
+    },
+    {
+     "position": 1,
+     "question": "What is the characteristic growth pattern of the congestion window during the slow start phase of a TCP connection?",
+     "options": {
+      "A": "it decreases exponentially with every round-trip time",
+      "B": "it roughly doubles in every round-trip time",
+      "C": "it grows linearly with every acknowledgement",
+      "D": "it stays the same until a timeout"
+     },
+     "answer": "B",
+     "evidence": "the congestion window roughly doubles in every round-trip time",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7813,
+      "alignment_lexical": 0.7247,
+      "grade": 10.4516,
+      "plausibility": 0.3985,
+      "plausibility_lexical": 0.2309,
+      "diversity": 0.6362
+     },
+     "flags": [
+      "weak:C"
+     ],
+     "quality": 9
+    },
+    {
+     "position": 2,
+     "question": "How does the congestion window change when a TCP connection is in the congestion avoidance phase?",
+     "options": {
+      "A": "grows by about one segment size for every two round-trip times",
+      "B": "grows exponentially with every round-trip time",
+      "C": "grows by about one maximum segment size per round-trip time",
+      "D": "grows by one maximum segment size for every acknowledgement"
+     },
+     "answer": "C",
+     "evidence": "the congestion window grows by about one maximum segment size per round-trip time",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7396,
+      "alignment_lexical": 0.6195,
+      "grade": 9.0875,
+      "plausibility": 0.7567,
+      "plausibility_lexical": 0.4159,
+      "diversity": 0.4306
+     },
+     "flags": [
+      "too_close:A"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 3,
+     "question": "What happens when the congestion window size reaches the slow start threshold in a TCP connection?",
+     "options": {
+      "A": "the sender continues in slow start with the current window size",
+      "B": "slow start ends and congestion avoidance begins",
+      "C": "the sender increases the congestion window exponentially",
+      "D": "the sender resets the congestion window to its initial size"
+     },
+     "answer": "B",
+     "evidence": "Slow start ends when the congestion window reaches the slow start threshold, called ssthresh,",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7771,
+      "alignment_lexical": 0.6412,
+      "grade": 8.35,
+      "plausibility": 0.5011,
+      "plausibility_lexical": 0.0944,
+      "diversity": 0.3027
+     },
+     "flags": [
+      "same_mistake:C,D"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 4,
+     "question": "How does TCP detect segment losses in a connection, and what mechanisms are used for this purpose?",
+     "options": {
+      "A": "through periodic network checks",
+      "B": "only through duplicate acknowledgements",
+      "C": "only through explicit loss notifications",
+      "D": "through retransmission timeout and duplicate acknowledgements"
+     },
+     "answer": "D",
+     "evidence": "TCP treats a lost segment as a signal of congestion, and it detects losses in two ways",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7124,
+      "alignment_lexical": 0.2132,
+      "grade": 9.0871,
+      "plausibility": 0.4341,
+      "plausibility_lexical": 0.2132,
+      "diversity": 0.7029
+     },
+     "flags": [
+      "length_cue",
+      "evidence_supports:C"
+     ],
+     "quality": 7
+    }
+   ]
+  },
+  {
+   "id": "f236ad3a-678d-438e-b7ae-527d8d71f361",
+   "topic_id": "NETCOMP-DEMO-1",
+   "model": "mistral-small",
+   "strategy": "baseline",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "mistralai/mistral-small-2603",
+   "returned_model_id": "mistralai/mistral-small-2603",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 831,
+   "completion_tokens": 591,
+   "cost_usd": 0.000479,
+   "latency_seconds": 3.844,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {},
+   "created_at": "2026-10-23T13:49:35.512801+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.095443+00:00",
+   "generated_at": "2026-10-23T13:51:14.652106+00:00",
+   "finished_at": "2026-10-23T13:51:14.695421+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What is the primary purpose of the congestion window in TCP?",
+     "options": {
+      "A": "To limit the amount of unacknowledged data a sender can transmit, protecting the network from overload.",
+      "B": "To dynamically adjust the receive buffer size based on network conditions.",
+      "C": "To ensure all segments are delivered in strict order to the receiver.",
+      "D": "To prioritize certain types of traffic over others during congestion."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7535,
+      "alignment_lexical": 0.6763,
+      "grade": 6.9364,
+      "plausibility": 0.4942,
+      "plausibility_lexical": 0.1002,
+      "diversity": 0.5389
+     },
+     "flags": [
+      "stem_too_simple",
+      "length_cue"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 1,
+     "question": "How does the congestion window grow during the slow start phase?",
+     "options": {
+      "A": "It increases by one maximum segment size for every acknowledgement received, roughly doubling every round-trip time.",
+      "B": "It increases linearly by one segment per round-trip time, regardless of acknowledgements.",
+      "C": "It remains constant until the slow start threshold is reached, then grows exponentially.",
+      "D": "It grows by the number of segments acknowledged in the previous round-trip time."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7576,
+      "alignment_lexical": 0.5981,
+      "grade": 4.7909,
+      "plausibility": 0.6465,
+      "plausibility_lexical": 0.2083,
+      "diversity": 0.4673
+     },
+     "flags": [
+      "stem_too_simple",
+      "length_cue"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 2,
+     "question": "What triggers the switch from slow start to congestion avoidance in TCP?",
+     "options": {
+      "A": "When the congestion window reaches the slow start threshold (ssthresh) or a loss is detected.",
+      "B": "When the retransmission timer expires without receiving an acknowledgement.",
+      "C": "When the receiver sends a duplicate acknowledgement for the third time.",
+      "D": "When the sender detects out-of-order segments in the network."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7042,
+      "alignment_lexical": 0.4501,
+      "grade": 5.8067,
+      "plausibility": 0.4091,
+      "plausibility_lexical": 0.1097,
+      "diversity": 0.5352
+     },
+     "flags": [
+      "stem_too_simple",
+      "length_cue"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 3,
+     "question": "How does TCP detect segment loss in the absence of a retransmission timeout?",
+     "options": {
+      "A": "Through duplicate acknowledgements from the receiver, indicating out-of-order segments.",
+      "B": "By monitoring the receive window size advertised by the receiver.",
+      "C": "By comparing the congestion window size to the slow start threshold.",
+      "D": "By detecting a decrease in the round-trip time for segment acknowledgements."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.8446,
+      "alignment_lexical": 0.4509,
+      "grade": 7.6338,
+      "plausibility": 0.4409,
+      "plausibility_lexical": 0.0876,
+      "diversity": 0.6019
+     },
+     "flags": [
+      "stem_too_simple",
+      "weak:C",
+      "length_cue"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 4,
+     "question": "What is the key benefit of fast recovery over a full retransmission timeout in TCP?",
+     "options": {
+      "A": "It maintains higher throughput by avoiding a complete slow start restart after loss detection.",
+      "B": "It reduces the congestion window to one segment immediately after loss, preventing further congestion.",
+      "C": "It ensures all segments are retransmitted in the correct order without duplicates.",
+      "D": "It dynamically adjusts the slow start threshold based on the current network load."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.664,
+      "alignment_lexical": 0.4369,
+      "grade": 9.14,
+      "plausibility": 0.4959,
+      "plausibility_lexical": 0.0985,
+      "diversity": 0.5325
+     },
+     "flags": [
+      "weak:C"
+     ],
+     "quality": 5
+    }
+   ]
+  },
+  {
+   "id": "7cec8aa8-315f-436a-b500-3dbb111f7e80",
+   "topic_id": "NETCOMP-DEMO-1",
+   "model": "mistral-small",
+   "strategy": "prompt_v2",
+   "status": "failed",
+   "provider": null,
+   "requested_model_id": null,
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 4,
+   "calls": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "cost_usd": 0.0,
+   "latency_seconds": 137.694,
+   "strategy_status": null,
+   "error_kind": "provider_error",
+   "error": "mistral-small: all 4 attempts failed (HTTP 429: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"mistralai/mistral-small-2603 is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Mistral\",\"is_byok\":fa)",
+   "trace": null,
+   "created_at": "2026-10-23T13:49:35.512802+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.100710+00:00",
+   "generated_at": null,
+   "finished_at": "2026-10-23T13:53:32.336407+00:00",
+   "items": []
+  },
+  {
+   "id": "e6d846f5-250a-4d26-9747-a1c500e9af40",
+   "topic_id": "NETCOMP-DEMO-1",
+   "model": "mistral-small",
+   "strategy": "verify_repair",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "mistralai/mistral-small-2603",
+   "returned_model_id": "mistralai/mistral-small-2603",
+   "simulated": false,
+   "attempts": 4,
+   "calls": 2,
+   "prompt_tokens": 2119,
+   "completion_tokens": 1217,
+   "cost_usd": 0.001048,
+   "latency_seconds": 213.771,
+   "strategy_status": "best_effort",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "writer": [
+     {
+      "focus": [
+       "The congestion window"
+      ],
+      "outcome": "ok",
+      "attempts": 4
+     },
+     {
+      "focus": [
+       "Slow start",
+       "Congestion avoidance"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Loss detection",
+       "Fast retransmit and fast recovery"
+      ],
+      "outcome": "failed"
+     }
+    ],
+    "repairs": [
+     {
+      "round": 1,
+      "outcome": "failed"
+     }
+    ],
+    "candidates": 10,
+    "passed_before_repair": 0,
+    "selected_passing_all_checks": 0
+   },
+   "created_at": "2026-10-23T13:49:35.512804+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.106037+00:00",
+   "generated_at": "2026-10-23T13:57:06.092502+00:00",
+   "finished_at": "2026-10-23T13:57:06.454089+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What happens to the congestion window when the sender detects a loss?",
+     "options": {
+      "A": "It is reset to the initial slow start value.",
+      "B": "It is set to half of the data in flight.",
+      "C": "It is doubled until the loss is resolved.",
+      "D": "It is increased by one segment size per round-trip time."
+     },
+     "answer": "B",
+     "evidence": "the sender assumes heavy congestion, sets ssthresh to half of the data in flight",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7133,
+      "alignment_lexical": 0.6517,
+      "grade": 6.79,
+      "plausibility": 0.3688,
+      "plausibility_lexical": 0.1954,
+      "diversity": 0.6731
+     },
+     "flags": [
+      "stem_too_simple"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 1,
+     "question": "Which window protects the network from congestion in TCP?",
+     "options": {
+      "A": "The advertised window.",
+      "B": "The flow control window.",
+      "C": "The congestion window.",
+      "D": "The receive window."
+     },
+     "answer": "C",
+     "evidence": "the congestion window is kept by the sender and protects the network.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7573,
+      "alignment_lexical": 0.5032,
+      "grade": 6.2756,
+      "plausibility": 0.5479,
+      "plausibility_lexical": 0.4667,
+      "diversity": 0.4399
+     },
+     "flags": [
+      "stem_too_simple"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 2,
+     "question": "What is the primary purpose of the congestion avoidance phase in TCP?",
+     "options": {
+      "A": "To reset the congestion window to its initial small size.",
+      "B": "To immediately retransmit lost segments upon detection.",
+      "C": "To rapidly increase the congestion window to maximize throughput.",
+      "D": "To probe for additional bandwidth near the network capacity."
+     },
+     "answer": "D",
+     "evidence": "This linear growth probes for additional bandwidth carefully, because the sender is now close to the capacity at which losses occurred before.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6556,
+      "alignment_lexical": 0.603,
+      "grade": 7.7733,
+      "plausibility": 0.52,
+      "plausibility_lexical": 0.1083,
+      "diversity": 0.5632
+     },
+     "flags": [
+      "stem_too_simple"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 3,
+     "question": "How does the congestion window grow during congestion avoidance in TCP?",
+     "options": {
+      "A": "It grows by about one maximum segment size per round-trip time.",
+      "B": "It doubles in size for every round-trip time.",
+      "C": "It increases by one segment per acknowledgement received.",
+      "D": "It remains constant until a packet loss is detected."
+     },
+     "answer": "A",
+     "evidence": "Above the slow start threshold the sender switches to congestion avoidance, where the congestion window grows by about one maximum segment size per round-trip time.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7425,
+      "alignment_lexical": 0.4555,
+      "grade": 9.0818,
+      "plausibility": 0.4455,
+      "plausibility_lexical": 0.2319,
+      "diversity": 0.7157
+     },
+     "flags": [
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 4,
+     "question": "What role does the receive window play in TCP communication?",
+     "options": {
+      "A": "It doubles the congestion window during slow start.",
+      "B": "It triggers fast retransmit after three duplicate acknowledgements.",
+      "C": "It sets the retransmission timeout for lost segments.",
+      "D": "It limits the sender's transmission rate to avoid overwhelming the receiver."
+     },
+     "answer": "D",
+     "evidence": "The receive window is advertised by the receiver and protects its buffer.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.729,
+      "alignment_lexical": 0.362,
+      "grade": 7.19,
+      "plausibility": 0.4414,
+      "plausibility_lexical": 0.0969,
+      "diversity": 0.5245
+     },
+     "flags": [
+      "stem_too_simple",
+      "length_cue"
+     ],
+     "quality": 4
+    }
+   ]
+  },
+  {
+   "id": "a2d9c7a5-a06f-4418-bac8-951ef74616c1",
+   "topic_id": "NETCOMP-DEMO-1",
+   "model": "cohere",
+   "strategy": "baseline",
+   "status": "succeeded",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 1392,
+   "completion_tokens": 523,
+   "cost_usd": 0.00871,
+   "latency_seconds": 75.219,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {},
+   "created_at": "2026-10-23T13:49:35.512806+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.112615+00:00",
+   "generated_at": "2026-10-23T13:58:21.308437+00:00",
+   "finished_at": "2026-10-23T13:58:22.316568+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What is the primary purpose of the congestion window in TCP?",
+     "options": {
+      "A": "To protect the network by limiting unacknowledged data in flight.",
+      "B": "To manage the receiver's buffer size and prevent overflow.",
+      "C": "To control the rate of data transmission based on round-trip time.",
+      "D": "To ensure data integrity by retransmitting lost segments."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7535,
+      "alignment_lexical": 0.6763,
+      "grade": 6.9364,
+      "plausibility": 0.451,
+      "plausibility_lexical": 0.1563,
+      "diversity": 0.6742
+     },
+     "flags": [
+      "stem_too_simple"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 1,
+     "question": "During slow start, how does the congestion window grow?",
+     "options": {
+      "A": "Exponentially, doubling roughly every round-trip time.",
+      "B": "Linearly, increasing by one segment per round-trip time.",
+      "C": "Statically, remaining constant until a loss is detected.",
+      "D": "Randomly, based on the number of acknowledgements received."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7694,
+      "alignment_lexical": 0.4811,
+      "grade": 4.9644,
+      "plausibility": 0.3557,
+      "plausibility_lexical": 0.0769,
+      "diversity": 0.8251
+     },
+     "flags": [
+      "stem_too_simple",
+      "weak:C",
+      "weak:D"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 2,
+     "question": "What triggers the transition from slow start to congestion avoidance?",
+     "options": {
+      "A": "Reaching the slow start threshold (ssthresh).",
+      "B": "Detecting a segment loss through duplicate acknowledgements.",
+      "C": "Exceeding the receiver's advertised window size.",
+      "D": "Completing a full round-trip time without acknowledgements."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6463,
+      "alignment_lexical": 0.4302,
+      "grade": 8.37,
+      "plausibility": 0.2069,
+      "plausibility_lexical": 0.0278,
+      "diversity": 0.8468
+     },
+     "flags": [
+      "weak:B",
+      "weak:D"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 3,
+     "question": "How does TCP respond to a retransmission timeout?",
+     "options": {
+      "A": "Sets ssthresh to half of the data in flight and restarts slow start.",
+      "B": "Enters fast recovery and retransmits the missing segment immediately.",
+      "C": "Increases the congestion window to probe for more bandwidth.",
+      "D": "Reduces the congestion window by one segment per round-trip time."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7499,
+      "alignment_lexical": 0.1525,
+      "grade": 6.705,
+      "plausibility": 0.3015,
+      "plausibility_lexical": 0.0812,
+      "diversity": 0.6602
+     },
+     "flags": [
+      "stem_too_simple",
+      "weak:B",
+      "weak:D"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 4,
+     "question": "What is the purpose of fast retransmit and fast recovery?",
+     "options": {
+      "A": "To maintain higher throughput by avoiding a full slow start after a loss.",
+      "B": "To reduce the congestion window exponentially after detecting congestion.",
+      "C": "To increase the retransmission timeout for better network stability.",
+      "D": "To double the congestion window after receiving three duplicate acknowledgements."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5404,
+      "alignment_lexical": 0.4118,
+      "grade": 6.01,
+      "plausibility": 0.5415,
+      "plausibility_lexical": 0.087,
+      "diversity": 0.4456
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple"
+     ],
+     "quality": 3
+    }
+   ]
+  },
+  {
+   "id": "6c4fed4f-4fde-45c2-bd9e-d4969ba81edd",
+   "topic_id": "NETCOMP-DEMO-1",
+   "model": "cohere",
+   "strategy": "prompt_v2",
+   "status": "succeeded",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 1616,
+   "completion_tokens": 589,
+   "cost_usd": 0.00993,
+   "latency_seconds": 44.782,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "key_balance": "shuffled"
+   },
+   "created_at": "2026-10-23T13:49:35.512808+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.118985+00:00",
+   "generated_at": "2026-10-23T13:59:06.091448+00:00",
+   "finished_at": "2026-10-23T13:59:06.120243+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What does the congestion window primarily protect in TCP?",
+     "options": {
+      "A": "The application data",
+      "B": "The receiver's buffer",
+      "C": "The network",
+      "D": "The sender's buffer"
+     },
+     "answer": "C",
+     "evidence": "the congestion window is kept by the sender and protects the network.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7594,
+      "alignment_lexical": 0.4534,
+      "grade": 8.8978,
+      "plausibility": 0.2189,
+      "plausibility_lexical": 0.2167,
+      "diversity": 0.6578
+     },
+     "flags": [
+      "weak:A",
+      "weak:B",
+      "weak:D",
+      "evidence_supports:B,D"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 1,
+     "question": "How does the congestion window grow during slow start?",
+     "options": {
+      "A": "Exponentially with each acknowledgement",
+      "B": "Linearly with each round-trip time",
+      "C": "By a fixed amount after each timeout",
+      "D": "Only when no losses are detected"
+     },
+     "answer": "A",
+     "evidence": "In slow start the sender increases the congestion window by one maximum segment size for every acknowledgement it receives. Because every acknowledged segment enlarges the window, the congestion window roughly doubles in every round-trip time, which is exponential growth despite the name.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7762,
+      "alignment_lexical": 0.4811,
+      "grade": 4.9644,
+      "plausibility": 0.2768,
+      "plausibility_lexical": 0.1167,
+      "diversity": 0.7258
+     },
+     "flags": [
+      "stem_too_simple",
+      "weak:B",
+      "weak:D"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 2,
+     "question": "What triggers the fast retransmit mechanism?",
+     "options": {
+      "A": "A full receiver buffer",
+      "B": "A single duplicate acknowledgement",
+      "C": "Three duplicate acknowledgements",
+      "D": "A retransmission timeout"
+     },
+     "answer": "C",
+     "evidence": "After three duplicate acknowledgements the sender retransmits the missing segment immediately instead of waiting for the retransmission timer, which is called fast retransmit.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5198,
+      "alignment_lexical": 0.3318,
+      "grade": 10.35,
+      "plausibility": 0.3393,
+      "plausibility_lexical": 0.0556,
+      "diversity": 0.8293
+     },
+     "flags": [
+      "off_topic",
+      "too_close:B",
+      "weak:A",
+      "weak:D",
+      "evidence_supports:D"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 3,
+     "question": "What happens to the congestion window after a timeout?",
+     "options": {
+      "A": "It remains unchanged",
+      "B": "It is set to half of the data in flight",
+      "C": "It is reset to the receiver's window size",
+      "D": "It is doubled to recover quickly"
+     },
+     "answer": "B",
+     "evidence": "If no acknowledgement arrives before the retransmission timeout expires, the sender assumes heavy congestion, sets ssthresh to half of the data in flight and restarts slow start from a window of one segment.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6411,
+      "alignment_lexical": 0.5142,
+      "grade": 7.5867,
+      "plausibility": 0.3093,
+      "plausibility_lexical": 0.1936,
+      "diversity": 0.7339
+     },
+     "flags": [
+      "stem_too_simple",
+      "weak:A",
+      "evidence_supports:C"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 4,
+     "question": "How does the congestion window grow during congestion avoidance?",
+     "options": {
+      "A": "Exponentially with each acknowledgement",
+      "B": "Only when no losses are detected",
+      "C": "By doubling after each successful transmission",
+      "D": "Linearly with each round-trip time"
+     },
+     "answer": "D",
+     "evidence": "Above the slow start threshold the sender switches to congestion avoidance, where the congestion window grows by about one maximum segment size per round-trip time.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7316,
+      "alignment_lexical": 0.4351,
+      "grade": 10.2089,
+      "plausibility": 0.2195,
+      "plausibility_lexical": 0.1136,
+      "diversity": 0.7125
+     },
+     "flags": [
+      "weak:A",
+      "weak:B",
+      "weak:C",
+      "evidence_supports:C"
+     ],
+     "quality": 8
+    }
+   ]
+  },
+  {
+   "id": "e0618e0b-1209-4b10-b06b-0d707564b72f",
+   "topic_id": "NETCOMP-DEMO-1",
+   "model": "cohere",
+   "strategy": "verify_repair",
+   "status": "succeeded",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 1,
+   "calls": 5,
+   "prompt_tokens": 10863,
+   "completion_tokens": 4073,
+   "cost_usd": 0.067888,
+   "latency_seconds": 260.398,
+   "strategy_status": "best_effort",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "writer": [
+     {
+      "focus": [
+       "The congestion window"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Slow start",
+       "Congestion avoidance"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Loss detection",
+       "Fast retransmit and fast recovery"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     }
+    ],
+    "repairs": [
+     {
+      "round": 1,
+      "attempted": 8,
+      "valid": 8,
+      "accepted": 3
+     },
+     {
+      "round": 2,
+      "attempted": 8,
+      "valid": 8,
+      "accepted": 2
+     }
+    ],
+    "candidates": 15,
+    "passed_before_repair": 0,
+    "selected_passing_all_checks": 1
+   },
+   "created_at": "2026-10-23T13:49:35.512810+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.125089+00:00",
+   "generated_at": "2026-10-23T14:03:26.473862+00:00",
+   "finished_at": "2026-10-23T14:03:27.085759+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "In TCP congestion control, what is the precise growth rate of the congestion window during the slow start phase?",
+     "options": {
+      "A": "Linear, one segment per round-trip time.",
+      "B": "Exponential, doubling per round-trip time.",
+      "C": "Halving every round-trip time.",
+      "D": "Constant until first loss detected."
+     },
+     "answer": "B",
+     "evidence": "In slow start the sender increases the congestion window by one maximum segment size for every acknowledgement it receives. Because every acknowledged segment enlarges the window, the congestion window roughly doubles in every round-trip time, which is exponential growth despite the name.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6785,
+      "alignment_lexical": 0.7087,
+      "grade": 8.5884,
+      "plausibility": 0.5196,
+      "plausibility_lexical": 0.2731,
+      "diversity": 0.6543
+     },
+     "flags": [],
+     "quality": 6
+    },
+    {
+     "position": 1,
+     "question": "How does the congestion window grow during congestion avoidance?",
+     "options": {
+      "A": "It decreases by half after each acknowledgment.",
+      "B": "It remains constant after reaching the slow start threshold.",
+      "C": "It increases by one maximum segment size per round-trip time.",
+      "D": "It doubles every round-trip time."
+     },
+     "answer": "C",
+     "evidence": "Above the slow start threshold the sender switches to congestion avoidance, where the congestion window grows by about one maximum segment size per round-trip time.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7316,
+      "alignment_lexical": 0.4351,
+      "grade": 10.2089,
+      "plausibility": 0.5035,
+      "plausibility_lexical": 0.1618,
+      "diversity": 0.6302
+     },
+     "flags": [
+      "length_cue"
+     ],
+     "quality": 9
+    },
+    {
+     "position": 2,
+     "question": "What happens to the congestion window after a loss is detected during congestion avoidance?",
+     "options": {
+      "A": "It remains unchanged, and the sender retransmits the lost segment.",
+      "B": "It is set to one segment, and the sender enters slow start.",
+      "C": "It is halved, and the sender enters slow start.",
+      "D": "It is halved, and the sender continues in congestion avoidance."
+     },
+     "answer": "D",
+     "evidence": "Fast recovery then sets ssthresh to half of the data in flight and continues with a congestion window of about that size instead of falling back to slow start.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6724,
+      "alignment_lexical": 0.4894,
+      "grade": 11.7843,
+      "plausibility": 0.5389,
+      "plausibility_lexical": 0.3408,
+      "diversity": 0.4738
+     },
+     "flags": [
+      "evidence_supports:B,C"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 3,
+     "question": "What does the congestion window primarily protect in TCP?",
+     "options": {
+      "A": "Network congestion.",
+      "B": "Sender's transmission rate.",
+      "C": "Receiver's processing load.",
+      "D": "Data integrity."
+     },
+     "answer": "A",
+     "evidence": "the congestion window is kept by the sender and protects the network.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7594,
+      "alignment_lexical": 0.4534,
+      "grade": 8.8978,
+      "plausibility": 0.4327,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.6775
+     },
+     "flags": [
+      "weak:D"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 4,
+     "question": "What triggers TCP to assume heavy congestion and restart slow start from a window of one segment?",
+     "options": {
+      "A": "Reaching the slow start threshold (ssthresh) without loss.",
+      "B": "Expiration of the retransmission timeout.",
+      "C": "Receiving three duplicate acknowledgements without timeout.",
+      "D": "Detecting segments arriving out of order without duplicates."
+     },
+     "answer": "B",
+     "evidence": "If no acknowledgement arrives before the retransmission timeout expires, the sender assumes heavy congestion, sets ssthresh to half of the data in flight and restarts slow start from a window of one segment.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7432,
+      "alignment_lexical": 0.3983,
+      "grade": 8.3929,
+      "plausibility": 0.2651,
+      "plausibility_lexical": 0.0889,
+      "diversity": 0.7699
+     },
+     "flags": [
+      "weak:D"
+     ],
+     "quality": 6
+    }
+   ]
+  },
+  {
+   "id": "ee1e89ef-2b9b-4520-aebe-6bbe25c558eb",
+   "topic_id": "SPECALK-DEMO-1",
+   "model": "gpt-oss",
+   "strategy": "baseline",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 941,
+   "completion_tokens": 618,
+   "cost_usd": 0.000512,
+   "latency_seconds": 3.212,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {},
+   "created_at": "2026-10-23T13:49:35.512812+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.131279+00:00",
+   "generated_at": "2026-10-23T14:03:29.687655+00:00",
+   "finished_at": "2026-10-23T14:03:30.685687+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "Which HTTP method is defined as safe and can be repeated by caches without causing side effects?",
+     "options": {
+      "A": "GET",
+      "B": "PUT",
+      "C": "POST",
+      "D": "DELETE"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5318,
+      "alignment_lexical": 0.162,
+      "grade": 8.3929,
+      "plausibility": 0.443,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5544
+     },
+     "flags": [
+      "off_topic"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 1,
+     "question": "Which status code signals that a new resource has been successfully created on the server?",
+     "options": {
+      "A": "201 Created",
+      "B": "202 Accepted",
+      "C": "204 No Content",
+      "D": "200 OK"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5348,
+      "alignment_lexical": 0.4599,
+      "grade": 9.14,
+      "plausibility": 0.5205,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5043
+     },
+     "flags": [
+      "off_topic"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 2,
+     "question": "Which request header allows a client to check whether its cached representation is still valid, receiving a 304 response if unchanged?",
+     "options": {
+      "A": "If-None-Match",
+      "B": "If-Match",
+      "C": "If-Modified-Since",
+      "D": "If-Unmodified-Since"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5576,
+      "alignment_lexical": 0.3178,
+      "grade": 12.2667,
+      "plausibility": 0.6144,
+      "plausibility_lexical": 0.3556,
+      "diversity": 0.4052
+     },
+     "flags": [
+      "off_topic",
+      "too_close:B"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 3,
+     "question": "Which HTTP method is idempotent but not safe, replacing the target resource with the request payload?",
+     "options": {
+      "A": "PUT",
+      "B": "POST",
+      "C": "PATCH",
+      "D": "DELETE"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5267,
+      "alignment_lexical": 0.4764,
+      "grade": 9.0875,
+      "plausibility": 0.3454,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5872
+     },
+     "flags": [
+      "off_topic",
+      "weak:C"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 4,
+     "question": "When a request initiates a long‑running operation, which status code should the server return and what auxiliary data is typically included?",
+     "options": {
+      "A": "202 Accepted with a link to a status resource",
+      "B": "201 Created with the URI of the new resource",
+      "C": "200 OK with the operation result in the body",
+      "D": "204 No Content with no additional information"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.663,
+      "alignment_lexical": 0.4825,
+      "grade": 15.6381,
+      "plausibility": 0.4373,
+      "plausibility_lexical": 0.0955,
+      "diversity": 0.6943
+     },
+     "flags": [],
+     "quality": 5
+    }
+   ]
+  },
+  {
+   "id": "0c944902-6324-4d93-a312-1f6b1d77cb6f",
+   "topic_id": "SPECALK-DEMO-1",
+   "model": "gpt-oss",
+   "strategy": "prompt_v2",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 1150,
+   "completion_tokens": 1957,
+   "cost_usd": 0.001347,
+   "latency_seconds": 4.509,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "key_balance": "shuffled"
+   },
+   "created_at": "2026-10-23T13:49:35.512814+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.137265+00:00",
+   "generated_at": "2026-10-23T14:03:34.200085+00:00",
+   "finished_at": "2026-10-23T14:03:34.214829+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "Which HTTP method is defined as safe, allowing browsers or caches to repeat it without changing server state?",
+     "options": {
+      "A": "DELETE",
+      "B": "POST",
+      "C": "PUT",
+      "D": "GET"
+     },
+     "answer": "D",
+     "evidence": "GET only reads a resource and is safe, which means browsers, caches and proxies may repeat or prefetch it without changing anything on the server.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5336,
+      "alignment_lexical": 0.1817,
+      "grade": 9.7856,
+      "plausibility": 0.443,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5544
+     },
+     "flags": [
+      "off_topic"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 1,
+     "question": "Which HTTP method described in the context is idempotent, meaning repeated identical requests have the same effect as a single request?",
+     "options": {
+      "A": "DELETE",
+      "B": "PATCH",
+      "C": "GET",
+      "D": "POST"
+     },
+     "answer": "A",
+     "evidence": "DELETE removes it, and both are idempotent, so sending the same request several times has the same effect as sending it once.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5857,
+      "alignment_lexical": 0.4821,
+      "grade": 12.8286,
+      "plausibility": 0.4139,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.6349
+     },
+     "flags": [
+      "off_topic",
+      "length_cue"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 2,
+     "question": "Which status code indicates that a new resource has been successfully created on the server?",
+     "options": {
+      "A": "409 Conflict",
+      "B": "201 Created",
+      "C": "200 OK",
+      "D": "202 Accepted"
+     },
+     "answer": "B",
+     "evidence": "The status code 201 Created confirms that a new resource was made",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5146,
+      "alignment_lexical": 0.4599,
+      "grade": 9.9267,
+      "plausibility": 0.4629,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.6242
+     },
+     "flags": [
+      "off_topic",
+      "weak:A"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 3,
+     "question": "Which request header does a client send to validate that its cached representation is still current?",
+     "options": {
+      "A": "If-Match",
+      "B": "Authorization",
+      "C": "Cache-Control",
+      "D": "If-None-Match"
+     },
+     "answer": "D",
+     "evidence": "A client that already holds a version sends it in the If-None-Match header, and the server answers 304 Not Modified",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5559,
+      "alignment_lexical": 0.274,
+      "grade": 9.825,
+      "plausibility": 0.305,
+      "plausibility_lexical": 0.2222,
+      "diversity": 0.8903
+     },
+     "flags": [
+      "off_topic",
+      "too_close:A",
+      "weak:B",
+      "weak:C"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 4,
+     "question": "Which status code should a server return for a request that has been accepted but whose processing will continue asynchronously?",
+     "options": {
+      "A": "200 OK",
+      "B": "201 Created",
+      "C": "202 Accepted",
+      "D": "204 No Content"
+     },
+     "answer": "C",
+     "evidence": "The server can answer 202 Accepted, which means the request was accepted but not yet completed",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6533,
+      "alignment_lexical": 0.3104,
+      "grade": 11.09,
+      "plausibility": 0.5405,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5244
+     },
+     "flags": [],
+     "quality": 7
+    }
+   ]
+  },
+  {
+   "id": "67b187bb-ae7d-486b-bc2a-34c910a7e6a6",
+   "topic_id": "SPECALK-DEMO-1",
+   "model": "gpt-oss",
+   "strategy": "verify_repair",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 5,
+   "prompt_tokens": 6589,
+   "completion_tokens": 9355,
+   "cost_usd": 0.006601,
+   "latency_seconds": 23.132,
+   "strategy_status": "best_effort",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "writer": [
+     {
+      "focus": [
+       "Resources and representations"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Methods, safety and idempotency",
+       "Status codes and errors"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Caching and concurrency",
+       "Long-running operations"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     }
+    ],
+    "repairs": [
+     {
+      "round": 1,
+      "attempted": 5,
+      "valid": 5,
+      "accepted": 4
+     },
+     {
+      "round": 2,
+      "attempted": 2,
+      "valid": 2,
+      "accepted": 2
+     }
+    ],
+    "candidates": 15,
+    "passed_before_repair": 0,
+    "selected_passing_all_checks": 4
+   },
+   "created_at": "2026-10-23T13:49:35.512816+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.143465+00:00",
+   "generated_at": "2026-10-23T14:03:57.328969+00:00",
+   "finished_at": "2026-10-23T14:03:58.054761+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What mechanism does an ETag combined with If-Match provide during concurrent modifications?",
+     "options": {
+      "A": "It reduces network traffic by sending only the ETag when the client already has a cached copy",
+      "B": "It guarantees eventual consistency across all replicated copies",
+      "C": "It allows the server to bypass authentication for that request",
+      "D": "It blocks lost updates by requiring the ETag to match before modification"
+     },
+     "answer": "D",
+     "evidence": "the same validator protects against lost updates, because a write sent with If-Match only succeeds if the resource still has that version",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7388,
+      "alignment_lexical": 0.0713,
+      "grade": 13.6733,
+      "plausibility": 0.4662,
+      "plausibility_lexical": 0.1257,
+      "diversity": 0.6591
+     },
+     "flags": [],
+     "quality": 9
+    },
+    {
+     "position": 1,
+     "question": "When a client sends an If-None-Match header with an ETag that matches the current representation, what status code should the server return?",
+     "options": {
+      "A": "412 Precondition Failed when the If-None-Match condition cannot be evaluated",
+      "B": "200 OK returning the full representation despite a matching If-None-Match header",
+      "C": "304 Not Modified when the If-None-Match ETag matches the current representation",
+      "D": "404 Not Found suggesting the resource is missing even though the ETag was provided"
+     },
+     "answer": "C",
+     "evidence": "A client that already holds a version sends it in the If-None-Match header, and the server answers 304 Not Modified when nothing has changed",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6873,
+      "alignment_lexical": 0.5146,
+      "grade": 11.2264,
+      "plausibility": 0.4146,
+      "plausibility_lexical": 0.2165,
+      "diversity": 0.7694
+     },
+     "flags": [],
+     "quality": 8
+    },
+    {
+     "position": 2,
+     "question": "Which HTTP header tells the client how to interpret the representation of a resource in a response?",
+     "options": {
+      "A": "Location header providing the URL where the representation can be retrieved",
+      "B": "Content-Type header specifying the media type of the returned representation",
+      "C": "Accept header indicating the media types the client can receive in a response",
+      "D": "Authorization header containing credentials required to access the requested representation"
+     },
+     "answer": "B",
+     "evidence": "The Content-Type header tells the client how to interpret the representation, and the same resource can be offered in several formats.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7007,
+      "alignment_lexical": 0.6877,
+      "grade": 9.7812,
+      "plausibility": 0.4924,
+      "plausibility_lexical": 0.1806,
+      "diversity": 0.601
+     },
+     "flags": [],
+     "quality": 7
+    },
+    {
+     "position": 3,
+     "question": "If a client’s conditional request includes an ETag and the resource is unchanged, which status code should the server return?",
+     "options": {
+      "A": "304 Not Modified when the ETag matches and the representation is unchanged",
+      "B": "200 OK with the representation because the ETag condition was satisfied",
+      "C": "412 Precondition Failed when the ETag precondition is not satisfied",
+      "D": "404 Not Found indicating the server could not locate the requested ETag"
+     },
+     "answer": "A",
+     "evidence": "the server answers 304 Not Modified when nothing has changed.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6874,
+      "alignment_lexical": 0.6035,
+      "grade": 10.5,
+      "plausibility": 0.5405,
+      "plausibility_lexical": 0.2222,
+      "diversity": 0.5244
+     },
+     "flags": [],
+     "quality": 7
+    },
+    {
+     "position": 4,
+     "question": "If a client includes an If-Match header with an outdated ETag in a write request, which response code indicates the precondition failed?",
+     "options": {
+      "A": "409 Conflict signaling that the request conflicts with the resource's current state and ETag",
+      "B": "200 OK indicating the update succeeded even though the If-Match ETag was stale",
+      "C": "412 Precondition Failed when the If-Match ETag does not match the current resource version",
+      "D": "202 Accepted meaning the server has accepted the request despite the stale ETag and will process it later"
+     },
+     "answer": "C",
+     "evidence": "Otherwise the server answers 412 Precondition Failed, and the client must read the new state before deciding again",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6868,
+      "alignment_lexical": 0.4516,
+      "grade": 11.7627,
+      "plausibility": 0.521,
+      "plausibility_lexical": 0.1442,
+      "diversity": 0.4467
+     },
+     "flags": [
+      "evidence_supports:D"
+     ],
+     "quality": 7
+    }
+   ]
+  },
+  {
+   "id": "b6c5a490-2e53-4205-852b-bab80efdc47a",
+   "topic_id": "SPECALK-DEMO-1",
+   "model": "llama33",
+   "strategy": "baseline",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 877,
+   "completion_tokens": 536,
+   "cost_usd": 0.001003,
+   "latency_seconds": 6.258,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {},
+   "created_at": "2026-10-23T13:49:35.512818+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.150730+00:00",
+   "generated_at": "2026-10-23T14:04:03.588695+00:00",
+   "finished_at": "2026-10-23T14:04:03.664790+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What information does the Content-Type header provide to the client in a REST-style HTTP API?",
+     "options": {
+      "A": "The URI of the resource being requested",
+      "B": "The HTTP method being used for the request",
+      "C": "How to interpret the representation of the resource",
+      "D": "The status code of the response"
+     },
+     "answer": "C",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7349,
+      "alignment_lexical": 0.5383,
+      "grade": 9.14,
+      "plausibility": 0.3318,
+      "plausibility_lexical": 0.1923,
+      "diversity": 0.5667
+     },
+     "flags": [
+      "weak:B",
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 1,
+     "question": "Which HTTP method is safe and idempotent, and is used to replace a resource?",
+     "options": {
+      "A": "GET, which reads a resource without modifying it",
+      "B": "PUT, which replaces a resource and has the same effect when repeated",
+      "C": "POST, which processes the enclosed data and may have different effects when repeated",
+      "D": "DELETE, which removes a resource but is not safe"
+     },
+     "answer": "B",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5167,
+      "alignment_lexical": 0.3593,
+      "grade": 5.8843,
+      "plausibility": 0.4275,
+      "plausibility_lexical": 0.1977,
+      "diversity": 0.8085
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 2,
+     "question": "What is the purpose of the ETag identifier in a REST-style HTTP API?",
+     "options": {
+      "A": "To specify the HTTP method for a request",
+      "B": "To identify one version of a representation and prevent lost updates",
+      "C": "To indicate the status code of a response",
+      "D": "To provide a link to a status resource for a long-running operation"
+     },
+     "answer": "B",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5605,
+      "alignment_lexical": 0.5438,
+      "grade": 6.7262,
+      "plausibility": 0.167,
+      "plausibility_lexical": 0.1368,
+      "diversity": 0.6695
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple",
+      "weak:A",
+      "weak:C",
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 2
+    },
+    {
+     "position": 3,
+     "question": "How does a client typically follow the progress of a long-running operation in a REST-style HTTP API?",
+     "options": {
+      "A": "By parsing the body of the response for status updates",
+      "B": "By polling a status resource provided by the server",
+      "C": "By using the HTTP method to determine the status of the operation",
+      "D": "By relying on the server to push notifications when the operation is complete"
+     },
+     "answer": "B",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6939,
+      "alignment_lexical": 0.507,
+      "grade": 10.4753,
+      "plausibility": 0.6605,
+      "plausibility_lexical": 0.1969,
+      "diversity": 0.4933
+     },
+     "flags": [],
+     "quality": 8
+    },
+    {
+     "position": 4,
+     "question": "What is the significance of a 412 Precondition Failed response in a REST-style HTTP API?",
+     "options": {
+      "A": "It indicates that the requested resource is missing",
+      "B": "It reports a conflict with the current state of the resource",
+      "C": "It signifies that the client's request was invalid",
+      "D": "It means that the server is currently overloaded and cannot process the request"
+     },
+     "answer": "B",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5791,
+      "alignment_lexical": 0.4723,
+      "grade": 8.3533,
+      "plausibility": 0.4055,
+      "plausibility_lexical": 0.1392,
+      "diversity": 0.3959
+     },
+     "flags": [
+      "off_topic",
+      "same_mistake:C,D"
+     ],
+     "quality": 2
+    }
+   ]
+  },
+  {
+   "id": "db10b08b-48ad-425f-bfdb-aad189d06111",
+   "topic_id": "SPECALK-DEMO-1",
+   "model": "llama33",
+   "strategy": "prompt_v2",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "simulated": false,
+   "attempts": 4,
+   "calls": 4,
+   "prompt_tokens": 4328,
+   "completion_tokens": 1763,
+   "cost_usd": 0.004325,
+   "latency_seconds": 39.044,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "key_balance": "shuffled"
+   },
+   "created_at": "2026-10-23T13:49:35.512820+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.156682+00:00",
+   "generated_at": "2026-10-23T14:04:42.636747+00:00",
+   "finished_at": "2026-10-23T14:04:43.371210+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What does the Content-Type header tell the client?",
+     "options": {
+      "A": "the request's intent",
+      "B": "how to interpret the representation",
+      "C": "the server's status",
+      "D": "how to authenticate"
+     },
+     "answer": "B",
+     "evidence": "The Content-Type header tells the client how to interpret the representation",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6366,
+      "alignment_lexical": 0.4803,
+      "grade": 5.23,
+      "plausibility": 0.1243,
+      "plausibility_lexical": 0.1944,
+      "diversity": 0.7924
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple",
+      "weak:A",
+      "weak:C",
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 3
+    },
+    {
+     "position": 1,
+     "question": "Which HTTP method is idempotent and replaces a resource?",
+     "options": {
+      "A": "PUT",
+      "B": "POST",
+      "C": "DELETE",
+      "D": "GET"
+     },
+     "answer": "A",
+     "evidence": "PUT replaces a resource and ... is idempotent",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.4994,
+      "alignment_lexical": 0.3597,
+      "grade": 7.5867,
+      "plausibility": 0.443,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5543
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple"
+     ],
+     "quality": 3
+    },
+    {
+     "position": 2,
+     "question": "What does a 304 Not Modified response indicate?",
+     "options": {
+      "A": "the resource has been updated",
+      "B": "the resource is missing",
+      "C": "the client's version is current",
+      "D": "the server is overloaded"
+     },
+     "answer": "C",
+     "evidence": "the server answers 304 Not Modified when nothing has changed",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.456,
+      "alignment_lexical": 0.218,
+      "grade": 6.705,
+      "plausibility": 0.2484,
+      "plausibility_lexical": 0.2,
+      "diversity": 0.6169
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple",
+      "weak:B",
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 2
+    },
+    {
+     "position": 3,
+     "question": "Why is a write sent with If-Match?",
+     "options": {
+      "A": "to create a new resource",
+      "B": "to read the resource's state",
+      "C": "to prevent lost updates",
+      "D": "to delete the resource"
+     },
+     "answer": "C",
+     "evidence": "The same validator protects against lost updates, because a write sent with If-Match",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.4358,
+      "alignment_lexical": 0.2422,
+      "grade": 0.6257,
+      "plausibility": 0.1349,
+      "plausibility_lexical": 0.1263,
+      "diversity": 0.4482
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple",
+      "weak:A",
+      "weak:B",
+      "weak:D"
+     ],
+     "quality": 1
+    },
+    {
+     "position": 4,
+     "question": "What does a 202 Accepted response mean?",
+     "options": {
+      "A": "the request was completed",
+      "B": "the request was rejected",
+      "C": "the server is unavailable",
+      "D": "the request was accepted but not yet completed"
+     },
+     "answer": "D",
+     "evidence": "The server can answer 202 Accepted, which means the request was accepted but not yet completed",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.4832,
+      "alignment_lexical": 0.2072,
+      "grade": 3.9971,
+      "plausibility": 0.6733,
+      "plausibility_lexical": 0.3081,
+      "diversity": 0.5228
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple",
+      "too_close:A",
+      "length_cue"
+     ],
+     "quality": 4
+    }
+   ]
+  },
+  {
+   "id": "fa61e980-c718-4d6f-8ab6-0eacb176d774",
+   "topic_id": "SPECALK-DEMO-1",
+   "model": "llama33",
+   "strategy": "verify_repair",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "simulated": false,
+   "attempts": 2,
+   "calls": 6,
+   "prompt_tokens": 6724,
+   "completion_tokens": 2253,
+   "cost_usd": 0.006374,
+   "latency_seconds": 31.241,
+   "strategy_status": "best_effort",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "writer": [
+     {
+      "focus": [
+       "Resources and representations"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Methods, safety and idempotency",
+       "Status codes and errors"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Caching and concurrency",
+       "Long-running operations"
+      ],
+      "outcome": "ok",
+      "attempts": 2
+     }
+    ],
+    "repairs": [
+     {
+      "round": 1,
+      "attempted": 2,
+      "valid": 2,
+      "accepted": 2
+     },
+     {
+      "round": 2,
+      "attempted": 2,
+      "valid": 2,
+      "accepted": 0
+     }
+    ],
+    "candidates": 15,
+    "passed_before_repair": 0,
+    "selected_passing_all_checks": 0
+   },
+   "created_at": "2026-10-23T13:49:35.512822+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.162893+00:00",
+   "generated_at": "2026-10-23T14:05:13.886289+00:00",
+   "finished_at": "2026-10-23T14:05:14.321031+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What type of data does a client receive from a server in a REST-style HTTP API when requesting a resource?",
+     "options": {
+      "A": "A representation of the resource",
+      "B": "A redirect to the resource location",
+      "C": "A direct reference to the resource",
+      "D": "A cached copy of the resource"
+     },
+     "answer": "A",
+     "evidence": "Clients never receive the internal object or database row itself, only a representation of the resource",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7283,
+      "alignment_lexical": 0.4472,
+      "grade": 8.73,
+      "plausibility": 0.6113,
+      "plausibility_lexical": 0.4405,
+      "diversity": 0.5122
+     },
+     "flags": [
+      "too_close:C"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 1,
+     "question": "How can a client follow the progress of a long-running operation in a REST-style HTTP API?",
+     "options": {
+      "A": "By polling a status resource but not subscribing to notifications",
+      "B": "By sending a new request with the same parameters to the status resource",
+      "C": "By polling a status resource or subscribing to notifications",
+      "D": "By polling the original resource"
+     },
+     "answer": "C",
+     "evidence": "The client then follows the progress of the operation by polling that resource or by subscribing to notifications",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7063,
+      "alignment_lexical": 0.5244,
+      "grade": 9.0875,
+      "plausibility": 0.6795,
+      "plausibility_lexical": 0.4375,
+      "diversity": 0.4656
+     },
+     "flags": [
+      "too_close:A"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 2,
+     "question": "What does a 202 Accepted status code indicate?",
+     "options": {
+      "A": "The request was accepted but not yet completed",
+      "B": "The request was rejected due to a conflict",
+      "C": "The request was completed and a new resource was created",
+      "D": "The request was not completed and the connection is kept waiting"
+     },
+     "answer": "A",
+     "evidence": "The server can answer 202 Accepted, which means the request was accepted but not yet completed",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.548,
+      "alignment_lexical": 0.218,
+      "grade": 6.705,
+      "plausibility": 0.7054,
+      "plausibility_lexical": 0.3077,
+      "diversity": 0.4576
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 3,
+     "question": "What does the HTTP method express?",
+     "options": {
+      "A": "The response's status code",
+      "B": "The intent of a request",
+      "C": "The request's headers",
+      "D": "The resource's URI"
+     },
+     "answer": "B",
+     "evidence": "The HTTP method expresses the intent of a request.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.576,
+      "alignment_lexical": 0.3077,
+      "grade": 2.4833,
+      "plausibility": 0.442,
+      "plausibility_lexical": 0.1739,
+      "diversity": 0.5992
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple"
+     ],
+     "quality": 3
+    },
+    {
+     "position": 4,
+     "question": "Which method is safe and idempotent?",
+     "options": {
+      "A": "POST",
+      "B": "PUT",
+      "C": "DELETE",
+      "D": "GET"
+     },
+     "answer": "D",
+     "evidence": "GET only reads a resource and is safe",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.3219,
+      "alignment_lexical": 0.1818,
+      "grade": 4.45,
+      "plausibility": 0.443,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5544
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple"
+     ],
+     "quality": 3
+    }
+   ]
+  },
+  {
+   "id": "54bb8d8e-a974-4970-9d30-a6288826f2a1",
+   "topic_id": "SPECALK-DEMO-1",
+   "model": "mistral-small",
+   "strategy": "baseline",
+   "status": "failed",
+   "provider": null,
+   "requested_model_id": null,
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 4,
+   "calls": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "cost_usd": 0.0,
+   "latency_seconds": 26.349,
+   "strategy_status": null,
+   "error_kind": "provider_error",
+   "error": "mistral-small: all 4 attempts failed (Circuit open: the host failed repeatedly; not calling it for now.)",
+   "trace": null,
+   "created_at": "2026-10-23T13:49:35.512823+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.169350+00:00",
+   "generated_at": null,
+   "finished_at": "2026-10-23T14:05:40.233055+00:00",
+   "items": []
+  },
+  {
+   "id": "44b26f9a-80d1-4172-8a75-d5f7e96c6865",
+   "topic_id": "SPECALK-DEMO-1",
+   "model": "mistral-small",
+   "strategy": "prompt_v2",
+   "status": "failed",
+   "provider": null,
+   "requested_model_id": null,
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 4,
+   "calls": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "cost_usd": 0.0,
+   "latency_seconds": 74.048,
+   "strategy_status": null,
+   "error_kind": "provider_error",
+   "error": "mistral-small: all 4 attempts failed (HTTP 429: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"mistralai/mistral-small-2603 is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Mistral\",\"is_byok\":fa)",
+   "trace": null,
+   "created_at": "2026-10-23T13:49:35.512825+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.175048+00:00",
+   "generated_at": null,
+   "finished_at": "2026-10-23T14:06:54.281643+00:00",
+   "items": []
+  },
+  {
+   "id": "6654501b-4c9b-41cc-b938-4fadb1d5b228",
+   "topic_id": "SPECALK-DEMO-1",
+   "model": "mistral-small",
+   "strategy": "verify_repair",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "mistralai/mistral-small-2603",
+   "returned_model_id": "mistralai/mistral-small-2603",
+   "simulated": false,
+   "attempts": 4,
+   "calls": 1,
+   "prompt_tokens": 1119,
+   "completion_tokens": 784,
+   "cost_usd": 0.000638,
+   "latency_seconds": 278.052,
+   "strategy_status": "best_effort",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "writer": [
+     {
+      "focus": [
+       "Resources and representations"
+      ],
+      "outcome": "failed"
+     },
+     {
+      "focus": [
+       "Methods, safety and idempotency",
+       "Status codes and errors"
+      ],
+      "outcome": "failed"
+     },
+     {
+      "focus": [
+       "Caching and concurrency",
+       "Long-running operations"
+      ],
+      "outcome": "ok",
+      "attempts": 4
+     }
+    ],
+    "repairs": [
+     {
+      "round": 1,
+      "outcome": "failed"
+     }
+    ],
+    "candidates": 5,
+    "passed_before_repair": 1,
+    "selected_passing_all_checks": 1
+   },
+   "created_at": "2026-10-23T13:49:35.512827+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.180307+00:00",
+   "generated_at": "2026-10-23T14:11:32.327888+00:00",
+   "finished_at": "2026-10-23T14:11:32.693352+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What happens if a client sends a write request with an If-Match header containing an outdated ETag?",
+     "options": {
+      "A": "The server ignores the ETag and updates the resource anyway.",
+      "B": "The server returns a 304 Not Modified status and does not update the resource.",
+      "C": "The server rejects the write request with a 412 Precondition Failed status.",
+      "D": "The server accepts the write request and updates the resource."
+     },
+     "answer": "C",
+     "evidence": "The same validator protects against lost updates, because a write sent with If-Match only succeeds if the resource still has that version. Otherwise the server answers 412 Precondition Failed.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7057,
+      "alignment_lexical": 0.3112,
+      "grade": 9.0871,
+      "plausibility": 0.3977,
+      "plausibility_lexical": 0.1983,
+      "diversity": 0.4147
+     },
+     "flags": [],
+     "quality": 5
+    },
+    {
+     "position": 1,
+     "question": "Why should a long-running operation not keep the client connection waiting?",
+     "options": {
+      "A": "Because the operation must be executed synchronously to ensure data consistency.",
+      "B": "Because the client is not allowed to send additional requests during the operation.",
+      "C": "Because the client may time out or the connection may drop before the operation completes.",
+      "D": "Because the server cannot process other requests while the operation is running."
+     },
+     "answer": "C",
+     "evidence": "An operation that takes longer than a normal request should not keep the connection waiting.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7527,
+      "alignment_lexical": 0.4203,
+      "grade": 10.1545,
+      "plausibility": 0.6519,
+      "plausibility_lexical": 0.1667,
+      "diversity": 0.3247
+     },
+     "flags": [
+      "same_mistake:B,D"
+     ],
+     "quality": 8
+    },
+    {
+     "position": 2,
+     "question": "How does a client monitor the progress of a long-running operation after receiving a 202 Accepted response?",
+     "options": {
+      "A": "By immediately retrying the original request until a final status is returned.",
+      "B": "By polling a status resource linked in the 202 Accepted response or subscribing to notifications.",
+      "C": "By sending a DELETE request to cancel the operation if it takes too long.",
+      "D": "By waiting for a 200 OK response with the final result included in the body."
+     },
+     "answer": "B",
+     "evidence": "The client then follows the progress of the operation by polling that resource or by subscribing to notifications, and it reads the final result when the status shows completion.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7359,
+      "alignment_lexical": 0.5069,
+      "grade": 13.2518,
+      "plausibility": 0.4676,
+      "plausibility_lexical": 0.1807,
+      "diversity": 0.4995
+     },
+     "flags": [
+      "length_cue"
+     ],
+     "quality": 8
+    },
+    {
+     "position": 3,
+     "question": "What is the purpose of an ETag in HTTP caching and concurrency control?",
+     "options": {
+      "A": "To compress the resource representation before sending it to the client.",
+      "B": "To automatically update the resource when a new version is available.",
+      "C": "To encrypt the resource data for secure transmission.",
+      "D": "To uniquely identify a specific version of a resource representation."
+     },
+     "answer": "D",
+     "evidence": "An ETag identifies one version of a representation.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7717,
+      "alignment_lexical": 0.3753,
+      "grade": 6.7262,
+      "plausibility": 0.4709,
+      "plausibility_lexical": 0.1944,
+      "diversity": 0.5572
+     },
+     "flags": [
+      "stem_too_simple"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 4,
+     "question": "How does a client use an ETag to avoid unnecessary data transfer?",
+     "options": {
+      "A": "By sending the ETag in the If-None-Match header and receiving 304 Not Modified if unchanged.",
+      "B": "By sending the ETag in the Authorization header and receiving 401 Unauthorized if unchanged.",
+      "C": "By sending the ETag in the Cache-Control header and receiving 200 OK if unchanged.",
+      "D": "By sending the ETag in the Content-Type header and receiving 415 Unsupported Media Type if unchanged."
+     },
+     "answer": "A",
+     "evidence": "A client that already holds a version sends it in the If-None-Match header, and the server answers 304 Not Modified when nothing has changed.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6016,
+      "alignment_lexical": 0.2324,
+      "grade": 8.7567,
+      "plausibility": 0.6063,
+      "plausibility_lexical": 0.5273,
+      "diversity": 0.4956
+     },
+     "flags": [
+      "off_topic"
+     ],
+     "quality": 5
+    }
+   ]
+  },
+  {
+   "id": "39a737ce-c9e7-4e15-ae36-c2c334f1d4ba",
+   "topic_id": "SPECALK-DEMO-1",
+   "model": "cohere",
+   "strategy": "baseline",
+   "status": "succeeded",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 1448,
+   "completion_tokens": 495,
+   "cost_usd": 0.00857,
+   "latency_seconds": 73.244,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {},
+   "created_at": "2026-10-23T13:49:35.512829+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.185590+00:00",
+   "generated_at": "2026-10-23T14:12:45.570836+00:00",
+   "finished_at": "2026-10-23T14:12:45.613803+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What is the purpose of the Content-Type header in a REST-style HTTP API?",
+     "options": {
+      "A": "To specify the format of the resource representation for the client to interpret.",
+      "B": "To indicate the internal object or database row being transmitted.",
+      "C": "To define the URI for identifying the resource.",
+      "D": "To ensure the server maintains conversation state between requests."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6997,
+      "alignment_lexical": 0.5483,
+      "grade": 5.8185,
+      "plausibility": 0.5071,
+      "plausibility_lexical": 0.1788,
+      "diversity": 0.6525
+     },
+     "flags": [
+      "stem_too_simple",
+      "length_cue"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 1,
+     "question": "Which HTTP method is both safe and idempotent?",
+     "options": {
+      "A": "GET",
+      "B": "PUT",
+      "C": "POST",
+      "D": "DELETE"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5113,
+      "alignment_lexical": 0.1756,
+      "grade": 3.755,
+      "plausibility": 0.443,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5544
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple"
+     ],
+     "quality": 3
+    },
+    {
+     "position": 2,
+     "question": "What does a 409 status code indicate in an HTTP response?",
+     "options": {
+      "A": "The request was accepted but not yet completed.",
+      "B": "The resource requested is missing.",
+      "C": "There is a conflict with the current state of the resource.",
+      "D": "The client must slow down due to excessive requests."
+     },
+     "answer": "C",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7039,
+      "alignment_lexical": 0.2427,
+      "grade": 4.7909,
+      "plausibility": 0.2915,
+      "plausibility_lexical": 0.1215,
+      "diversity": 0.6456
+     },
+     "flags": [
+      "stem_too_simple",
+      "weak:A",
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 3,
+     "question": "How does the If-None-Match header contribute to efficient data transfer?",
+     "options": {
+      "A": "It ensures the server processes the request only once.",
+      "B": "It allows the server to send a 304 Not Modified response if the resource has not changed.",
+      "C": "It forces the client to read the new state before deciding again.",
+      "D": "It protects against lost updates by validating the resource version."
+     },
+     "answer": "B",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.3644,
+      "alignment_lexical": 0.2917,
+      "grade": 9.55,
+      "plausibility": 0.5842,
+      "plausibility_lexical": 0.1389,
+      "diversity": 0.5407
+     },
+     "flags": [
+      "off_topic",
+      "length_cue"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 4,
+     "question": "What is the purpose of the 202 Accepted status code in long-running operations?",
+     "options": {
+      "A": "To indicate that the request was successful and the resource was created.",
+      "B": "To signal that the request was accepted but not yet completed.",
+      "C": "To report that the server is temporarily overloaded.",
+      "D": "To inform the client that the resource has been permanently deleted."
+     },
+     "answer": "B",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5099,
+      "alignment_lexical": 0.4582,
+      "grade": 9.4492,
+      "plausibility": 0.532,
+      "plausibility_lexical": 0.2222,
+      "diversity": 0.509
+     },
+     "flags": [
+      "off_topic"
+     ],
+     "quality": 4
+    }
+   ]
+  },
+  {
+   "id": "2109f135-3123-4b0e-b5e7-702a17e5d478",
+   "topic_id": "SPECALK-DEMO-1",
+   "model": "cohere",
+   "strategy": "prompt_v2",
+   "status": "succeeded",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 1672,
+   "completion_tokens": 552,
+   "cost_usd": 0.0097,
+   "latency_seconds": 9.057,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "key_balance": "shuffled"
+   },
+   "created_at": "2026-10-23T13:49:35.512831+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.190424+00:00",
+   "generated_at": "2026-10-23T14:12:54.629503+00:00",
+   "finished_at": "2026-10-23T14:12:55.179095+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "Which HTTP method is safe and can be repeated or prefetched without changing the server state?",
+     "options": {
+      "A": "DELETE",
+      "B": "POST",
+      "C": "GET",
+      "D": "PUT"
+     },
+     "answer": "C",
+     "evidence": "GET only reads a resource and is safe, which means browsers, caches and proxies may repeat or prefetch it without changing anything on the server.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5791,
+      "alignment_lexical": 0.3725,
+      "grade": 6.875,
+      "plausibility": 0.443,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5544
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple"
+     ],
+     "quality": 3
+    },
+    {
+     "position": 1,
+     "question": "What status code indicates that a request was accepted but not yet completed?",
+     "options": {
+      "A": "201 Created",
+      "B": "202 Accepted",
+      "C": "503 Service Unavailable",
+      "D": "409 Conflict"
+     },
+     "answer": "B",
+     "evidence": "The server can answer 202 Accepted, which means the request was accepted but not yet completed, together with a link to a status resource.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6359,
+      "alignment_lexical": 0.2565,
+      "grade": 8.5415,
+      "plausibility": 0.3144,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.7891
+     },
+     "flags": [
+      "off_topic",
+      "weak:C",
+      "weak:D"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 2,
+     "question": "Which header is used to protect against lost updates by ensuring the resource version matches?",
+     "options": {
+      "A": "If-Match",
+      "B": "If-None-Match",
+      "C": "Retry-After",
+      "D": "Content-Type"
+     },
+     "answer": "A",
+     "evidence": "The same validator protects against lost updates, because a write sent with If-Match only succeeds if the resource still has that version.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5952,
+      "alignment_lexical": 0.3317,
+      "grade": 9.14,
+      "plausibility": 0.4411,
+      "plausibility_lexical": 0.2222,
+      "diversity": 0.8697
+     },
+     "flags": [
+      "off_topic",
+      "too_close:B",
+      "weak:C",
+      "weak:D",
+      "evidence_supports:B,C"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 3,
+     "question": "What does the 429 status code indicate to the client?",
+     "options": {
+      "A": "Resource not found",
+      "B": "Conflict with current state",
+      "C": "Invalid input",
+      "D": "Client should slow down"
+     },
+     "answer": "D",
+     "evidence": "A 429 response asks the client to slow down, and a 503 response reports temporary overload, ideally together with a Retry-After header.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6725,
+      "alignment_lexical": 0.4994,
+      "grade": 4.83,
+      "plausibility": -0.035,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.8748
+     },
+     "flags": [
+      "stem_too_simple",
+      "weak:A",
+      "weak:B",
+      "weak:C"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 4,
+     "question": "Which HTTP method is neither safe nor idempotent and must not be retried blindly after a timeout?",
+     "options": {
+      "A": "PUT",
+      "B": "POST",
+      "C": "DELETE",
+      "D": "GET"
+     },
+     "answer": "B",
+     "evidence": "POST asks the server to process the enclosed data, is neither safe nor idempotent, and therefore must not be retried blindly after a timeout.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5869,
+      "alignment_lexical": 0.2908,
+      "grade": 8.3929,
+      "plausibility": 0.4677,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5791
+     },
+     "flags": [
+      "off_topic"
+     ],
+     "quality": 5
+    }
+   ]
+  },
+  {
+   "id": "5fddc338-a2da-48a1-821c-441d820f1481",
+   "topic_id": "SPECALK-DEMO-1",
+   "model": "cohere",
+   "strategy": "verify_repair",
+   "status": "succeeded",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 1,
+   "calls": 5,
+   "prompt_tokens": 9135,
+   "completion_tokens": 2937,
+   "cost_usd": 0.052208,
+   "latency_seconds": 238.447,
+   "strategy_status": "best_effort",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "writer": [
+     {
+      "focus": [
+       "Resources and representations"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Methods, safety and idempotency",
+       "Status codes and errors"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Caching and concurrency",
+       "Long-running operations"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     }
+    ],
+    "repairs": [
+     {
+      "round": 1,
+      "attempted": 4,
+      "valid": 4,
+      "accepted": 3
+     },
+     {
+      "round": 2,
+      "attempted": 3,
+      "valid": 3,
+      "accepted": 0
+     }
+    ],
+    "candidates": 15,
+    "passed_before_repair": 0,
+    "selected_passing_all_checks": 1
+   },
+   "created_at": "2026-10-23T13:49:35.512832+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.195671+00:00",
+   "generated_at": "2026-10-23T14:16:53.070502+00:00",
+   "finished_at": "2026-10-23T14:16:54.005555+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "In a REST-style HTTP API, how is a resource best described in terms of its identification and representation?",
+     "options": {
+      "A": "A physical file stored on the server.",
+      "B": "A temporary state maintained between client and server requests.",
+      "C": "A concept identified by a URI, represented as a JSON document.",
+      "D": "An internal object or database row directly accessible by clients."
+     },
+     "answer": "C",
+     "evidence": "In a REST-style HTTP API every important concept, such as an order or a list of orders, is a resource identified by a URI. Clients never receive the internal object or database row itself, only a representation of the resource, for example a JSON document.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6626,
+      "alignment_lexical": 0.3786,
+      "grade": 11.0967,
+      "plausibility": 0.3699,
+      "plausibility_lexical": 0.0603,
+      "diversity": 0.5357
+     },
+     "flags": [],
+     "quality": 6
+    },
+    {
+     "position": 1,
+     "question": "What specific information does the Content-Type header provide in a REST-style HTTP API regarding resource representations?",
+     "options": {
+      "A": "The state of the ongoing client-server conversation.",
+      "B": "The format of the resource representation for the client to interpret.",
+      "C": "The internal structure of the server's database.",
+      "D": "The URI mapping to the resource's location."
+     },
+     "answer": "B",
+     "evidence": "The Content-Type header tells the client how to interpret the representation, and the same resource can be offered in several formats.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7697,
+      "alignment_lexical": 0.3835,
+      "grade": 14.9875,
+      "plausibility": 0.4444,
+      "plausibility_lexical": 0.2015,
+      "diversity": 0.633
+     },
+     "flags": [
+      "length_cue"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 2,
+     "question": "Which HTTP status code indicates that a request has been accepted but is still in progress, often used for long-running operations?",
+     "options": {
+      "A": "202 Accepted",
+      "B": "204 No Content",
+      "C": "201 Created",
+      "D": "409 Conflict"
+     },
+     "answer": "A",
+     "evidence": "The server can answer 202 Accepted, which means the request was accepted but not yet completed, together with a link to a status resource.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.69,
+      "alignment_lexical": 0.2447,
+      "grade": 11.7048,
+      "plausibility": 0.3839,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.678
+     },
+     "flags": [
+      "weak:D"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 3,
+     "question": "Which statement correctly describes the relationship between a resource and its representation in a REST-style HTTP API?",
+     "options": {
+      "A": "The representation is the internal object or database row stored on the server.",
+      "B": "The representation is a temporary state maintained between client and server requests.",
+      "C": "The resource is the internal object or database row directly sent to the client.",
+      "D": "The resource is a concept identified by a URI, while the representation is a JSON document sent to the client."
+     },
+     "answer": "D",
+     "evidence": "In a REST-style HTTP API every important concept, such as an order or a list of orders, is a resource identified by a URI. Clients never receive the internal object or database row itself, only a representation of the resource, for example a JSON document.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6691,
+      "alignment_lexical": 0.5132,
+      "grade": 12.5576,
+      "plausibility": 0.665,
+      "plausibility_lexical": 0.2145,
+      "diversity": 0.3535
+     },
+     "flags": [
+      "same_mistake:A,B",
+      "length_cue"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 4,
+     "question": "Which HTTP method is neither safe nor idempotent and must not be retried blindly after a timeout?",
+     "options": {
+      "A": "PUT",
+      "B": "POST",
+      "C": "DELETE",
+      "D": "GET"
+     },
+     "answer": "B",
+     "evidence": "POST asks the server to process the enclosed data, is neither safe nor idempotent, and therefore must not be retried blindly after a timeout.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5869,
+      "alignment_lexical": 0.2908,
+      "grade": 8.3929,
+      "plausibility": 0.4677,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5791
+     },
+     "flags": [
+      "off_topic"
+     ],
+     "quality": 5
+    }
+   ]
+  },
+  {
+   "id": "c838f76c-198c-4d4e-be7c-08bc4e95738d",
+   "topic_id": "SYSTEM-DEMO-1",
+   "model": "gpt-oss",
+   "strategy": "baseline",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 942,
+   "completion_tokens": 855,
+   "cost_usd": 0.000654,
+   "latency_seconds": 2.237,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {},
+   "created_at": "2026-10-23T13:49:35.512834+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.200252+00:00",
+   "generated_at": "2026-10-23T14:16:55.310492+00:00",
+   "finished_at": "2026-10-23T14:16:55.591685+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "Which statement correctly describes time invariance in a system?",
+     "options": {
+      "A": "If the input is delayed by τ, the output is identically delayed by τ without shape change.",
+      "B": "If the input amplitude is scaled, the output amplitude scales by the same factor.",
+      "C": "If the input frequency is shifted, the output frequency shifts by the same amount.",
+      "D": "If the input is time‑reversed, the output is also time‑reversed."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6059,
+      "alignment_lexical": 0.2404,
+      "grade": 10.2089,
+      "plausibility": 0.4583,
+      "plausibility_lexical": 0.3464,
+      "diversity": 0.5067
+     },
+     "flags": [
+      "off_topic"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 1,
+     "question": "For a linear time‑invariant system with impulse response h(t), which integral yields the output y(t) for an arbitrary input x(t)?",
+     "options": {
+      "A": "y(t)=∫_{-∞}^{∞}x(τ)h(t-τ)dτ",
+      "B": "y(t)=∫_{-∞}^{∞}h(τ)x(t+τ)dτ",
+      "C": "y(t)=∫_{0}^{t}x(τ)h(τ)dτ",
+      "D": "y(t)=∫_{-∞}^{∞}x(t-τ)h(τ)dτ"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5795,
+      "alignment_lexical": 0.3824,
+      "grade": 12.27,
+      "plausibility": 0.9427,
+      "plausibility_lexical": 0.9583,
+      "diversity": 0.1135
+     },
+     "flags": [
+      "off_topic",
+      "too_close:B",
+      "too_close:C",
+      "too_close:D",
+      "same_mistake:B,D"
+     ],
+     "quality": 3
+    },
+    {
+     "position": 2,
+     "question": "Which of the following is true about the transfer function H(s) of a causal LTI system?",
+     "options": {
+      "A": "H(s) equals the Laplace transform of the impulse response and is a ratio of two polynomials in s.",
+      "B": "H(s) is the Fourier transform of the input divided by the Fourier transform of the output.",
+      "C": "H(s) is defined only for real values of s where the system is stable.",
+      "D": "H(s) is the inverse Laplace transform of the system’s step response."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5481,
+      "alignment_lexical": 0.6294,
+      "grade": 7.6125,
+      "plausibility": 0.6491,
+      "plausibility_lexical": 0.305,
+      "diversity": 0.3998
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple",
+      "same_mistake:B,D",
+      "length_cue"
+     ],
+     "quality": 3
+    },
+    {
+     "position": 3,
+     "question": "A causal linear time‑invariant system is BIBO stable if and only if which condition on its poles holds?",
+     "options": {
+      "A": "All poles lie strictly in the left half of the complex plane.",
+      "B": "All poles have negative real parts or lie on the imaginary axis.",
+      "C": "At least one pole is located in the left half‑plane while the rest are arbitrary.",
+      "D": "No poles exist; the denominator of the transfer function is a constant."
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6693,
+      "alignment_lexical": 0.3031,
+      "grade": 10.4411,
+      "plausibility": 0.6792,
+      "plausibility_lexical": 0.2022,
+      "diversity": 0.4379
+     },
+     "flags": [],
+     "quality": 8
+    },
+    {
+     "position": 4,
+     "question": "Given a forward transfer function G(s) and a feedback path H(s) in a negative‑feedback loop, what is the closed‑loop transfer function?",
+     "options": {
+      "A": "T(s)=G(s)/[1+G(s)H(s)]",
+      "B": "T(s)=G(s)·[1+G(s)H(s)]",
+      "C": "T(s)=[G(s)+H(s)]/[1+G(s)H(s)]",
+      "D": "T(s)=G(s)·H(s)/[1-G(s)H(s)]"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7526,
+      "alignment_lexical": 0.4588,
+      "grade": 11.7048,
+      "plausibility": 0.9526,
+      "plausibility_lexical": 1.0,
+      "diversity": 0.0818
+     },
+     "flags": [
+      "too_close:B",
+      "too_close:C",
+      "too_close:D",
+      "same_mistake:B,D"
+     ],
+     "quality": 5
+    }
+   ]
+  },
+  {
+   "id": "913bba42-d566-46dc-a8fb-04d06ef887c1",
+   "topic_id": "SYSTEM-DEMO-1",
+   "model": "gpt-oss",
+   "strategy": "prompt_v2",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 1151,
+   "completion_tokens": 1861,
+   "cost_usd": 0.001289,
+   "latency_seconds": 4.219,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "key_balance": "shuffled"
+   },
+   "created_at": "2026-10-23T13:49:35.512836+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.205471+00:00",
+   "generated_at": "2026-10-23T14:16:59.530598+00:00",
+   "finished_at": "2026-10-23T14:17:00.121959+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What condition defines a linear system according to the superposition principle?",
+     "options": {
+      "A": "The system has a constant gain at all frequencies, a property of the frequency response, not linearity.",
+      "B": "The response to a weighted sum of inputs equals the same weighted sum of the individual responses.",
+      "C": "The output is proportional to the derivative of the input, which is unrelated to superposition.",
+      "D": "The output does not change when the input is delayed, describing time‑invariance rather than linearity."
+     },
+     "answer": "B",
+     "evidence": "The response to a weighted sum of inputs equals the same weighted sum of the individual responses.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5219,
+      "alignment_lexical": 0.4026,
+      "grade": 15.5182,
+      "plausibility": 0.3071,
+      "plausibility_lexical": 0.1208,
+      "diversity": 0.5571
+     },
+     "flags": [
+      "off_topic",
+      "weak:A",
+      "weak:D"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 1,
+     "question": "When is a system considered causal in terms of its impulse response?",
+     "options": {
+      "A": "When its output does not depend on past inputs, ignoring previous signal values.",
+      "B": "When its impulse response is zero for positive time, eliminating response after the input.",
+      "C": "When its impulse response is zero for negative time, preventing dependence on future inputs.",
+      "D": "When its transfer function has no poles in the right half‑plane, ensuring stability."
+     },
+     "answer": "C",
+     "evidence": "A system is causal if its impulse response is zero for negative time",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7687,
+      "alignment_lexical": 0.3585,
+      "grade": 6.79,
+      "plausibility": 0.629,
+      "plausibility_lexical": 0.224,
+      "diversity": 0.6101
+     },
+     "flags": [
+      "stem_too_simple",
+      "too_close:B"
+     ],
+     "quality": 8
+    },
+    {
+     "position": 2,
+     "question": "What does the transfer function represent for a linear time‑invariant system with zero initial conditions?",
+     "options": {
+      "A": "The Laplace transform of the impulse response, linking input and output in the s‑domain.",
+      "B": "The derivative of the impulse response, indicating the system’s rate of change.",
+      "C": "The ratio of the output to the input in the time domain, without transformation.",
+      "D": "The Fourier transform of the input signal, describing its frequency content."
+     },
+     "answer": "A",
+     "evidence": "It equals the Laplace transform of the impulse response",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6,
+      "alignment_lexical": 0.444,
+      "grade": 13.0733,
+      "plausibility": 0.4995,
+      "plausibility_lexical": 0.2739,
+      "diversity": 0.5909
+     },
+     "flags": [
+      "off_topic"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 3,
+     "question": "Which pole placement guarantees BIBO stability for a causal linear time‑invariant system?",
+     "options": {
+      "A": "All poles lie in the right half of the complex plane, leading to unbounded growth.",
+      "B": "At least one pole lies on the imaginary axis, producing sustained oscillations.",
+      "C": "All zeros lie strictly in the left half of the complex plane, affecting frequency response only.",
+      "D": "All poles lie strictly in the left half of the complex plane, ensuring bounded responses."
+     },
+     "answer": "D",
+     "evidence": "For a causal linear time-invariant system this holds exactly when all poles lie strictly in the left half of the complex plane",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5948,
+      "alignment_lexical": 0.2333,
+      "grade": 13.6733,
+      "plausibility": 0.5969,
+      "plausibility_lexical": 0.3467,
+      "diversity": 0.5461
+     },
+     "flags": [
+      "off_topic"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 4,
+     "question": "What is the closed‑loop transfer function of a system with forward gain G(s) and feedback H(s) under negative feedback?",
+     "options": {
+      "A": "1 / [G(s) + H(s)], which incorrectly inverts the sum of forward and feedback paths.",
+      "B": "G(s) / [1 – G(s)H(s)], which would correspond to positive feedback rather than negative.",
+      "C": "G(s) / [1 + G(s)H(s)], showing the standard negative‑feedback relationship.",
+      "D": "G(s) × H(s), representing a simple cascade without feedback correction."
+     },
+     "answer": "C",
+     "evidence": "the closed-loop transfer function is G(s) divided by one plus G(s)H(s)",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.775,
+      "alignment_lexical": 0.4897,
+      "grade": 10.4516,
+      "plausibility": 0.762,
+      "plausibility_lexical": 0.3121,
+      "diversity": 0.3527
+     },
+     "flags": [
+      "too_close:B",
+      "same_mistake:A,B"
+     ],
+     "quality": 9
+    }
+   ]
+  },
+  {
+   "id": "3d598828-bb03-42de-b15d-4be8d1baef48",
+   "topic_id": "SYSTEM-DEMO-1",
+   "model": "gpt-oss",
+   "strategy": "verify_repair",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "openai/gpt-oss-120b",
+   "returned_model_id": "openai/gpt-oss-120b",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 5,
+   "prompt_tokens": 6529,
+   "completion_tokens": 10665,
+   "cost_usd": 0.007378,
+   "latency_seconds": 25.381,
+   "strategy_status": "best_effort",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "writer": [
+     {
+      "focus": [
+       "Linearity and time invariance"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Impulse response and convolution",
+       "Transfer function"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Poles, zeros and stability",
+       "Feedback"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     }
+    ],
+    "repairs": [
+     {
+      "round": 1,
+      "attempted": 3,
+      "valid": 3,
+      "accepted": 1
+     },
+     {
+      "round": 2,
+      "attempted": 3,
+      "valid": 3,
+      "accepted": 2
+     }
+    ],
+    "candidates": 15,
+    "passed_before_repair": 2,
+    "selected_passing_all_checks": 3
+   },
+   "created_at": "2026-10-23T13:49:35.512837+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.210585+00:00",
+   "generated_at": "2026-10-23T14:17:24.921209+00:00",
+   "finished_at": "2026-10-23T14:17:25.815915+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "How is the output of a linear time‑invariant system obtained for any arbitrary input signal?",
+     "options": {
+      "A": "convolution of the input with the impulse response",
+      "B": "addition of the input and impulse response",
+      "C": "multiplication of the input and impulse response",
+      "D": "differentiation of the input signal"
+     },
+     "answer": "A",
+     "evidence": "The output for an arbitrary input is therefore the convolution of the input with the impulse response.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6734,
+      "alignment_lexical": 0.5341,
+      "grade": 12.2867,
+      "plausibility": 0.6164,
+      "plausibility_lexical": 0.4815,
+      "diversity": 0.4491
+     },
+     "flags": [],
+     "quality": 8
+    },
+    {
+     "position": 1,
+     "question": "For a causal LTI system, what condition must its impulse response satisfy regarding negative time?",
+     "options": {
+      "A": "it must have finite duration",
+      "B": "it must be zero for negative time",
+      "C": "it must be non‑zero for all time",
+      "D": "it must be symmetric about t=0"
+     },
+     "answer": "B",
+     "evidence": "A system is causal if its impulse response is zero for negative time, so the output never depends on future inputs.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6826,
+      "alignment_lexical": 0.2379,
+      "grade": 11.5,
+      "plausibility": 0.5552,
+      "plausibility_lexical": 0.3798,
+      "diversity": 0.6117
+     },
+     "flags": [],
+     "quality": 8
+    },
+    {
+     "position": 2,
+     "question": "How does increasing loop gain in a negative feedback system typically affect the closed‑loop pole locations?",
+     "options": {
+      "A": "It pushes the poles deeper into the left half‑plane, which improves stability.",
+      "B": "It may move poles toward the right half‑plane, which can cause instability.",
+      "C": "It changes only the zeros of the transfer function, leaving the poles untouched.",
+      "D": "It leaves the pole positions unchanged while the system’s performance improves."
+     },
+     "answer": "B",
+     "evidence": "a high loop gain can move the closed-loop poles towards the right half-plane and make the system unstable.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7033,
+      "alignment_lexical": 0.3615,
+      "grade": 12.0375,
+      "plausibility": 0.5986,
+      "plausibility_lexical": 0.1832,
+      "diversity": 0.4596
+     },
+     "flags": [],
+     "quality": 8
+    },
+    {
+     "position": 3,
+     "question": "In the context of linear systems, how is the property of time invariance described with respect to delaying an input signal and the resulting output signal?",
+     "options": {
+      "A": "Delaying the input changes only the output amplitude, leaving the timing identical.",
+      "B": "The system produces a periodic output regardless of the input’s time shift.",
+      "C": "Delaying the input delays the output by the same amount without changing the output’s shape.",
+      "D": "The output waveform is altered while the time shift remains unchanged."
+     },
+     "answer": "C",
+     "evidence": "A system is time‑invariant if delaying the input only delays the output by the same amount without changing its shape.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7317,
+      "alignment_lexical": 0.6454,
+      "grade": 14.9731,
+      "plausibility": 0.5877,
+      "plausibility_lexical": 0.1741,
+      "diversity": 0.4344
+     },
+     "flags": [
+      "too_close:A",
+      "length_cue"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 4,
+     "question": "In a negative feedback loop with forward transfer G(s) and feedback H(s), which expression gives the closed‑loop transfer function?",
+     "options": {
+      "A": "The sum of G(s) and H(s) divided by [1+G(s)H(s)]",
+      "B": "G(s) added to the term [1+G(s)H(s)]",
+      "C": "The reciprocal of [1+G(s)H(s)]",
+      "D": "G(s)/[1+G(s)H(s)]"
+     },
+     "answer": "D",
+     "evidence": "the closed-loop transfer function is G(s) divided by one plus G(s)H(s).",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7407,
+      "alignment_lexical": 0.412,
+      "grade": 11.0726,
+      "plausibility": 0.8685,
+      "plausibility_lexical": 0.4905,
+      "diversity": 0.1778
+     },
+     "flags": [
+      "too_close:A",
+      "too_close:B",
+      "too_close:C",
+      "same_mistake:A,B"
+     ],
+     "quality": 5
+    }
+   ]
+  },
+  {
+   "id": "5f189ec2-035c-48e7-8052-bc556824b187",
+   "topic_id": "SYSTEM-DEMO-1",
+   "model": "llama33",
+   "strategy": "baseline",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 879,
+   "completion_tokens": 431,
+   "cost_usd": 0.00093,
+   "latency_seconds": 5.113,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {},
+   "created_at": "2026-10-23T13:49:35.512839+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.215914+00:00",
+   "generated_at": "2026-10-23T14:17:30.032479+00:00",
+   "finished_at": "2026-10-23T14:17:30.438214+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What property of a system indicates that delaying the input only delays the output by the same amount without changing its shape?",
+     "options": {
+      "A": "Linearity",
+      "B": "Time-invariance",
+      "C": "Causality",
+      "D": "Stability"
+     },
+     "answer": "B",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5186,
+      "alignment_lexical": 0.6334,
+      "grade": 12.2991,
+      "plausibility": 0.3105,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.6986
+     },
+     "flags": [
+      "off_topic",
+      "weak:A",
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 1,
+     "question": "What is the output of a system when the input is a unit impulse?",
+     "options": {
+      "A": "Step response",
+      "B": "Frequency response",
+      "C": "Impulse response",
+      "D": "Transfer function"
+     },
+     "answer": "C",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5749,
+      "alignment_lexical": 0.7047,
+      "grade": 5.8843,
+      "plausibility": 0.5084,
+      "plausibility_lexical": 0.2222,
+      "diversity": 0.6918
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 2,
+     "question": "What is the result of evaluating the transfer function on the imaginary axis?",
+     "options": {
+      "A": "Impulse response",
+      "B": "Step response",
+      "C": "Frequency response",
+      "D": "Time-domain response"
+     },
+     "answer": "C",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6737,
+      "alignment_lexical": 0.677,
+      "grade": 12.1723,
+      "plausibility": 0.4756,
+      "plausibility_lexical": 0.3056,
+      "diversity": 0.56
+     },
+     "flags": [],
+     "quality": 8
+    },
+    {
+     "position": 3,
+     "question": "What condition must be met for a causal linear time-invariant system to be bounded-input bounded-output stable?",
+     "options": {
+      "A": "All poles lie on the imaginary axis",
+      "B": "All poles lie in the right half-plane",
+      "C": "All poles lie strictly in the left half-plane",
+      "D": "All zeros lie in the left half-plane"
+     },
+     "answer": "C",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6844,
+      "alignment_lexical": 0.2589,
+      "grade": 12.0375,
+      "plausibility": 0.7628,
+      "plausibility_lexical": 0.5778,
+      "diversity": 0.3828
+     },
+     "flags": [
+      "too_close:B",
+      "same_mistake:A,B",
+      "length_cue"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 4,
+     "question": "What is the purpose of negative feedback in a closed-loop system?",
+     "options": {
+      "A": "To increase the sensitivity of the system to parameter changes",
+      "B": "To reduce the sensitivity of the system to disturbances and parameter changes",
+      "C": "To move the closed-loop poles towards the right half-plane",
+      "D": "To eliminate the error signal"
+     },
+     "answer": "B",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7417,
+      "alignment_lexical": 0.5358,
+      "grade": 8.0091,
+      "plausibility": 0.4659,
+      "plausibility_lexical": 0.3004,
+      "diversity": 0.8023
+     },
+     "flags": [
+      "too_close:A",
+      "weak:C",
+      "length_cue"
+     ],
+     "quality": 8
+    }
+   ]
+  },
+  {
+   "id": "6815bf35-677b-4f97-b9ef-ce117b7c1d63",
+   "topic_id": "SYSTEM-DEMO-1",
+   "model": "llama33",
+   "strategy": "prompt_v2",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 1084,
+   "completion_tokens": 421,
+   "cost_usd": 0.001069,
+   "latency_seconds": 4.649,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "key_balance": "shuffled"
+   },
+   "created_at": "2026-10-23T13:49:35.512841+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.221422+00:00",
+   "generated_at": "2026-10-23T14:17:34.685992+00:00",
+   "finished_at": "2026-10-23T14:17:34.958505+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What describes a linear time-invariant system completely?",
+     "options": {
+      "A": "Impulse response",
+      "B": "Frequency response",
+      "C": "Transfer function",
+      "D": "Step response"
+     },
+     "answer": "A",
+     "evidence": "For a linear time-invariant system the impulse response describes the system completely",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.736,
+      "alignment_lexical": 0.2455,
+      "grade": 12.4257,
+      "plausibility": 0.5084,
+      "plausibility_lexical": 0.2222,
+      "diversity": 0.6918
+     },
+     "flags": [],
+     "quality": 9
+    },
+    {
+     "position": 1,
+     "question": "What is the result of convolution in the time domain in the frequency domain?",
+     "options": {
+      "A": "Subtraction",
+      "B": "Multiplication",
+      "C": "Addition",
+      "D": "Division"
+     },
+     "answer": "B",
+     "evidence": "The Laplace transform turns convolution in the time domain into multiplication in the complex frequency domain",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5177,
+      "alignment_lexical": 0.6542,
+      "grade": 8.4129,
+      "plausibility": 0.5161,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.5787
+     },
+     "flags": [
+      "off_topic",
+      "length_cue"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 2,
+     "question": "Where must all poles lie for a causal linear time-invariant system to be stable?",
+     "options": {
+      "A": "Strictly in the left half-plane",
+      "B": "In the right half-plane",
+      "C": "On the imaginary axis",
+      "D": "On the real axis"
+     },
+     "answer": "A",
+     "evidence": "For a causal linear time-invariant system this holds exactly when all poles lie strictly in the left half of the complex plane",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.746,
+      "alignment_lexical": 0.2517,
+      "grade": 7.57,
+      "plausibility": 0.5624,
+      "plausibility_lexical": 0.2646,
+      "diversity": 0.4108
+     },
+     "flags": [
+      "stem_too_simple",
+      "length_cue"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 3,
+     "question": "What is the purpose of feedback in a closed-loop system?",
+     "options": {
+      "A": "To disable the feedback path",
+      "B": "To remove the controller",
+      "C": "To reduce the sensitivity of the system",
+      "D": "To increase the loop gain"
+     },
+     "answer": "C",
+     "evidence": "Feedback can reduce the sensitivity of the system to parameter changes and to disturbances",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7296,
+      "alignment_lexical": 0.5516,
+      "grade": 6.01,
+      "plausibility": 0.2326,
+      "plausibility_lexical": 0.2315,
+      "diversity": 0.7757
+     },
+     "flags": [
+      "stem_too_simple",
+      "weak:A",
+      "weak:B",
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 4,
+     "question": "What is the output of a system when the input is a unit impulse?",
+     "options": {
+      "A": "Frequency response",
+      "B": "Transfer function",
+      "C": "Step response",
+      "D": "Impulse response"
+     },
+     "answer": "D",
+     "evidence": "The impulse response is the output of the system when the input is a unit impulse",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5749,
+      "alignment_lexical": 0.7047,
+      "grade": 5.8843,
+      "plausibility": 0.5084,
+      "plausibility_lexical": 0.2222,
+      "diversity": 0.6918
+     },
+     "flags": [
+      "off_topic",
+      "stem_too_simple"
+     ],
+     "quality": 4
+    }
+   ]
+  },
+  {
+   "id": "876f1a23-1eeb-49a4-81f2-25a7516bc462",
+   "topic_id": "SYSTEM-DEMO-1",
+   "model": "llama33",
+   "strategy": "verify_repair",
+   "status": "succeeded",
+   "provider": "openrouter",
+   "requested_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "returned_model_id": "meta-llama/llama-3.3-70b-instruct",
+   "simulated": false,
+   "attempts": 1,
+   "calls": 5,
+   "prompt_tokens": 5984,
+   "completion_tokens": 2015,
+   "cost_usd": 0.005679,
+   "latency_seconds": 24.752,
+   "strategy_status": "best_effort",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "writer": [
+     {
+      "focus": [
+       "Linearity and time invariance"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Impulse response and convolution",
+       "Transfer function"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Poles, zeros and stability",
+       "Feedback"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     }
+    ],
+    "repairs": [
+     {
+      "round": 1,
+      "attempted": 3,
+      "valid": 3,
+      "accepted": 2
+     },
+     {
+      "round": 2,
+      "attempted": 3,
+      "valid": 3,
+      "accepted": 1
+     }
+    ],
+    "candidates": 15,
+    "passed_before_repair": 1,
+    "selected_passing_all_checks": 2
+   },
+   "created_at": "2026-10-23T13:49:35.512843+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.227330+00:00",
+   "generated_at": "2026-10-23T14:17:59.442273+00:00",
+   "finished_at": "2026-10-23T14:17:59.682787+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What describes a linear time-invariant system completely?",
+     "options": {
+      "A": "Transfer function",
+      "B": "Impulse response",
+      "C": "Step response",
+      "D": "Frequency response"
+     },
+     "answer": "B",
+     "evidence": "For a linear time-invariant system the impulse response describes the system completely",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.736,
+      "alignment_lexical": 0.2455,
+      "grade": 12.4257,
+      "plausibility": 0.5084,
+      "plausibility_lexical": 0.2222,
+      "diversity": 0.6918
+     },
+     "flags": [],
+     "quality": 9
+    },
+    {
+     "position": 1,
+     "question": "What is the primary purpose of using feedback in a closed-loop control system?",
+     "options": {
+      "A": "To reduce the error signal by increasing the loop gain",
+      "B": "To reduce system sensitivity",
+      "C": "To enhance system instability",
+      "D": "To increase system gain"
+     },
+     "answer": "B",
+     "evidence": "Feedback can reduce the sensitivity of the system to parameter changes and to disturbances",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7081,
+      "alignment_lexical": 0.4889,
+      "grade": 9.4492,
+      "plausibility": 0.5024,
+      "plausibility_lexical": 0.2828,
+      "diversity": 0.5794
+     },
+     "flags": [],
+     "quality": 7
+    },
+    {
+     "position": 2,
+     "question": "What determines stability in a causal linear time-invariant system?",
+     "options": {
+      "A": "Zeros in the left half-plane",
+      "B": "Zeros in the right half-plane",
+      "C": "Poles on the imaginary axis",
+      "D": "Poles in the left half"
+     },
+     "answer": "D",
+     "evidence": "For a causal linear time-invariant system this holds exactly when all poles lie strictly in the left half of the complex plane.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6497,
+      "alignment_lexical": 0.2576,
+      "grade": 14.1422,
+      "plausibility": 0.5512,
+      "plausibility_lexical": 0.3988,
+      "diversity": 0.4115
+     },
+     "flags": [
+      "evidence_supports:C"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 3,
+     "question": "What is the result of convolving an input with a system's impulse response?",
+     "options": {
+      "A": "Error signal",
+      "B": "Transfer function",
+      "C": "Output for that input",
+      "D": "Frequency response"
+     },
+     "answer": "C",
+     "evidence": "The output for an arbitrary input is therefore the convolution of the input with the impulse response",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6527,
+      "alignment_lexical": 0.5532,
+      "grade": 7.6338,
+      "plausibility": 0.2653,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.7161
+     },
+     "flags": [
+      "stem_too_simple",
+      "weak:A",
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 4,
+     "question": "What property does a system satisfy if its response to a weighted sum of inputs equals the same weighted sum of the individual responses?",
+     "options": {
+      "A": "Linearity",
+      "B": "Time variance",
+      "C": "Stability",
+      "D": "Causality"
+     },
+     "answer": "A",
+     "evidence": "A system is linear if it satisfies superposition, which means the response to a weighted sum of inputs equals the same weighted sum of the individual responses.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.442,
+      "alignment_lexical": 0.545,
+      "grade": 13.4367,
+      "plausibility": 0.2959,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.8012
+     },
+     "flags": [
+      "off_topic",
+      "weak:B"
+     ],
+     "quality": 6
+    }
+   ]
+  },
+  {
+   "id": "ecb0840d-f21f-4fd2-8fea-233a9385887c",
+   "topic_id": "SYSTEM-DEMO-1",
+   "model": "mistral-small",
+   "strategy": "baseline",
+   "status": "failed",
+   "provider": null,
+   "requested_model_id": null,
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 4,
+   "calls": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "cost_usd": 0.0,
+   "latency_seconds": 96.237,
+   "strategy_status": null,
+   "error_kind": "provider_error",
+   "error": "mistral-small: all 4 attempts failed (HTTP 429: {\"error\":{\"message\":\"Provider returned error\",\"code\":429,\"metadata\":{\"raw\":\"mistralai/mistral-small-2603 is temporarily rate-limited upstream. Please retry shortly, or add your own key to accumulate your rate limits: https://openrouter.ai/settings/integrations\",\"provider_name\":\"Mistral\",\"is_byok\":fa)",
+   "trace": null,
+   "created_at": "2026-10-23T13:49:35.512845+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.232414+00:00",
+   "generated_at": null,
+   "finished_at": "2026-10-23T14:19:35.677998+00:00",
+   "items": []
+  },
+  {
+   "id": "905594e7-64d1-40b1-9ff5-52d27abcc344",
+   "topic_id": "SYSTEM-DEMO-1",
+   "model": "mistral-small",
+   "strategy": "prompt_v2",
+   "status": "failed",
+   "provider": null,
+   "requested_model_id": null,
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 4,
+   "calls": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "cost_usd": 0.0,
+   "latency_seconds": 3.036,
+   "strategy_status": null,
+   "error_kind": "provider_error",
+   "error": "mistral-small: all 4 attempts failed (Circuit open: the host failed repeatedly; not calling it for now.)",
+   "trace": null,
+   "created_at": "2026-10-23T13:49:35.512846+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.238272+00:00",
+   "generated_at": null,
+   "finished_at": "2026-10-23T14:19:38.717528+00:00",
+   "items": []
+  },
+  {
+   "id": "950f740d-34e0-4223-a7bf-f1557a515c88",
+   "topic_id": "SYSTEM-DEMO-1",
+   "model": "mistral-small",
+   "strategy": "verify_repair",
+   "status": "failed",
+   "provider": null,
+   "requested_model_id": null,
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 4,
+   "calls": 0,
+   "prompt_tokens": 0,
+   "completion_tokens": 0,
+   "cost_usd": 0.0,
+   "latency_seconds": 52.075,
+   "strategy_status": null,
+   "error_kind": "invalid_output",
+   "error": "Writer produced 0 valid questions, fewer than 5",
+   "trace": null,
+   "created_at": "2026-10-23T13:49:35.512848+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.243922+00:00",
+   "generated_at": null,
+   "finished_at": "2026-10-23T14:20:30.793687+00:00",
+   "items": []
+  },
+  {
+   "id": "287e5946-f1cb-4288-a865-d6aa9c7b614e",
+   "topic_id": "SYSTEM-DEMO-1",
+   "model": "cohere",
+   "strategy": "baseline",
+   "status": "succeeded",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 1436,
+   "completion_tokens": 455,
+   "cost_usd": 0.00814,
+   "latency_seconds": 5.486,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {},
+   "created_at": "2026-10-23T13:49:35.512850+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.250884+00:00",
+   "generated_at": "2026-10-23T14:20:36.282355+00:00",
+   "finished_at": "2026-10-23T14:20:37.016965+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What property of a system ensures that delaying the input only delays the output by the same amount without altering its shape?",
+     "options": {
+      "A": "Time invariance",
+      "B": "Linearity",
+      "C": "Causality",
+      "D": "Superposition"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.4959,
+      "alignment_lexical": 0.6309,
+      "grade": 12.2991,
+      "plausibility": 0.3284,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.6199
+     },
+     "flags": [
+      "off_topic",
+      "weak:B",
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 1,
+     "question": "Which mathematical operation describes the output of a linear time-invariant system for an arbitrary input, given its impulse response?",
+     "options": {
+      "A": "Convolution",
+      "B": "Multiplication",
+      "C": "Differentiation",
+      "D": "Integration"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.665,
+      "alignment_lexical": 0.5046,
+      "grade": 16.6621,
+      "plausibility": 0.3015,
+      "plausibility_lexical": 0.0,
+      "diversity": 0.7189
+     },
+     "flags": [
+      "stem_too_dense",
+      "weak:B",
+      "weak:C"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 2,
+     "question": "What transform is used to convert convolution in the time domain into multiplication in the complex frequency domain?",
+     "options": {
+      "A": "Laplace transform",
+      "B": "Fourier transform",
+      "C": "Z-transform",
+      "D": "Wavelet transform"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5857,
+      "alignment_lexical": 0.4906,
+      "grade": 13.0633,
+      "plausibility": 0.4147,
+      "plausibility_lexical": 0.3333,
+      "diversity": 0.545
+     },
+     "flags": [
+      "off_topic"
+     ],
+     "quality": 5
+    },
+    {
+     "position": 3,
+     "question": "For a causal linear time-invariant system, what condition on the poles ensures bounded-input bounded-output stability?",
+     "options": {
+      "A": "All poles lie strictly in the left half of the complex plane",
+      "B": "All poles lie on the imaginary axis",
+      "C": "All poles lie strictly in the right half of the complex plane",
+      "D": "All poles lie on the real axis"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7995,
+      "alignment_lexical": 0.4389,
+      "grade": 14.6467,
+      "plausibility": 0.8424,
+      "plausibility_lexical": 0.4683,
+      "diversity": 0.1828
+     },
+     "flags": [
+      "too_close:C",
+      "same_mistake:B,D"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 4,
+     "question": "In a closed-loop system with negative feedback, what can high loop gain potentially cause?",
+     "options": {
+      "A": "Move closed-loop poles towards the right half-plane, leading to instability",
+      "B": "Reduce sensitivity to parameter changes and disturbances",
+      "C": "Increase the system's bandwidth",
+      "D": "Decrease the system's phase margin"
+     },
+     "answer": "A",
+     "evidence": null,
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7456,
+      "alignment_lexical": 0.2235,
+      "grade": 9.2557,
+      "plausibility": 0.2188,
+      "plausibility_lexical": 0.059,
+      "diversity": 0.6673
+     },
+     "flags": [
+      "weak:B",
+      "weak:C",
+      "length_cue"
+     ],
+     "quality": 5
+    }
+   ]
+  },
+  {
+   "id": "b337cb69-571b-4f1a-b9d1-e92d8da256a6",
+   "topic_id": "SYSTEM-DEMO-1",
+   "model": "cohere",
+   "strategy": "prompt_v2",
+   "status": "succeeded",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 1,
+   "calls": 1,
+   "prompt_tokens": 1660,
+   "completion_tokens": 641,
+   "cost_usd": 0.01056,
+   "latency_seconds": 8.898,
+   "strategy_status": "valid",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "key_balance": "shuffled"
+   },
+   "created_at": "2026-10-23T13:49:35.512852+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.256523+00:00",
+   "generated_at": "2026-10-23T14:20:45.183454+00:00",
+   "finished_at": "2026-10-23T14:20:45.566903+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What is the condition for a causal linear time-invariant system to be bounded-input bounded-output stable?",
+     "options": {
+      "A": "All poles must lie on the real axis.",
+      "B": "All poles must lie on the imaginary axis.",
+      "C": "All poles must lie strictly in the left half of the complex plane.",
+      "D": "All poles must lie strictly in the right half of the complex plane."
+     },
+     "answer": "C",
+     "evidence": "For a causal linear time-invariant system this holds exactly when all poles lie strictly in the left half of the complex plane.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6823,
+      "alignment_lexical": 0.4778,
+      "grade": 12.2867,
+      "plausibility": 0.8831,
+      "plausibility_lexical": 0.5043,
+      "diversity": 0.1364
+     },
+     "flags": [
+      "too_close:A",
+      "too_close:B",
+      "too_close:D",
+      "same_mistake:A,B",
+      "evidence_supports:D"
+     ],
+     "quality": 4
+    },
+    {
+     "position": 1,
+     "question": "What does the impulse response of a linear time-invariant system represent?",
+     "options": {
+      "A": "The difference between the input and output signals.",
+      "B": "The sum of all possible inputs to the system.",
+      "C": "The output of the system when the input is a unit step.",
+      "D": "The output of the system when the input is a unit impulse."
+     },
+     "answer": "D",
+     "evidence": "The impulse response is the output of the system when the input is a unit impulse.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6903,
+      "alignment_lexical": 0.5397,
+      "grade": 10.1545,
+      "plausibility": 0.6527,
+      "plausibility_lexical": 0.4108,
+      "diversity": 0.4281
+     },
+     "flags": [
+      "too_close:C"
+     ],
+     "quality": 8
+    },
+    {
+     "position": 2,
+     "question": "What is the effect of a pole on the imaginary axis in a continuous-time system?",
+     "options": {
+      "A": "It causes the response to grow without bound.",
+      "B": "It causes the system to become unstable.",
+      "C": "It results in a sustained oscillation or a constant response.",
+      "D": "It ensures the system is bounded-input bounded-output stable."
+     },
+     "answer": "C",
+     "evidence": "A pole on the imaginary axis gives a sustained oscillation or a constant response.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.602,
+      "alignment_lexical": 0.6689,
+      "grade": 10.7133,
+      "plausibility": 0.4948,
+      "plausibility_lexical": 0.0863,
+      "diversity": 0.4721
+     },
+     "flags": [
+      "off_topic",
+      "length_cue"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 3,
+     "question": "How does the Laplace transform simplify the analysis of linear time-invariant systems?",
+     "options": {
+      "A": "It turns convolution in the time domain into multiplication in the complex frequency domain.",
+      "B": "It eliminates the need for impulse responses.",
+      "C": "It converts differential equations into algebraic equations.",
+      "D": "It turns convolution in the time domain into addition in the frequency domain."
+     },
+     "answer": "A",
+     "evidence": "The Laplace transform turns convolution in the time domain into multiplication in the complex frequency domain.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.5219,
+      "alignment_lexical": 0.5482,
+      "grade": 11.7067,
+      "plausibility": 0.5658,
+      "plausibility_lexical": 0.3361,
+      "diversity": 0.627
+     },
+     "flags": [
+      "off_topic",
+      "too_close:D",
+      "length_cue"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 4,
+     "question": "What is the purpose of negative feedback in a closed-loop system?",
+     "options": {
+      "A": "To amplify the output signal.",
+      "B": "To reduce the sensitivity of the system to parameter changes and disturbances.",
+      "C": "To increase the loop gain.",
+      "D": "To move the closed-loop poles towards the right half-plane."
+     },
+     "answer": "B",
+     "evidence": "Feedback can reduce the sensitivity of the system to parameter changes and to disturbances.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7417,
+      "alignment_lexical": 0.5358,
+      "grade": 8.0091,
+      "plausibility": 0.3633,
+      "plausibility_lexical": 0.1396,
+      "diversity": 0.515
+     },
+     "flags": [
+      "length_cue"
+     ],
+     "quality": 5
+    }
+   ]
+  },
+  {
+   "id": "94cad5c0-d4cf-4d95-bfb9-c4925d1a0f25",
+   "topic_id": "SYSTEM-DEMO-1",
+   "model": "cohere",
+   "strategy": "verify_repair",
+   "status": "succeeded",
+   "provider": "cohere",
+   "requested_model_id": "command-a-03-2025",
+   "returned_model_id": null,
+   "simulated": false,
+   "attempts": 2,
+   "calls": 6,
+   "prompt_tokens": 12379,
+   "completion_tokens": 3936,
+   "cost_usd": 0.070308,
+   "latency_seconds": 64.802,
+   "strategy_status": "best_effort",
+   "error_kind": null,
+   "error": null,
+   "trace": {
+    "writer": [
+     {
+      "focus": [
+       "Linearity and time invariance"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     },
+     {
+      "focus": [
+       "Impulse response and convolution",
+       "Transfer function"
+      ],
+      "outcome": "ok",
+      "attempts": 2
+     },
+     {
+      "focus": [
+       "Poles, zeros and stability",
+       "Feedback"
+      ],
+      "outcome": "ok",
+      "attempts": 1
+     }
+    ],
+    "repairs": [
+     {
+      "round": 1,
+      "attempted": 7,
+      "valid": 7,
+      "accepted": 2
+     },
+     {
+      "round": 2,
+      "attempted": 7,
+      "valid": 7,
+      "accepted": 0
+     }
+    ],
+    "candidates": 15,
+    "passed_before_repair": 0,
+    "selected_passing_all_checks": 0
+   },
+   "created_at": "2026-10-23T13:49:35.512853+00:00",
+   "dispatched_at": "2026-10-23T13:49:36.262392+00:00",
+   "generated_at": "2026-10-23T14:21:49.978716+00:00",
+   "finished_at": "2026-10-23T14:21:50.526207+00:00",
+   "items": [
+    {
+     "position": 0,
+     "question": "What is a consequence of a system being both linear and time-invariant?",
+     "options": {
+      "A": "The system's poles must lie on the imaginary axis.",
+      "B": "The system's output is always a scaled version of the input.",
+      "C": "The system's behavior is unpredictable over time.",
+      "D": "The system's response to any input is determined by its impulse response."
+     },
+     "answer": "D",
+     "evidence": "For a linear time-invariant system the impulse response describes the system completely, because every input signal can be written as a sum of scaled and shifted impulses.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7527,
+      "alignment_lexical": 0.4,
+      "grade": 8.7567,
+      "plausibility": 0.375,
+      "plausibility_lexical": 0.2315,
+      "diversity": 0.7261
+     },
+     "flags": [
+      "length_cue"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 1,
+     "question": "What does the impulse response describe in a linear time-invariant system?",
+     "options": {
+      "A": "The system partially.",
+      "B": "The system completely.",
+      "C": "Only the input signals.",
+      "D": "Only the output signals."
+     },
+     "answer": "B",
+     "evidence": "For a linear time-invariant system the impulse response describes the system completely, because every input signal can be written as a sum of scaled and shifted impulses.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7029,
+      "alignment_lexical": 0.5088,
+      "grade": 9.0818,
+      "plausibility": 0.5025,
+      "plausibility_lexical": 0.2778,
+      "diversity": 0.4888
+     },
+     "flags": [
+      "too_close:A"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 2,
+     "question": "What is the effect of negative feedback in a closed-loop system?",
+     "options": {
+      "A": "It reduces sensitivity to parameter changes and disturbances.",
+      "B": "It inherently destabilizes the system.",
+      "C": "It amplifies disturbances in the system.",
+      "D": "It eliminates the need for a controller."
+     },
+     "answer": "A",
+     "evidence": "Feedback can reduce the sensitivity of the system to parameter changes and to disturbances.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.744,
+      "alignment_lexical": 0.5358,
+      "grade": 8.0091,
+      "plausibility": 0.592,
+      "plausibility_lexical": 0.1071,
+      "diversity": 0.4888
+     },
+     "flags": [
+      "length_cue"
+     ],
+     "quality": 6
+    },
+    {
+     "position": 3,
+     "question": "Which statement best describes the relationship between linearity and time invariance?",
+     "options": {
+      "A": "Linearity implies time invariance.",
+      "B": "Time invariance implies linearity.",
+      "C": "A system cannot be linear if it is time-invariant.",
+      "D": "A system must be both linear and time-invariant to be analyzed using convolution."
+     },
+     "answer": "D",
+     "evidence": "For a linear time-invariant system the impulse response describes the system completely, because every input signal can be written as a sum of scaled and shifted impulses. The output for an arbitrary input is therefore the convolution of the input with the impulse response.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.7028,
+      "alignment_lexical": 0.3503,
+      "grade": 13.3727,
+      "plausibility": 0.5435,
+      "plausibility_lexical": 0.1593,
+      "diversity": 0.2254
+     },
+     "flags": [
+      "same_mistake:A,B",
+      "length_cue"
+     ],
+     "quality": 7
+    },
+    {
+     "position": 4,
+     "question": "What is a key property of linear time-invariant systems?",
+     "options": {
+      "A": "They can only be analyzed in the frequency domain.",
+      "B": "They cannot have poles in the left half-plane.",
+      "C": "They can be analyzed with a common set of tools in both the time and frequency domains.",
+      "D": "They are always unstable."
+     },
+     "answer": "C",
+     "evidence": "Systems with both properties are called linear time-invariant systems, and they can be analysed with a common set of tools in the time domain and in the frequency domain.",
+     "valid": true,
+     "metrics": {
+      "alignment": 0.6972,
+      "alignment_lexical": 0.2998,
+      "grade": 8.8978,
+      "plausibility": 0.2806,
+      "plausibility_lexical": 0.183,
+      "diversity": 0.709
+     },
+     "flags": [
+      "weak:B",
+      "weak:D",
+      "length_cue"
+     ],
+     "quality": 5
+    }
+   ]
+  }
+ ]
+}
