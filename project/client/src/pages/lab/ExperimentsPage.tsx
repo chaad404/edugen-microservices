@@ -121,7 +121,10 @@ function NewExperiment() {
           </label>
         ))}
       </div>
-      <p className="muted small">Thesis topics are listed for their recorded results only; their source texts are not part of this project.</p>
+      <p className="muted small">
+        Only topics with a source text can be generated from. The topics of the prototype sample have recorded results
+        only: their texts are not part of this project.
+      </p>
 
       <h3>Models</h3>
       <div className="checks">
