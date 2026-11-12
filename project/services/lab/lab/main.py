@@ -13,7 +13,7 @@ from .db import make_engine, make_session_factory
 from .models import Base
 from .problems import install_problem_handlers
 from .routes import auth, catalog, events, experiments, ops, studies
-from .seed import import_thesis_sample, seed_demo_topics
+from .seed import import_recorded_runs, import_thesis_sample, seed_demo_topics
 from .workers import Workers
 
 logging.basicConfig(level=config.LOG_LEVEL, format="%(asctime)s %(levelname)s %(name)s: %(message)s")
@@ -26,8 +26,10 @@ def prepare_database(session_factory: sessionmaker, run_seed: bool = True) -> No
         with session_factory() as session:
             added = seed_demo_topics(session, config.SEED_DIR / "demo_topics.json")
             imported = import_thesis_sample(session, config.THESIS_SAMPLE_FILE)
+            recorded = import_recorded_runs(session, config.RECORDED_RUNS_DIR)
             session.commit()
-        logger.info("Seed: %d demo topics added, thesis sample %s", added, "imported" if imported else "already present")
+        logger.info("Seed: %d demo topics added, prototype sample %s, %d recorded runs imported",
+                    added, "imported" if imported else "already present", recorded)
 
 
 def create_app(*, session_factory: Optional[sessionmaker] = None, evaluator: Optional[EvaluatorClient] = None,

@@ -26,7 +26,7 @@ export interface Topic {
   topic_id: string;
   domain: string;
   title: string;
-  origin: "demo" | "thesis" | "custom";
+  origin: "demo" | "thesis" | "custom" | "recorded";
   has_source_text: boolean;
   source_length: number;
 }
@@ -73,7 +73,8 @@ export interface Job {
 export interface Experiment {
   id: string;
   name: string;
-  origin: "live" | "thesis_import";
+  /** live: run here; thesis_import: the prototype sample; recorded: a live run of another deployment */
+  origin: "live" | "thesis_import" | "recorded";
   status: string;
   description: string | null;
   models: string[];

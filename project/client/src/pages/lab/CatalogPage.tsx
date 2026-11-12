@@ -48,7 +48,8 @@ export default function CatalogPage() {
                   <td><strong>{t.title}</strong> <span className="muted">{t.topic_id}</span></td>
                   <td>{DOMAIN_LABELS[t.domain] ?? t.domain}</td>
                   <td><Badge tone={t.origin === "thesis" ? "info" : "neutral"}>{t.origin}</Badge></td>
-                  <td>{t.has_source_text ? `${t.source_length} characters` : <span className="muted">not published (thesis)</span>}</td>
+                  <td>{t.has_source_text ? `${t.source_length} characters`
+                    : <span className="muted">{t.origin === "thesis" ? "not published (thesis)" : "not included (results only)"}</span>}</td>
                 </tr>
               ))}
             </tbody>

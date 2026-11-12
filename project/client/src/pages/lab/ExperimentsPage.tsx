@@ -29,9 +29,7 @@ export default function ExperimentsPage() {
               {experiments.map((e) => (
                 <tr key={e.id}>
                   <td><Link to={`/lab/experiments/${e.id}`}>{e.name}</Link></td>
-                  <td>{e.origin === "thesis_import"
-                    ? <Badge tone="info" title="Recorded results of the thesis prototype, imported read-only">prototype sample</Badge>
-                    : <Badge>live</Badge>}</td>
+                  <td><OriginBadge origin={e.origin} /></td>
                   <td><StatusBadge status={e.status} /></td>
                   <td>{(e.job_counts.succeeded ?? 0) + (e.job_counts.failed ?? 0)} / {e.jobs_total}</td>
                   <td>{fmt.usd(e.cost_usd)}</td>
@@ -44,6 +42,16 @@ export default function ExperimentsPage() {
       </Card>
     </div>
   );
+}
+
+function OriginBadge({ origin }: { origin: Experiment["origin"] }) {
+  if (origin === "thesis_import") {
+    return <Badge tone="info" title="Recorded results of the thesis prototype, imported read-only">prototype sample</Badge>;
+  }
+  if (origin === "recorded") {
+    return <Badge tone="info" title="A live run made on another deployment and shipped with the repository">recorded run</Badge>;
+  }
+  return <Badge>live</Badge>;
 }
 
 function toggle(list: string[], value: string): string[] {

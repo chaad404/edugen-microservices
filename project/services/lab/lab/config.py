@@ -20,6 +20,8 @@ OPERATOR_PASSWORD = os.getenv("OPERATOR_PASSWORD", "edugen-demo")
 SEED_DIR = Path(os.getenv("SEED_DIR", str(Path(__file__).resolve().parents[1] / "seed")))
 # The public sample by default; point it at a local full export (never committed) to compare all topics
 THESIS_SAMPLE_FILE = Path(os.getenv("THESIS_SAMPLE_FILE", str(SEED_DIR / "thesis_sample.json")))
+# Live runs recorded on another deployment (scripts/export_run.py); every *.json in this folder is imported once
+RECORDED_RUNS_DIR = Path(os.getenv("RECORDED_RUNS_DIR", str(SEED_DIR / "recorded")))
 RUN_WORKERS = os.getenv("RUN_WORKERS", "true").lower() == "true"
 ROOT_PATH = os.getenv("ROOT_PATH", "")  # "/api/lab" behind the gateway, so the OpenAPI page works there
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO")

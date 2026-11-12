@@ -22,7 +22,7 @@ class Topic(Base):
     domain: Mapped[str] = mapped_column(String(32))
     title: Mapped[str] = mapped_column(String(300))
     source_text: Mapped[Optional[str]] = mapped_column(Text)  # None for thesis topics: their texts stay private
-    origin: Mapped[str] = mapped_column(String(16))  # demo | thesis | custom
+    origin: Mapped[str] = mapped_column(String(16))  # demo | thesis | custom | recorded
     created_at: Mapped[datetime] = mapped_column(UTCDateTime, default=utcnow)
 
 
@@ -30,7 +30,7 @@ class Experiment(Base):
     __tablename__ = "experiments"
     id: Mapped[str] = mapped_column(String(36), primary_key=True)
     name: Mapped[str] = mapped_column(String(200))
-    origin: Mapped[str] = mapped_column(String(16))  # live | thesis_import
+    origin: Mapped[str] = mapped_column(String(16))  # live | thesis_import | recorded
     status: Mapped[str] = mapped_column(String(32))  # running | completed | completed_with_failures
     questions_per_job: Mapped[int] = mapped_column(Integer)
     models: Mapped[list] = mapped_column(JSON)
