@@ -98,7 +98,12 @@ def group_summary(items: list[Item], jobs: list[Job], framework: Optional[Framew
 
 
 def _leaders(groups: list[dict]) -> dict:
-    """The highest mean per pillar (P2: the largest share inside the target zone). Descriptive only."""
+    """
+    The highest mean per pillar (P2: the largest share inside the target zone). Descriptive only.
+    A group that lost jobs covers fewer topics than the others, so its mean is not comparable: it does not
+    lead a pillar while there are groups whose jobs all succeeded.
+    """
+    groups = [g for g in groups if not g["failed_jobs"]] or groups
     leaders = {}
     for key, _ in PILLAR_METRICS:
         field = "share_in_zone" if key == "P2" else "mean"
@@ -122,5 +127,6 @@ def experiment_summary(experiment: Experiment, framework: Optional[Framework]) -
         "framework_version": framework.version if framework else None, "bands_available": framework is not None,
         "groups": groups, "leaders": _leaders(groups) if framework else {},
         "note": ("Descriptive comparison. No overall score: the pillars trade off against each other. "
+                 "A group with failed jobs covers fewer topics and does not lead a pillar. "
                  "The thesis tests differences paired by topic (Friedman, Wilcoxon + Holm)."),
     }

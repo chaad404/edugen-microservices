@@ -117,12 +117,20 @@ function SummaryView({ summary, modelLabel }: { summary: Summary | null; modelLa
               <tr key={`${g.model}-${g.strategy}`}>
                 <td><strong>{modelLabel(g.model)}</strong>{g.simulated && <Badge tone="info">simulated</Badge>}</td>
                 <td>{strategyLabel(g.strategy)}</td>
-                <td>{g.valid}</td>
+                <td>
+                  {g.valid}
+                  {g.failed_jobs > 0 && (
+                    <div className="error-text small" title="This group covers fewer topics than the others, so it is not ranked">
+                      {g.failed_jobs} of {g.jobs} jobs failed
+                    </div>
+                  )}
+                </td>
                 {PILLARS.map((p) => {
                   const pillar = g.pillars[p.key];
                   const leader = summary.leaders[p.key];
                   const isLeader = leader && leader.model === g.model && leader.strategy === g.strategy;
                   const share = p.key === "P2" ? pillar.share_in_zone : pillar.share_better_or_best;
+                  if (!g.questions) return <td key={p.key} className="muted">–</td>;  // every job of the group failed
                   return (
                     <td key={p.key} className={isLeader ? "leader" : undefined}>
                       <div>{fmt.num(pillar.mean, p.key === "P2" ? 1 : 3)} <BandBadge band={pillar.band_of_mean} /></div>
@@ -134,14 +142,16 @@ function SummaryView({ summary, modelLabel }: { summary: Summary | null; modelLa
                   );
                 })}
                 <td>
-                  {g.raw_key_positions
-                    ? <KeyPositions counts={g.raw_key_positions} p={g.raw_key_position_p} />
-                    : <><KeyPositions counts={g.key_positions} p={g.key_position_p} />
-                      <div className="muted small" title="The model's own letters were not recorded for this run">after balancing</div></>}
+                  {!g.questions ? <span className="muted">–</span>
+                    : g.raw_key_positions
+                      ? <KeyPositions counts={g.raw_key_positions} p={g.raw_key_position_p} />
+                      : <><KeyPositions counts={g.key_positions} p={g.key_position_p} />
+                        <div className="muted small" title="The model's own letters were not recorded for this run">after balancing</div></>}
                 </td>
                 <td className="small">
                   {Object.entries(g.flags).slice(0, 3).map(([flag, n]) => <div key={flag}>{flagLabel(flag)}: {n}</div>)}
-                  {g.flags_checked === 0 && <span className="muted">checking…</span>}
+                  {!g.questions ? <span className="muted">no questions</span>
+                    : g.flags_checked === 0 && <span className="muted">checking…</span>}
                 </td>
                 <td>{fmt.usd(g.cost_usd)}</td>
               </tr>

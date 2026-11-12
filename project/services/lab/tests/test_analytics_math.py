@@ -1,6 +1,7 @@
 import pytest
 
 from lab.analytics import _ranks, difficulty_note, krippendorff_alpha, spearman
+from lab.summaries import _leaders
 
 
 def test_perfect_agreement_is_one():
@@ -38,3 +39,13 @@ def test_a_question_is_judged_too_hard_or_too_easy_only_with_enough_answers():
     assert difficulty_note(0.1, 10) == "too_hard"
     assert difficulty_note(1.0, 3) == "too_easy"
     assert difficulty_note(0.2, 5) is None and difficulty_note(0.9, 10) is None  # the limits belong to the normal range
+
+
+def test_a_group_that_lost_jobs_does_not_lead_a_pillar():
+    def group(model, mean, failed_jobs):
+        pillars = {key: {"mean": mean, "share_in_zone": mean} for key in ("P1", "P2", "P3a", "P3b")}
+        return {"model": model, "strategy": "baseline", "failed_jobs": failed_jobs, "pillars": pillars}
+
+    leaders = _leaders([group("complete", 0.70, 0), group("partial", 0.75, 2)])
+    assert {leader["model"] for leader in leaders.values()} == {"complete"}  # fewer topics: not comparable
+    assert _leaders([group("partial", 0.75, 2)])["P1"]["model"] == "partial"  # nothing better to rank
