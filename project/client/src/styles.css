@@ -84,6 +84,8 @@ button.link { background: none; border: 0; color: var(--primary); padding: 4px; 
 .table th { color: var(--muted); font-weight: 600; white-space: nowrap; }
 .compare td.leader { background: #f0fdf4; }
 .item-cell { min-width: 300px; max-width: 460px; }
+.route-cell { min-width: 230px; }
+.notes-cell { min-width: 280px; overflow-wrap: anywhere; }
 .item-cell .comment { font-style: italic; margin-top: 2px; }
 .option-counts { display: flex; gap: 10px; white-space: nowrap; }
 .option-key { font-weight: 700; color: var(--best); }

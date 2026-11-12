@@ -216,7 +216,7 @@ function ItemList({ items, modelLabel }: { items: Item[]; modelLabel: (a: string
 
 /** "temperature 0.7 · top_p 1 · max_tokens 8192 · reasoning effort medium" */
 function settingsText(settings: Record<string, unknown> | null): string {
-  if (!settings) return "provider defaults (run before the settings were fixed)";
+  if (!settings) return "provider defaults";  // a job run before the settings were fixed and recorded
   if (!Object.keys(settings).length) return "none";
   const flat = (value: unknown): string =>
     value !== null && typeof value === "object"
@@ -256,7 +256,7 @@ function JobTable({ experiment, modelLabel }: { experiment: Experiment; modelLab
               <tr key={j.id}>
                 <td>{j.topic_id}</td>
                 <td>{modelLabel(j.model)}{j.simulated && <Badge tone="info">simulated</Badge>}</td>
-                <td className="small">
+                <td className="small route-cell">
                   {j.provider ? <>{j.provider} · <code>{j.requested_model_id}</code></> : "–"}
                   {j.provider && !j.simulated && <div className="muted">{settingsText(j.settings)}</div>}
                 </td>
@@ -266,7 +266,7 @@ function JobTable({ experiment, modelLabel }: { experiment: Experiment; modelLab
                 <td>{j.prompt_tokens + j.completion_tokens || "–"}</td>
                 <td>{fmt.usd(j.cost_usd)}</td>
                 <td>{j.latency_seconds ? `${j.latency_seconds.toFixed(1)} s` : "–"}</td>
-                <td className="small">
+                <td className="small notes-cell">
                   {j.error_kind && <span className="error-text">{j.error_kind}: {j.error}</span>}
                   {j.strategy_status && j.strategy_status !== "valid" && <Badge>{j.strategy_status.replaceAll("_", " ")}</Badge>}
                   {repairText(j) && <div className="muted">{repairText(j)}</div>}
