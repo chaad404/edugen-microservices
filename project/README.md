@@ -15,9 +15,10 @@ compared with human judgement.
 - **Current status:** all four services and the web client are implemented. 168 automated tests pass,
   including cross-service contract tests. The whole system runs with `docker compose up --build`, also from a
   fresh clone, and the end-to-end smoke test (`scripts/smoke_test.py`) passes through the gateway. A fresh
-  deployment already shows real-model results without any API key: the recorded live run of 23 October 2026
-  (four models, 150 questions) and a sample of the thesis prototype's results. Next: one clean re-run with the
-  fixed sampling settings, and a pilot review study.
+  deployment already shows real-model results without any API key: two recorded live runs of the four models
+  (23 October 2026 with 150 questions, and the clean re-run of 15 November 2026 with the fixed sampling settings
+  and 180 questions) and a sample of the thesis prototype's results. A pilot review study with people started
+  on 15 November.
 
 | Service | Responsibility |
 |---|---|
@@ -41,8 +42,8 @@ docker compose up --build     # then open http://localhost:8080  (operator / edu
 | 07 (Oct 19–23) | Concept, architecture, the four services, the client, container deployment and documentation; first live-model run | Services in `services/`, React client in `client/`, 147 passing tests, Evaluator reproduces the prototype's metrics; `docker compose up --build` runs the whole system; documents in `docs/` with Mermaid diagrams; live run of 23 October: 30 of 36 jobs, 150 questions (`services/lab/seed/recorded/`) |
 | 08 (Oct 26–30) | Fixes from the first live run | Mistral called through its own API; fixed sampling settings and the models' own key letters recorded with every job; expected cost and a true maximum shown before a run (160 tests) |
 | 09 (Nov 2–6) | Pause: the thesis's main run used the same model accounts | No change in this week (see the commit history) |
-| 10 (Nov 9–13) | Results, thesis alignment and tooling for the review study | [Results](docs/08-results.md) of the live run; per-question results on the study page; recorded runs imported at start-up; simulated study (`scripts/simulate_study.py`); 168 tests; start-up verified from a fresh clone |
-| 11 (Nov 16–20) | Clean re-run with the fixed settings, pilot review study, defense preparation | Re-run recorded and described in the results; study with ratings and quiz answers in the Lab; board items closed; demo rehearsed |
+| 10 (Nov 9–15) | Results, thesis alignment and tooling for the review study; clean re-run with the fixed settings | [Results](docs/08-results.md) of the live run; per-question results on the study page; recorded runs imported at start-up; simulated study (`scripts/simulate_study.py`); 168 tests; start-up verified from a fresh clone; clean re-run of 15 November: 36 of 36 jobs, 180 questions, recorded and [described](docs/08-results.md#clean-re-run-of-15-november-2026) |
+| 11 (Nov 16–20) | Pilot review study with people, defense preparation | Pilot study with ratings and quiz answers in the Lab and in the results; board items closed; demo rehearsed |
 | 12 (Nov 23) | Submission | Final repository and demo, submitted before Monday 12:00 |
 
 ## GitHub Projects board
