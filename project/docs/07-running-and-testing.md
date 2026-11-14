@@ -34,25 +34,28 @@ Nothing has to be generated, and no API key is needed, to see real results. At s
 | Data | Origin shown in the Lab | Contents |
 |---|---|---|
 | Live run of 23 October 2026 | `recorded run` | 36 jobs of four real models on the three demo topics: 150 questions with scores and flags, the job traces, and six failed jobs with their errors |
+| Clean re-run of 15 November 2026 | `recorded run` | The same 36 jobs with the fixed sampling settings and Mistral through its own API: all succeeded, 180 questions with scores and flags, the job traces with the settings and the key letters as the models wrote them |
 | Thesis prototype sample | `prototype sample` | 108 questions of the prototype's October 2026 comparison with the scores it recorded |
 | Three demo topics | – | TCP congestion control, REST-style HTTP APIs, linear time-invariant systems; written for this project |
 
-Both data sets are described in [08 Results](08-results.md). New experiments can always use the offline
+All three data sets are described in [08 Results](08-results.md). New experiments can always use the offline
 simulator. Its questions are synthetic and marked as simulated; it exists to show the pipeline, not to compare models.
 
 ## Demo script (about 10 minutes)
 
-1. **Lab → Experiments → the recorded live run.** *Comparison*: with the baseline prompt the keys sit at one
-   letter (key-position chart), and the group that lost jobs is marked. *Jobs*: each job shows its route, its
-   settings and what the repair loop did; the six failed Mistral jobs show HTTP 429 and the open circuit.
+1. **Lab → Experiments → the live run of 23 October.** *Comparison*: with the baseline prompt the keys sit at
+   one letter (key-position chart), and the group that lost jobs is marked. *Jobs*: each job shows its route and
+   what the repair loop did; the six failed Mistral jobs show HTTP 429 and the open circuit. Then **the clean
+   re-run of 15 November**: every job succeeded and shows its sampling settings, and the key-position chart shows
+   the letters the models wrote under every strategy.
 2. **New experiment:** topic *TCP congestion control*, model *Offline simulator*, all three strategies,
    5 questions. The answer is `202 Accepted`, and the page follows the jobs live over SSE.
 3. **Failure handling:** `docker compose stop evaluator` while the experiment runs. Jobs stay *generated* and
    show "waiting for the Evaluator". `docker compose start evaluator`: they are scored and the experiment finishes.
 4. **Scaling:** `docker compose up -d --scale generator=3`, start another experiment, and watch three consumers on
    the queue `generator.jobs` in the RabbitMQ console.
-5. **Review studies → New study** from the recorded live run, topic *TCP congestion control*, one question per
-   cell. Open the expert link in a private window, enter a pseudonym and rate a few questions: no model is
+5. **Review studies → New study** from the clean re-run, topic *TCP congestion control*, one question per cell
+   (12 questions). Open the expert link in a private window, enter a pseudonym and rate a few questions: no model is
    visible. Open the student link, accept the notice and answer: the options are shuffled and an answer cannot
    be changed.
 6. **Study page with data:** run `python scripts/simulate_study.py` and open the study it prints. Ratings and

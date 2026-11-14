@@ -130,8 +130,8 @@ questions built from the topic text. It is a separate registry entry, always lab
 as a fallback for a real model.
 
 **Consequences.** The whole pipeline (queue, retries, verify → repair, scoring, SSE) can be shown offline. Its
-questions are obviously synthetic, so model comparisons come from the recorded live run, the prototype sample or
-new live runs.
+questions are obviously synthetic, so model comparisons come from the recorded live runs, the prototype sample
+or new live runs.
 
 **Review when.** A free, local model (for example through Ollama) is fast enough on the demo machine.
 

@@ -62,7 +62,7 @@ Delivery is at-least-once, never exactly-once. Every consumer is therefore idemp
   participation notice before the first question (NFR.2.3 and NFR.6.2 of the thesis's functional specification).
 - **Experts use a pseudonym** of their choice, which lets them resume their review.
 - **Private inputs stay private:** no topic text of the thesis or its prototype, no raw model reply and no
-  course PDF is in the repository or the images. The recorded run and the prototype sample hold questions,
+  course PDF is in the repository or the images. The recorded runs and the prototype sample hold questions,
   scores and job records only.
 
 ## Cost control for paid models
