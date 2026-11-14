@@ -9,7 +9,7 @@
 | [05 Reliability and security](05-reliability-and-security.md) | Failure handling per dependency, delivery guarantees, authentication, blindness |
 | [06 Decisions](06-decisions.md) | Architecture decision records, including why the system is split into four services |
 | [07 Running and testing](07-running-and-testing.md) | Start-up, what a fresh deployment contains, demo script, a review study with people, scripts, tests |
-| [08 Results](08-results.md) | The live run of 23 October 2026, the prototype sample, and what the numbers do and do not show |
+| [08 Results](08-results.md) | The live run of 23 October 2026, the clean re-run of 15 November, the prototype sample, and what the numbers do and do not show |
 | [09 Course concepts](09-course-concepts.md) | Where the ideas of the course appear in the code, and which are deliberately not used |
 
 Every diagram is written in Mermaid and states which view it shows.

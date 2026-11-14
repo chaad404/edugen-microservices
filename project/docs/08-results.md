@@ -2,9 +2,10 @@
 
 What has been run with the system so far, and what the numbers show and do not show.
 
-Everything on this page can be checked in a fresh deployment: both data sets below are imported at start-up
+Everything on this page can be checked in a fresh deployment: the three data sets below are imported at start-up
 (see [07 Running and testing](07-running-and-testing.md)). The numbers were read from the Lab's API
-(`GET /experiments/{id}/summary`, `GET /experiments/{id}`) on 12 November 2026.
+(`GET /experiments/{id}/summary`, `GET /experiments/{id}`, `GET /experiments/{id}/items`) on 12 November 2026,
+and on 15 November 2026 for the clean re-run.
 
 **How to read it.** The runs are small: 15 questions per model and strategy at most. The tables describe
 these questions; they do not rank the models. The automatic metrics describe the text of a question. They do
@@ -136,8 +137,114 @@ its own commit:
 | A host failure was reported as unusable model output | A verify_repair job fails as `provider_error` when its Writer calls failed at the host |
 | A group with 5 questions was shown as a pillar leader | A group that lost jobs is marked and does not lead a pillar |
 
-One clean re-run with these changes is the next step. Its questions will have the fixed settings and the models'
-own key letters for all three strategies.
+The clean re-run of 15 November has all of these changes.
+
+## Clean re-run of 15 November 2026
+
+```mermaid
+flowchart LR
+    A[3 demo topics] --> B[36 jobs<br/>4 models x 3 strategies]
+    B --> C[36 succeeded<br/>180 questions scored]
+```
+
+*Functional view: what happened to the 36 jobs of the re-run.*
+
+| | |
+|---|---|
+| Design | The same as on 23 October: 3 demo topics × 4 models × 3 strategies = 36 jobs, 5 questions per job |
+| Outcome | 36 jobs succeeded; 180 questions generated and scored |
+| Calls and tokens | 88 model calls, 207,012 tokens |
+| Duration | 10 minutes with one Generator instance |
+| Cost | $0.3078 at list prices; the Lab's estimate before the start was $0.3141, with a true maximum of $9.47. Command A $0.2367, gpt-oss $0.0301, Llama 3.3 $0.0280, Mistral Small 4 $0.0131 |
+| Sampling settings | The same for every model and recorded in every job: temperature 0.7, top_p 1.0, max_tokens 8,192; gpt-oss with reasoning effort medium |
+| Mistral Small 4 | Through Mistral's own API at 6 requests a minute: 9 of 9 jobs, each call answered at the first attempt |
+| In the Lab | Experiment *Clean re-run of 15 November 2026: 4 models x 3 strategies on the 3 demo topics*, origin `recorded` |
+
+### Comparison
+
+| Model | Strategy | Questions | P1 alignment | P2 grade | P3a plausibility | P3b diversity | Flags per question | Calls per job | Seconds per job | Cost |
+|---|---|---|---|---|---|---|---|---|---|---|
+| gpt-oss-120b | baseline | 15 | 0.627 | 10.0 | 0.542 | 0.488 | 2.53 | 1.0 | 3.3 | $0.0028 |
+| gpt-oss-120b | prompt_v2 | 15 | 0.648 | 9.5 | 0.525 | 0.510 | 2.93 | 1.0 | 4.7 | $0.0044 |
+| gpt-oss-120b | verify_repair | 15 | 0.696 | 11.1 | 0.539 | 0.556 | 0.53 | 5.0 | 28.0 | $0.0230 |
+| Llama 3.3 70B | baseline | 15 | 0.637 | 9.2 | 0.494 | 0.565 | 2.67 | 1.0 | 5.8 | $0.0030 |
+| Llama 3.3 70B | prompt_v2 | 15 | 0.604 | 5.8 | 0.421 | 0.638 | 3.47 | 1.3 | 7.7 | $0.0043 |
+| Llama 3.3 70B | verify_repair | 15 | 0.629 | 8.2 | 0.498 | 0.599 | 1.73 | 6.0 | 33.4 | $0.0207 |
+| Mistral Small 4 | baseline | 15 | 0.633 | 9.7 | 0.466 | 0.509 | 1.67 | 1.0 | 3.9 | $0.0015 |
+| Mistral Small 4 | prompt_v2 | 15 | 0.628 | 10.3 | 0.603 | 0.440 | 2.00 | 1.0 | 10.5 | $0.0019 |
+| Mistral Small 4 | verify_repair | 15 | 0.706 | 10.9 | 0.558 | 0.537 | 1.00 | 5.0 | 50.1 | $0.0098 |
+| Command A | baseline | 15 | 0.620 | 10.2 | 0.402 | 0.641 | 2.47 | 1.0 | 5.8 | $0.0252 |
+| Command A | prompt_v2 | 15 | 0.633 | 8.4 | 0.454 | 0.620 | 3.53 | 1.0 | 9.4 | $0.0307 |
+| Command A | verify_repair | 15 | 0.722 | 10.4 | 0.519 | 0.527 | 1.20 | 5.0 | 42.7 | $0.1808 |
+
+### What the re-run shows
+
+**1. The baseline prompt fixes the key position again.** With the fixed settings, the models' own key letters
+under the baseline prompt were:
+
+| Model | A | B | C | D |
+|---|---|---|---|---|
+| gpt-oss-120b | 15 | 0 | 0 | 0 |
+| Mistral Small 4 | 15 | 0 | 0 | 0 |
+| Command A | 10 | 3 | 2 | 0 |
+| Llama 3.3 70B | 0 | 7 | 7 | 1 |
+| All four | 40 | 10 | 9 | 1 |
+
+A student who always answers "A" would score 67% on these 60 questions (64% on 23 October). The pattern of the
+first run came back model by model: gpt-oss always at A, Command A mostly at A, Llama never at A. Mistral, which
+had only 5 baseline questions on 23 October, also put every key at A.
+
+**2. Asking for an even spread is not enough.** Prompt v2 says "Spread the correct answers over the positions A,
+B, C and D", and the Writer of verify_repair uses the same prompt. This run is the first that recorded the letters
+the models wrote under it:
+
+| Strategy | A | B | C | D |
+|---|---|---|---|---|
+| baseline (prompt v1) | 40 | 10 | 9 | 1 |
+| prompt_v2 | 7 | 34 | 14 | 5 |
+| verify_repair (Writer with prompt v2) | 15 | 26 | 15 | 4 |
+
+The instruction moves the keys away from A, mostly to B, and D stays rare (9 of 120). Only gpt-oss came close to
+an even spread (3, 6, 3 and 3 under prompt v2); Llama, Mistral and Command A put 9 or 10 of their 15 prompt-v2
+keys at B. The Generator re-orders the options afterwards, so the stored keys of both strategies are balanced, and
+these numbers show why that step is needed. The thesis does the same: it records the letters as written and then
+rebalances them.
+
+**3. Verify → repair → select removes flags again.** Pooled over all four models, 60 questions per strategy:
+
+| Strategy | P1 alignment | P2 in the target zone | P3a plausibility | P3b diversity | Flags per question | Questions without any flag |
+|---|---|---|---|---|---|---|
+| baseline | 0.629 | 32% | 0.476 | 0.550 | 2.33 | 4 of 60 (7%) |
+| prompt_v2 | 0.628 | 33% | 0.501 | 0.552 | 2.98 | 2 of 60 (3%) |
+| verify_repair | 0.688 | 48% | 0.528 | 0.555 | 1.12 | 23 of 60 (38%) |
+
+Of 175 candidate questions written, 7 passed every check before repair. 124 repairs were attempted in 24 rounds,
+and 62 were accepted. 23 of the 60 selected questions passed every check, and for the first time one job reached
+`all_passed` (gpt-oss on linear time-invariant systems). The price is again 5 to 6 calls per job and 7 to 8 times
+the cost of a baseline job. The reservation of the first run still applies: the flags are counted by the checks
+the loop optimises.
+
+**4. The effect of prompt v2 on the distractor metrics did not hold.** On 23 October prompt v2 gave lower
+plausibility and higher diversity (finding 3 of the first run). For the same three models the direction came
+back, with more "weak distractor" flags (47 against 33), but the differences were much smaller: plausibility
+0.467 against 0.479 instead of 0.432 against 0.503, diversity 0.589 against 0.564 instead of 0.617 against 0.536.
+Mistral Small 4, which had no prompt-v2 questions on 23 October, went the other way (plausibility 0.603 against
+0.466). With 15 questions per group an effect of this size can change between two runs; measuring it needs the
+larger, topic-paired design of the thesis.
+
+**5. The leaders changed.** All groups are complete this time. Command A with verify_repair leads alignment
+(0.722), gpt-oss with verify_repair leads readability (67% in the target zone, as on 23 October), Mistral with
+prompt v2 leads plausibility (0.603) and Command A with the baseline leads diversity (0.641). Three of the four
+leaders differ from the first run of the same design, which is what "the tables do not rank the models" means in
+practice.
+
+**6. Faster, and as cheap as estimated.** The run took 10 minutes instead of 32: Mistral no longer waited for a
+host that rejected it, and Command A answered single calls in 5 to 12 seconds (5 to 75 on 23 October). The cost
+was 2% below the estimate shown before the start. gpt-oss, which cost twice its estimate on 23 October, came within
+4% of it ($0.0301 against $0.0291). Command A again caused most of the cost (77%).
+
+**7. The off-topic band still does not fit the short texts.** 30 of the 60 baseline questions are flagged
+`off_topic` (21 of 45 on 23 October), for the reason given in finding 6 of the first run.
 
 ## Sample of the thesis prototype (October 2026)
 
