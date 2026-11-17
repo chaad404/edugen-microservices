@@ -2,10 +2,12 @@
 
 What has been run with the system so far, and what the numbers show and do not show.
 
-Everything on this page can be checked in a fresh deployment: the three data sets below are imported at start-up
-(see [07 Running and testing](07-running-and-testing.md)). The numbers were read from the Lab's API
+The three data sets below can be checked in a fresh deployment, because they are imported at start-up
+(see [07 Running and testing](07-running-and-testing.md)). Their numbers were read from the Lab's API
 (`GET /experiments/{id}/summary`, `GET /experiments/{id}`, `GET /experiments/{id}/items`) on 12 November 2026,
-and on 15 November 2026 for the clean re-run.
+and on 15 November 2026 for the clean re-run. The [pilot study with people](#human-evaluation) is the exception:
+its ratings and answers exist only in the database of the machine that ran it, and its numbers were read from
+`GET /studies/{id}/analytics` and the Review service's records on 17 November 2026.
 
 **How to read it.** The runs are small: 15 questions per model and strategy at most. The tables describe
 these questions; they do not rank the models. The automatic metrics describe the text of a question. They do
@@ -265,16 +267,120 @@ the sample is realistic data for the comparison view and for review studies, at 
 
 ## Human evaluation
 
-No study with real participants has been run yet. What exists:
+The Lab computes inter-rater agreement (Krippendorff's alpha), Spearman correlations between human judgements and
+the pillars, and the item analysis of quiz answers; tests check the alpha against the published reference example
+(0.743). `scripts/simulate_study.py` fills a study with simulated participants to show the flow, and its numbers
+say nothing about the questions. The only study with people so far is the pilot below.
 
-- The Lab computes inter-rater agreement (Krippendorff's alpha), Spearman correlations between human judgements
-  and the pillars, and the item analysis of quiz answers. Tests check the alpha against the published reference
-  example (0.743) and the item analysis on known answers.
-- `scripts/simulate_study.py` fills a study with simulated raters and students through the public API. It shows
-  the whole path (Review → RabbitMQ → Lab → study page) and all analytics with data, but its judgements are made
-  up and ignore the automatic scores. Whatever agreement or correlation it prints says nothing about the
-  questions.
+### Pilot study with people, 15 and 17 November 2026
 
-A pilot with a few reviewers and students is planned for week 11. Its results will be added here, with the
-number of raters and questions, because agreement needs at least two raters per question and a correlation needs
-at least five questions with both values.
+```mermaid
+flowchart LR
+    A[10 questions<br/>one per model and strategy] --> B[Quiz first<br/>3 participants, 30 answers]
+    B --> C[Then blind review<br/>the same 3, 30 ratings]
+    B --> D[Lab: share correct<br/>per question]
+    C --> E[Lab: agreement, correlations<br/>with the automatic metrics]
+```
+
+*Functional view: the order of a pilot session and what the Lab computed from it.*
+
+| | |
+|---|---|
+| Questions | One question per model and strategy from the live run of 23 October on REST-style HTTP APIs: 10 questions, because Mistral Small 4 has only verify_repair questions on this topic. The study was created on 14 November, before the clean re-run existed |
+| Participants | Three people, in three sessions (15 November twice, 17 November). Each took the quiz first and then rated the same questions as a reviewer, so they had seen the marked answers when they rated |
+| Setting | EduGen ran on the author's laptop; the participants opened the study's two links in their browsers |
+| Time | Measured from joining to the last answer or rating: the quiz took 2½ to 8½ minutes per person (22 seconds per answer on average), the review 2 to 4 minutes |
+| Data | 30 ratings, 30 quiz answers and 30 feedback forms, all of which reached the Lab. One further quiz session was opened and left without an answer |
+| In the Lab | Study *Pilot with people, 15 November 2026: REST-style HTTP APIs from the live run of 23 October*. Its data exists only in the database of the machine that ran it, so a fresh deployment does not contain it |
+
+The expert columns are means of the three reviewers on the 1–5 scales of the review page; "wrong options" is
+the scale from "obviously wrong" (1) to "tempting" (5).
+
+| Model | Strategy | Accuracy and relevance | Clarity | Difficulty | Wrong options | Marked answer correct | Students correct |
+|---|---|---|---|---|---|---|---|
+| gpt-oss-120b | baseline | 4.0 | 4.0 | 3.3 | 5.0 | 3 yes | 2 of 3 |
+| gpt-oss-120b | prompt_v2 | 4.0 | 4.0 | 1.7 | 4.0 | 3 yes | 3 of 3 |
+| gpt-oss-120b | verify_repair | 4.3 | 3.7 | 3.7 | 4.7 | 1 yes, 2 unsure | 0 of 3 |
+| Llama 3.3 70B | baseline | 4.7 | 4.3 | 3.7 | 4.0 | 3 yes | 3 of 3 |
+| Llama 3.3 70B | prompt_v2 | 4.7 | 4.0 | 3.0 | 3.7 | 3 yes | 2 of 3 |
+| Llama 3.3 70B | verify_repair | 4.0 | 4.0 | 1.7 | 4.0 | 3 yes | 1 of 3 |
+| Mistral Small 4 | verify_repair | 4.0 | 3.3 | 3.3 | 3.7 | 2 yes, 1 unsure | 3 of 3 |
+| Command A | baseline | 4.3 | 4.0 | 4.0 | 4.7 | 2 yes, 1 unsure | 2 of 3 |
+| Command A | prompt_v2 | 4.3 | 4.0 | 3.0 | 5.0 | 2 yes, 1 unsure | 0 of 3 |
+| Command A | verify_repair | 4.0 | 4.3 | 1.7 | 4.3 | 3 yes | 3 of 3 |
+
+In the quiz, 19 of the 30 answers were correct. After each answer the students rated the question: clarity 4.2,
+helpfulness for exam preparation 3.6 and difficulty 3.3 on average.
+
+| Reviewer scale | Krippendorff's alpha | Questions where all three ratings lie within one point |
+|---|---|---|
+| Accuracy and relevance | −0.29 | 4 of 10 |
+| Clarity | −0.29 | 3 of 10 |
+| Difficulty | 0.67 | 9 of 10 |
+| Wrong options | 0.42 | 9 of 10 |
+| Marked answer correct | – (nobody answered "no", so there is no variation to agree on) | – |
+
+| Human judgement | Automatic metric | Spearman's rho (10 questions) |
+|---|---|---|
+| Reviewers: accuracy and relevance | P1 alignment | −0.09 |
+| Reviewers: wrong options | P3a plausibility | −0.45 |
+| Reviewers: wrong options | P3b diversity | 0.83 |
+| Reviewers: difficulty | P2 grade | 0.07 |
+| Students: share correct | P3a plausibility | 0.20 |
+| Students: rated difficulty | P2 grade | 0.39 |
+
+With 10 questions, a rho must be larger than about 0.65 in either direction to differ from zero at the usual 5%
+level. Only one value is.
+
+### What the pilot shows
+
+**1. The evaluation path works with people.** Every rating, answer and feedback form went from the Review service
+through RabbitMQ to the Lab, the participants could not see which model wrote a question, and the study page
+computed every analysis. The session plan needed one correction, found while preparing it: two reviewers with the
+same pseudonym continue one and the same session.
+
+**2. No reviewer found a wrong key.** Of the 30 judgements of the marked answer, 25 were "yes", 5 "unsure" and
+none "no". No question was marked unusable, and nobody wrote a comment.
+
+**3. The human results point at a gap that the automatic checks missed.** The gpt-oss verify_repair question asks
+which status code a server returns when the ETag in If-None-Match matches, without naming the request method.
+RFC 9110 (section 13.1.2) prescribes 304 Not Modified for GET and HEAD and 412 Precondition Failed for every other
+method. The key is 304; two of the three students chose the 412 option, and two of the three reviewers were unsure
+about the key. The question had no flag at all. This is what finding 2 of the first run means in practice: the
+repair loop satisfies the checks it is given, and only people see what the checks do not measure.
+
+**4. The other question that nobody answered correctly is about the same subject.** Command A's prompt-v2 question
+asks which header protects against lost updates. The key, If-Match, is right, and the reviewers confirmed it (two
+yes, one unsure), but all three students chose Retry-After. Both questions are about conditional requests, so the
+two results may say more about what these three participants knew than about the questions. Here the Evaluator
+had flagged the question: its evidence quote is at least as close to options B and C as to the key
+(`evidence_supports:B,C`), and C is the option all three students chose. This is one question, so it shows that
+the check can point at a tempting option, not how often it does.
+
+**5. The reviewers agreed on difficulty, not on accuracy and clarity.** An alpha of 0.667 is the usual lowest
+value from which tentative conclusions are drawn; only difficulty reaches it. On accuracy and clarity the ratings
+of six or seven questions lay two or more points apart, and the alpha is below zero, so the three reviewers did
+not agree beyond chance. Ratings given in 10 to 20 seconds per question, by three people, are a weak measure of
+accuracy.
+
+**6. How tempting the reviewers found the wrong options followed P3b diversity, not P3a plausibility.** The more
+the distractors of a question differed from each other (P3b), the more tempting the reviewers found them
+(rho 0.83), and they tended to find them less tempting the closer they were to the key (P3a, rho −0.45). P3a
+assumes the opposite: that a distractor close to the key is plausible, which is also what the baseline prompt asks
+for. With 10 questions and three reviewers this is a lead for the thesis's rating study, not a result.
+
+**7. Three answers per question decide only the extremes.** With three answers a question is either "too easy"
+(all correct: 4 questions) or "too hard" (none correct: 2 questions) or neither, and an "unused option" was shown
+for every question, because with three answers some wrong option almost always stays unchosen. The Lab now judges
+unused options only from 20 answers on.
+
+What the pilot does not show is which model or strategy writes better questions: there was one question per
+model and strategy, one topic and three people.
+
+### What changed because of the pilot
+
+| Finding | Change |
+|---|---|
+| Two reviewers with the same pseudonym share one set of ratings (found while preparing the sessions) | The review page asks for a pseudonym that nobody else in the study uses, and the running guide says that each participant needs a browser of their own |
+| Every question showed an unused option after three answers | A wrong option counts as unused only from 20 answers on |
+| No session with people had been timed | The running guide gives the measured times |
