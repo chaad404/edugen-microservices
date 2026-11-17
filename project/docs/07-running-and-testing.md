@@ -78,8 +78,11 @@ A short session needs a small study that every participant sees in full.
    uses: an existing pseudonym continues that reviewer's ratings, which is also how a reviewer continues later.
    Students get the quiz link, read the notice and agree. Both work on a phone. Each person needs a browser of
    their own (or a private window), because a browser keeps its session for the study code.
-4. **Plan the time.** Allow about 15 minutes for rating 12 questions and about 10 for a quiz of 12. These are
-   estimates; no session with people has been timed yet.
+4. **Plan the time.** Allow about 10 minutes for a quiz of 12 questions and 5 for rating them afterwards. In the
+   pilot study with 10 questions ([08 Results](08-results.md#human-evaluation)), measured from joining to the last
+   answer or rating, the quiz took 2½ to 8½ minutes per person and the rating 2 to 4 minutes; the reviewers had
+   just taken the quiz, so they knew the questions. Reviewers who see the questions for the first time, or who
+   comment on them, need longer.
 5. **What is needed for the numbers.** Agreement needs at least two reviewers on the same questions. A
    correlation needs at least five questions with both values. A question is judged too hard or too easy from
    three answers on. A wrong option counts as unused only from 20 answers on: with a few answers, options stay
