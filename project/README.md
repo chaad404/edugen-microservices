@@ -17,8 +17,9 @@ compared with human judgement.
   fresh clone, and the end-to-end smoke test (`scripts/smoke_test.py`) passes through the gateway. A fresh
   deployment already shows real-model results without any API key: two recorded live runs of the four models
   (23 October 2026 with 150 questions, and the clean re-run of 15 November 2026 with the fixed sampling settings
-  and 180 questions) and a sample of the thesis prototype's results. A pilot review study with people started
-  on 15 November.
+  and 180 questions) and a sample of the thesis prototype's results. A pilot study with three people (15 and
+  17 November) tested the blind review and the quiz; its [results](docs/08-results.md#human-evaluation) and
+  the two changes it led to are part of the documentation.
 
 | Service | Responsibility |
 |---|---|
@@ -43,7 +44,7 @@ docker compose up --build     # then open http://localhost:8080  (operator / edu
 | 08 (Oct 26–30) | Fixes from the first live run | Mistral called through its own API; fixed sampling settings and the models' own key letters recorded with every job; expected cost and a true maximum shown before a run (160 tests) |
 | 09 (Nov 2–6) | Pause: the thesis's main run used the same model accounts | No change in this week (see the commit history) |
 | 10 (Nov 9–15) | Results, thesis alignment and tooling for the review study; clean re-run with the fixed settings | [Results](docs/08-results.md) of the live run; per-question results on the study page; recorded runs imported at start-up; simulated study (`scripts/simulate_study.py`); 168 tests; start-up verified from a fresh clone; clean re-run of 15 November: 36 of 36 jobs, 180 questions, recorded and [described](docs/08-results.md#clean-re-run-of-15-november-2026) |
-| 11 (Nov 16–20) | Pilot review study with people, defense preparation | Pilot study with ratings and quiz answers in the Lab and in the results; board items closed; demo rehearsed |
+| 11 (Nov 16–20) | Pilot review study with people, fixes from it, defense preparation | Pilot finished with three people (sessions on 15 and 17 November): 30 ratings and 30 quiz answers in the Lab, [results](docs/08-results.md#human-evaluation) with what they show and do not show; fixes from the pilot (reviewers choose a pseudonym nobody else uses, unused options judged only from 20 answers, measured session times in the running guide); 169 tests; the pushed state of 17 November verified from a fresh clone; board items of the pilot closed |
 | 12 (Nov 23) | Submission | Final repository and demo, submitted before Monday 12:00 |
 
 ## GitHub Projects board
