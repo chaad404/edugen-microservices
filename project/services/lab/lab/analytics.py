@@ -24,6 +24,9 @@ MIN_PAIRS = 5
 # Classic item analysis of the quiz answers. With fewer answers than MIN_ATTEMPTS a question gets no verdict.
 MIN_ATTEMPTS = 3
 TOO_HARD, TOO_EASY = 0.20, 0.90  # share correct outside this range: the question hardly separates students
+# A wrong option that one student in ten would choose is still unchosen after n answers with probability 0.9 ** n:
+# 73% after 3 answers, 12% after 20. Before MIN_OPTION_ATTEMPTS answers an unchosen option says nothing about it.
+MIN_OPTION_ATTEMPTS = 20
 
 
 def krippendorff_alpha(reliability_data: Sequence[Sequence[Optional[float]]], level: str = "ordinal") -> Optional[float]:
@@ -110,6 +113,13 @@ def difficulty_note(p_value: Optional[float], attempts: int) -> Optional[str]:
     return "too_hard" if p_value < TOO_HARD else "too_easy" if p_value > TOO_EASY else None
 
 
+def unused_options(picks: Counter, key: str, attempts: int) -> list[str]:
+    """The wrong options that no student chose, so they do not work as distractors; judged only with enough answers."""
+    if attempts < MIN_OPTION_ATTEMPTS:
+        return []
+    return [label for label in LABELS if label != key and not picks.get(label)]
+
+
 def study_analytics(session: Session, study: Study) -> dict:
     ratings = list(session.scalars(select(HumanRating).where(HumanRating.study_id == study.id)))
     answers = list(session.scalars(select(QuizAnswer).where(QuizAnswer.study_id == study.id)))
@@ -138,9 +148,7 @@ def study_analytics(session: Session, study: Study) -> dict:
             "student": {"attempts": len(a), "p_value": p_value, "difficulty_note": difficulty_note(p_value, len(a)),
                         "mean_time_ms": _mean(x.time_ms for x in a),
                         "option_counts": {label: picks.get(label, 0) for label in LABELS},
-                        # a distractor nobody picks does not work; only meaningful with a few attempts
-                        "dead_distractors": [label for label in LABELS if label != item.answer and not picks.get(label)]
-                        if len(a) >= MIN_ATTEMPTS else [],
+                        "dead_distractors": unused_options(picks, item.answer, len(a)),
                         "clarity": _mean(x.clarity for x in f), "helpfulness": _mean(x.helpfulness for x in f),
                         "perceived_difficulty": _mean(x.difficulty for x in f)},
         })
@@ -205,5 +213,6 @@ def study_analytics(session: Session, study: Study) -> dict:
                      "answers": len(answers), "feedback": len(feedback)},
         "groups": group_rows, "agreement": agreement, "correlations": correlations, "items": items,
         "note": (f"Correlations need at least {MIN_PAIRS} items with both values; agreement needs two raters per item; "
-                 f"a question is judged too hard, too easy or as having an unused option from {MIN_ATTEMPTS} answers on."),
+                 f"a question is judged too hard or too easy from {MIN_ATTEMPTS} answers on, and a wrong option as "
+                 f"unused from {MIN_OPTION_ATTEMPTS} answers on."),
     }

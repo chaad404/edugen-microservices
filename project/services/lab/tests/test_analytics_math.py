@@ -1,6 +1,8 @@
+from collections import Counter
+
 import pytest
 
-from lab.analytics import _ranks, difficulty_note, krippendorff_alpha, spearman
+from lab.analytics import _ranks, difficulty_note, krippendorff_alpha, spearman, unused_options
 from lab.summaries import _leaders
 
 
@@ -39,6 +41,13 @@ def test_a_question_is_judged_too_hard_or_too_easy_only_with_enough_answers():
     assert difficulty_note(0.1, 10) == "too_hard"
     assert difficulty_note(1.0, 3) == "too_easy"
     assert difficulty_note(0.2, 5) is None and difficulty_note(0.9, 10) is None  # the limits belong to the normal range
+
+
+def test_an_option_is_called_unused_only_after_enough_answers():
+    assert unused_options(Counter({"A": 3}), "A", 3) == []  # three answers leave options unchosen by chance alone
+    assert unused_options(Counter({"A": 12, "B": 8}), "A", 20) == ["C", "D"]
+    assert unused_options(Counter({"B": 20}), "A", 20) == ["C", "D"]  # the key is never reported as a distractor
+    assert unused_options(Counter({"A": 5, "B": 5, "C": 5, "D": 5}), "A", 20) == []
 
 
 def test_a_group_that_lost_jobs_does_not_lead_a_pillar():

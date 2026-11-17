@@ -79,8 +79,9 @@ A short session needs a small study that every participant sees in full.
 4. **Plan the time.** Allow about 15 minutes for rating 12 questions and about 10 for a quiz of 12. These are
    estimates; no session with people has been timed yet.
 5. **What is needed for the numbers.** Agreement needs at least two reviewers on the same questions. A
-   correlation needs at least five questions with both values. A question is judged too hard, too easy or as
-   having an unused option from three answers on.
+   correlation needs at least five questions with both values. A question is judged too hard or too easy from
+   three answers on. A wrong option counts as unused only from 20 answers on: with a few answers, options stay
+   unchosen by chance.
 6. **Read the results** on the study page. Only the operator sees which model wrote a question.
 
 The gateway allows 10 new sessions per minute from one address, with a burst of 10. A larger group behind one
@@ -116,7 +117,7 @@ On Linux and macOS the interpreter is `.venv/bin/python`.
 |---|---|---|
 | Evaluator | 45 | Metrics on known values, band edges, every flag, batch checks, the problem-detail errors, dense model missing |
 | Generator | 57 | Registry (fixed settings, measured output per question), providers against mocked HTTP (routing, Mistral's own API, the settings in each API's names, 429, non-retryable codes), backoff, circuit breaker, rate limiter, simulator, all strategies and the key letters they record, the cause of a failed verify-repair job, job failures, consumer acknowledgement and dead-lettering |
-| Lab | 40 | Login and token checks, 202 + outbox, recorded settings and job trace, key positions as the model wrote them, paid-model guard, expected cost and its true maximum, idempotency keys, inbox, evaluation retry, SSE resume, comparison and its leaders, prototype sample import, recorded-run import, stratified sampling with a topic filter, blindness of the study payload, review events, item analysis, Krippendorff's alpha (reference example 0.743), Spearman |
+| Lab | 41 | Login and token checks, 202 + outbox, recorded settings and job trace, key positions as the model wrote them, paid-model guard, expected cost and its true maximum, idempotency keys, inbox, evaluation retry, SSE resume, comparison and its leaders, prototype sample import, recorded-run import, stratified sampling with a topic filter, blindness of the study payload, review events, item analysis, Krippendorff's alpha (reference example 0.743), Spearman |
 | Review | 21 | Study contract (extra fields rejected), idempotent creation, expert order and revisions, linear quiz, answer lock, the key revealed only after the answer is stored, option shuffling, record-level authorization |
 | Cross-service | 5 | The four real services connected through their APIs and message handlers: an experiment with all strategies, a blind study and its way back to the Lab, a run exported from one Lab and imported into another, outbox safety, the Lab's cost bound against the Generator's call limits |
 

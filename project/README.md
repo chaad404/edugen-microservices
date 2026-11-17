@@ -12,7 +12,7 @@ compared with human judgement.
   is correct or useful.
 - **Audience:** instructors and researchers who compare models (the Lab), expert reviewers (blind rating) and
   students (an anonymous practice quiz).
-- **Current status:** all four services and the web client are implemented. 168 automated tests pass,
+- **Current status:** all four services and the web client are implemented. 169 automated tests pass,
   including cross-service contract tests. The whole system runs with `docker compose up --build`, also from a
   fresh clone, and the end-to-end smoke test (`scripts/smoke_test.py`) passes through the gateway. A fresh
   deployment already shows real-model results without any API key: two recorded live runs of the four models
