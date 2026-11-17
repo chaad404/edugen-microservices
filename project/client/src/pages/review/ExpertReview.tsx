@@ -52,8 +52,11 @@ function Join({ code, setCode, onJoined }: { code: string; setCode: (c: string) 
       <Card title="Expert review">
         <form className="form" onSubmit={submit}>
           <label>Study code<input value={code} onChange={(e) => setCode(e.target.value.toUpperCase())} placeholder="EXP-…" /></label>
-          <label>Your pseudonym<input value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. Rater 1" /></label>
-          <p className="muted small">Use the same pseudonym to continue later. The model behind each question is hidden.</p>
+          <label>Your pseudonym<input value={name} onChange={(e) => setName(e.target.value)} placeholder="e.g. maple-7" /></label>
+          <p className="muted small">
+            Choose a pseudonym that nobody else in this study uses: a pseudonym that already exists continues that
+            reviewer's ratings. Use the same one to continue later. The model behind each question is hidden.
+          </p>
           {studentCode && (
             <div className="error" role="alert">This is a student quiz code. <Link to={`/quiz?code=${code}`}>Open the student quiz</Link></div>
           )}

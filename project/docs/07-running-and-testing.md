@@ -74,8 +74,10 @@ A short session needs a small study that every participant sees in full.
    links copied from `localhost` work only on this machine. A phone hotspot is the simplest shared network;
    campus networks often block traffic between devices. Outside `localhost` and HTTPS the browser has no
    clipboard access, so copy the visible link.
-3. **Hand out the links.** Reviewers get the expert link and choose a pseudonym; with the same pseudonym they
-   can continue later. Students get the quiz link, read the notice and agree. Both work on a phone.
+3. **Hand out the links.** Reviewers get the expert link and choose a pseudonym that nobody else in the study
+   uses: an existing pseudonym continues that reviewer's ratings, which is also how a reviewer continues later.
+   Students get the quiz link, read the notice and agree. Both work on a phone. Each person needs a browser of
+   their own (or a private window), because a browser keeps its session for the study code.
 4. **Plan the time.** Allow about 15 minutes for rating 12 questions and about 10 for a quiz of 12. These are
    estimates; no session with people has been timed yet.
 5. **What is needed for the numbers.** Agreement needs at least two reviewers on the same questions. A
